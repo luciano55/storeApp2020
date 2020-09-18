@@ -51,4 +51,11 @@ public class AccessMysql {
   public Connection getConnection() {
     return connection;
   }
+
+  public boolean check() {
+    if (connection != null)
+      return true;
+    else
+      return false;
+  }
 }
