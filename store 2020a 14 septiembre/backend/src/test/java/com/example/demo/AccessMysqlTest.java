@@ -15,7 +15,7 @@ public class AccessMysqlTest {
   public void validar() {
 
     try {
-      accessMysql = AccessMysql.instance("mobile_store_2021", "root", "");
+      accessMysql = AccessMysql.instance("mobile_store_2021_view", "harnina20", "202020");
 
     } catch (ClassNotFoundException | SQLException e) {
 

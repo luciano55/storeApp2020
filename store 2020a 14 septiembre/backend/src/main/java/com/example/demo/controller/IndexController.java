@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.sql.SQLException;
+
+import com.example.demo.model.accessDB.AccessMysql;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestAttributes;
@@ -43,6 +47,24 @@ public class IndexController {
 
       html = "A la pagina " + myActivePage + " llevas " + myRecharge + " visitas con id de session: " + myIdSession;
 
+    }
+
+    AccessMysql myConnection = null;
+    try {
+      myConnection = AccessMysql.instance("mobile_store_2021_view", "harnina20", "202020");
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+    try {
+      html = myConnection.getPage("index");
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
     return html;
 

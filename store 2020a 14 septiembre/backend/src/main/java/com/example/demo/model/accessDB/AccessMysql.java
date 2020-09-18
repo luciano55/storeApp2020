@@ -58,4 +58,12 @@ public class AccessMysql {
     else
       return false;
   }
+
+  public String getPage(String page) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call getPage(?, ?)}");
+    cstmt.setString(1, page);
+    cstmt.registerOutParameter(2, Types.VARCHAR);
+    cstmt.execute();
+    return cstmt.getString(2);
+  }
 }
