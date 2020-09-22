@@ -1,0 +1,10 @@
+@startuml
+class CallerPage{
++addVisit(String)
++getPage(String)
++getcountVisit(String)
+}
+IndexController o-- CallerPage
+CallerPage <|-- GetConnectionMySql
+GetConnectionMySql *-- AccessMysql
+@enduml

@@ -1,6 +1,4 @@
-package com.example.demo.model.business;
-
-import com.example.demo.model.accessDB.AccessMysql;
+package com.example.demo.model.factoryDAO;
 
 public class FactoriaDAO {
   /*
