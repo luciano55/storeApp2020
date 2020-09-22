@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import java.sql.SQLException;
 
-import com.example.demo.model.accessDB.AccessMysql;
+import com.example.demo.model.business.CallerGetPage;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 @RestController
 public class IndexController {
   @GetMapping("/index")
-  public String index() {
+  public String index() throws ClassNotFoundException, SQLException {
     String myActivePage = "";
     String myIdSession = "";
     int myRecharge = 0;
@@ -45,27 +45,16 @@ public class IndexController {
       RequestContextHolder.currentRequestAttributes().setAttribute("recharge", myRecharge,
           RequestAttributes.SCOPE_SESSION);
 
-      html = "A la pagina " + myActivePage + " llevas " + myRecharge + " visitas con id de session: " + myIdSession;
+      /*
+       * html = "A la pagina " + myActivePage + " llevas " + myRecharge +
+       * " visitas con id de session: " + myIdSession;
+       */
+      CallerGetPage callerpage = new CallerGetPage();
+
+      return callerpage.getPage(myActivePage);
 
     }
 
-    AccessMysql myConnection = null;
-    try {
-      myConnection = AccessMysql.instance("mobile_store_2021_view", "harnina20", "202020");
-    } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
-    try {
-      html = myConnection.getPage("index");
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
     return html;
 
   }

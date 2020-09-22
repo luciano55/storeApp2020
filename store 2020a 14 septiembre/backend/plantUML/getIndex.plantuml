@@ -1,0 +1,5 @@
+@startuml
+IndexController *-- CallerGetPage
+CallerGetPage <|-- GetConnectionMySql
+GetConnectionMySql o-- AccessMysql
+@enduml
