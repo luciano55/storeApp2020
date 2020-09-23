@@ -9,7 +9,7 @@ public class GetConnectionMySql {
   private AccessMysql accessMysql;
   protected Connection connection = null;
 
-  public GetConnectionMySql() throws SQLException, ClassNotFoundException {
+  GetConnectionMySql() throws SQLException, ClassNotFoundException {
     accessMysql = AccessMysql.instance("mobile_store_2021_view", "root", "");
     connection = accessMysql.getConnection();
   }

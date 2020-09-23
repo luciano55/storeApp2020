@@ -1,8 +1,20 @@
-@startuml
+@startuml Page
+class AccessMysql{
+ -{static} Connection connection 
+{static} + AccessMysql instance(String bbdd, String user, String password)
++  Connection getConnection()
+}
+class GetConnectionMySql{
+ -AccessMysql accessMysql
+ #Connection connection 
+}
 class CallerPage{
 +addVisit(String)
 +getPage(String)
 +getcountVisit(String)
+}
+class IndexController{
++String: html
 }
 IndexController o-- CallerPage
 CallerPage <|-- GetConnectionMySql

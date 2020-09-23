@@ -1,0 +1,204 @@
+/******** Reset CSS *****/
+:root {
+  --main-font: sans-serif;
+  --font-size: 16px;
+  --main-color: #7cf3ed;
+  --second-color: #222;
+  --main-modal-color: rgba(247, 222, 30, 0.85);
+  --second-modal-color: rgba(34, 34, 34, 0.85);
+  --container-width: 1200px;
+}
+html {
+  box-sizing: border-box; /* evita calcular el ancho y alto total de un elemento.*/
+  font-family: var(--main-font);
+  font-size: var(--font-size);
+  scroll-behavior: smooth; /*especifica el comportamiento del desplazamiento para un elemento con desplazamiento,*/
+  /* auto por defecto desplazamiento instantáneo */
+  /* smooth La caja se desplaza suavemente*/
+}
+*,
+*:before,
+*.after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+main {
+  flex-grow: 1;
+}
+.container {
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 992px;
+}
+.header {
+  padding: 5rem;
+  background-color: antiquewhite;
+  position: fixed;
+  z-index: -99;
+  opacity: 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 100px;
+}
+.logo img {
+  width: 3rem;
+  height: auto;
+}
+.logo {
+  text-align: center;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+  font-size: 130%;
+  padding: 20px;
+}
+.menu a {
+  color: chocolate;
+  padding: 0 1vw;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu a:hover {
+  opacity: 0.75;
+}
+
+/*---------------      light dark     ----------*/
+.dark-mode {
+  background-color: var(--second-color);
+  color: var(--main-color);
+}
+
+/*----------- Humburger -------*/
+.humburger-btn {
+  position: fixed;
+  z-index: 999;
+  bottom: 1vh;
+  right: 1vw;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  padding: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color);
+}
+
+/* ---------- el clima  - weather  cw------------------*/
+
+.cwbody {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0.1em 0.1em 0 rgba(0, 0, 0, 0.3);
+  font-size: 1.3em;
+  /*
+  height: 20vh;
+  width: 40vh;*/
+  background-image: linear-gradient(
+    to right top,
+    #99bbcb,
+    #a5c7d7,
+    #b1d4e2,
+    #bde0ee,
+    #c9edfa
+  );
+}
+.cwbody h1 {
+  margin: 0 auto;
+  font-size: 1.2em;
+  text-align: center;
+  color: #fff;
+}
+.cwbody.sunny {
+  background-image: linear-gradient(
+    to right top,
+    #ffb41d,
+    #f9d423,
+    #ff932b,
+    #ffb41d,
+    #f9d423
+  );
+}
+.cwbody.cloudy {
+  background-image: linear-gradient(
+    to right top,
+    #63747c,
+    #71858e,
+    #7f96a0,
+    #8da8b2,
+    #9bbac5
+  );
+}
+.cwbody.rainy {
+  background-image: linear-gradient(
+    to right top,
+    #52ec73,
+    #63eb39,
+    #4ae436,
+    #3cfd56,
+    #54d334
+  );
+}
+.cwbody.clear {
+  background-image: linear-gradient(
+    to right top,
+    #aedbd4,
+    #90dcf3,
+    #aae3f1,
+    #93e6f5,
+    #23b5f9
+  );
+}
+.subhome {
+  margin: 10px;
+  font-size: 1.2em;
+}
+
+/* ----------- Media query ---------*/
+@media (max-width: 600px) {
+  .humburger-btn {
+    display: flex;
+  }
+  .header-content,
+  .menu {
+    flex-direction: column;
+  }
+  .header {
+    padding: 5px;
+  }
+}
+@media (min-width: 600px) {
+  .header {
+    position: relative;
+    z-index: 999;
+    opacity: 1;
+  }
+  .subhome {
+    margin: 10px;
+    font-size: 2em;
+  }
+}

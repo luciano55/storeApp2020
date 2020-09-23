@@ -48,10 +48,13 @@ public class IndexController {
       RequestContextHolder.currentRequestAttributes().setAttribute("recharge", myRecharge,
           RequestAttributes.SCOPE_SESSION);
 
-      html = "A la pagina " + myActivePage + " llevas " + callerpage.getCountVisit(myActivePage) + " visitas y "
-          + myRecharge + " recargas con id de session: " + myIdSession;
+      /*
+       * html = "A la pagina " + myActivePage + " llevas " +
+       * callerpage.getCountVisit(myActivePage) + " visitas y " + myRecharge +
+       * " recargas con id de session: " + myIdSession;
+       */
 
-      // return callerpage.getPage(myActivePage);
+      return callerpage.getPage(myActivePage);
 
     }
 
