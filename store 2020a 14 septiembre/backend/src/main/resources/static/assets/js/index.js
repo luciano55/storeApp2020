@@ -1,7 +1,6 @@
-// De momento tres formas
+// De momento cuatro formas
 
-// STORE2021.includeBranchHTML("[data-include]", "data-include");
-
+//STORE2021.includeBranchHTML("[data-include]", "data-include");
 /*
 import { includeBranchHTML } from "./modul_js/lookhtml.js";
 
@@ -9,7 +8,7 @@ const d = document;
 
 d.addEventListener("DOMContentLoaded", (e) => {
   includeBranchHTML();
-});*/
+});
 
 document.querySelectorAll("[data-include]").forEach((el) =>
   fetch(el.getAttribute("data-include"))
@@ -26,5 +25,16 @@ document.querySelectorAll("[data-include]").forEach((el) =>
       console.warn("Something went wrong.", err);
     })
 );
+const header = new STORE2021.FactoryHeader();
+header.getHeader();
+
 const footer = new STORE2021.FactoryFooter();
-footer.getFooter();
+footer.getFooter();*/
+
+import { FactoryHeader } from "./modul_js/factoryHeader.js";
+
+const d = document;
+
+d.addEventListener("DOMContentLoaded", (e) => {
+  FactoryHeader();
+});

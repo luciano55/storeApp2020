@@ -1,6 +1,6 @@
-STORE2021.namespace("STORE2021.factoryFooter");
+//STORE2021.namespace("STORE2021.factoryTag");
 
-STORE2021.FactoryTag = function () {
+export function FactoryTag() {
   const API = {};
 
   API.footer = function (params) {
@@ -18,6 +18,14 @@ STORE2021.FactoryTag = function () {
     p.innerHTML = params.text || "";
     return p;
   };
+  API.button = function (params) {
+    const button = document.createElement("buttom");
+    button.id = params.id || "";
+    button.className = params.class || "";
+    button.innerHTML = params.text || "";
+    button.type = "button";
+    return button;
+  };
   API.span = function (params) {
     const span = document.createElement("span");
     span.id = params.id || "";
@@ -27,4 +35,4 @@ STORE2021.FactoryTag = function () {
   };
 
   return API;
-};
+}

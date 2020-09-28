@@ -1,5 +1,5 @@
 STORE2021.namespace("STORE2021.FactoryFooter");
-STORE2021.FactoryFooter = function () {
+export function STORE2021.FactoryFooter() {
   const API = {};
   var factoryTag = new STORE2021.FactoryTag();
   API.getFooter = function () {
