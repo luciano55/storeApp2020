@@ -1,0 +1,12 @@
+@startuml
+object FactoryTag{
+button(params)
+footer(params)
+p(params)
+span(params)
+}
+object FactoryButton{
+ hamburgerButton()
+}
+FactoryButton *-- FactoryTag
+@enduml
