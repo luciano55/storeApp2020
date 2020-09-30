@@ -31,12 +31,12 @@ header.getHeader();
 const footer = new STORE2021.FactoryFooter();
 footer.getFooter();*/
 
+import { FactoryHeader } from "./modul_js/factoryHeader.js";
 import { FactoryFooter } from "./modul_js/factoryFooter.js";
-import { humburgerIcon } from "./modul_js/factoryButton.js";
 
 const d = document;
 
 d.addEventListener("DOMContentLoaded", (e) => {
   d.getElementById("myFooter").appendChild(FactoryFooter());
-  humburgerIcon();
+  d.getElementById("myHeader").appendChild(FactoryHeader());
 });

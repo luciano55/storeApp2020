@@ -8,5 +8,24 @@ span(params)
 object FactoryButton{
  hamburgerButton()
 }
+object FactoryBranding{
+}
+object FactoryLogo{
+}
+object FactoryHeader{
+
+}
+object FactoryFooter{
+}
+
+object Index{
+ 
+}
+FactoryLogo *-- FactoryTag
 FactoryButton *-- FactoryTag
+FactoryBranding *-- FactoryLogo
+FactoryHeader *-- FactoryBranding
+FactoryFooter *-- FactoryButton 
+Index o-- FactoryHeader : header
+Index o-- FactoryFooter : footer
 @enduml
