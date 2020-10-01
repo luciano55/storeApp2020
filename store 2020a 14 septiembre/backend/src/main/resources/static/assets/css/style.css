@@ -41,7 +41,7 @@ main {
   max-width: 992px;
 }
 .header {
-  padding: 5rem;
+  padding: 2rem;
   background-color: antiquewhite;
   position: fixed;
   z-index: -99;
@@ -69,6 +69,10 @@ main {
 .menu {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  /*align-content: center;
+  text-align: center;
+  align-items: center;*/
   font-size: 130%;
   padding: 20px;
 }
@@ -185,7 +189,7 @@ main {
   }
   .header-content,
   .menu {
-    flex-direction: column;
+    flex-direction: row;
   }
   .header {
     padding: 5px;

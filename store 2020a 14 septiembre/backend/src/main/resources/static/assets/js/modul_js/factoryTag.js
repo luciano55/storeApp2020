@@ -1,5 +1,10 @@
 export function FactoryTag() {
   const API = {};
+  var h = function (params) {
+    var h = document.createElement(params.h);
+    h.innerText = params.text || "";
+    return h;
+  };
   API.a = function (params) {
     const a = document.createElement("a");
     a.id = params.id || "";
@@ -7,6 +12,7 @@ export function FactoryTag() {
     a.href = params.href || "";
     a.target = params.target || "";
     a.title = params.title || "";
+    a.innerHTML = params.text || "";
     return a;
   };
   API.article = function (params) {
@@ -30,7 +36,19 @@ export function FactoryTag() {
     footer.innerHTML = params.text || "";
     return footer;
   };
-  API.image = function (params) {
+  API.form = function (params) {
+    const form = document.createElement("form");
+    form.id = params.id || "";
+    form.className = params.class || "";
+    form.name = params.name || "";
+    form.action = params.action || "";
+    form.autocomplete = params.autocomplete || "on";
+    form.enctype = params.enctype || "ontext/plain";
+    form.method = params.method || "POST";
+    form.target = params.target || "_blank";
+    return form;
+  };
+  API.img = function (params) {
     const img = document.createElement("img");
     img.id = params.id || "";
     img.className = params.class || "";
@@ -38,7 +56,63 @@ export function FactoryTag() {
     img.alt = params.alt || "";
     return img;
   };
+  API.h1 = function (params) {
+    params.h = "h1";
+    return h(params);
+  };
+  API.h2 = function (params) {
+    params.h = "h2";
+    return h(params);
+  };
+  API.h3 = function (params) {
+    params.h = "h3";
+    return h(params);
+  };
+  API.h4 = function (params) {
+    params.h = "h4";
+    return h(params);
+  };
+  API.h5 = function (params) {
+    params.h = "h5";
+    return h(params);
+  };
+  API.h6 = function (params) {
+    params.h = "h6";
+    return h(params);
+  };
+  API.input = function (params) {
+    var input = document.createElement("input");
+    input.id = params.id;
+    input.setAttribute("data-validate", params.validate);
+    input.className = params.class || "";
+    input.type = params.type || "";
+    input.name = params.name || "";
+    input.value = params.value || "";
+    input.size = params.size || "";
+    input.setAttribute("minlength", params.minLength);
+    input.maxLength = params.maxLength || "";
+    input.required = params.required || "";
+    input.placeholder = params.placeholder || "";
+    input.title = params.title || "";
 
+    return input;
+  };
+  API.label = function (params) {
+    var label = document.createElement("label");
+    label.id = params.id;
+    label.className = params.class || "";
+    label.htmlFor = params.for || "";
+    label.innerHTML = params.title || "";
+    label.dataset.change = params.change || "";
+    return label;
+  };
+  API.nav = function (params) {
+    const nav = document.createElement("nav");
+    nav.id = params.id || "";
+    nav.className = params.class || "";
+    nav.innerHTML = params.text || "";
+    return nav;
+  };
   API.p = function (params) {
     const p = document.createElement("p");
     p.id = params.id || "";
@@ -46,6 +120,7 @@ export function FactoryTag() {
     p.innerHTML = params.text || "";
     return p;
   };
+
   API.section = function (params) {
     const section = document.createElement("section");
     section.id = params.id || "";
@@ -61,6 +136,25 @@ export function FactoryTag() {
     span.innerHTML = params.text || "";
     return span;
   };
-
+  API.svg = function (params) {
+    const svg = document.createElement("svg");
+    svg.id = params.id || "";
+    svg.className = params.class || "";
+    svg.innerHTML = params.text || "";
+    //svg.height = params.height || "";
+    //svg.width = params.width || "";
+    return svg;
+  };
+  API.text = function (params) {
+    const text = document.createElement("text");
+    text.id = params.id || "";
+    text.className = params.class || "";
+    text.innerHTML = params.text || "";
+    text.x = params.x || "";
+    text.y = params.y || "";
+    text.fill = params.fill || "";
+    text.transform = params.transform || "";
+    return text;
+  };
   return API;
 }
