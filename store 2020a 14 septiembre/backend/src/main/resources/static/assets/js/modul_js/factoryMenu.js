@@ -12,9 +12,9 @@ export function FactoryMenu() {
       "assets/subpage/contacto.html",
     ];
     const text = ["home", "Login", "Register", "Contacto"];
-
+    /*
     params.class = "header-content container";
-    const section = factoryTag.section(params);
+    const section = factoryTag.section(params); */
     params.class = "menu";
     const nav = factoryTag.nav(params);
     params = {};
@@ -31,11 +31,11 @@ export function FactoryMenu() {
     const home = factoryTag.a(params);
     nav.appendChild(home);*/
 
-    section.appendChild(nav);
+    //section.appendChild(nav);
 
     //**************Botón claro oscuro */
 
-    return section;
+    return nav;
   };
 
   return API;

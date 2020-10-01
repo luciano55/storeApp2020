@@ -2,6 +2,8 @@ export function FactoryTag() {
   const API = {};
   var h = function (params) {
     var h = document.createElement(params.h);
+    h.id = params.id || "";
+    h.className = params.class || "";
     h.innerText = params.text || "";
     return h;
   };

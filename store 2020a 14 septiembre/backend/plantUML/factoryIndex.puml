@@ -5,6 +5,9 @@ object FactoryTag{
 object FactoryButton{
  hamburgerButton()*
 }
+object FactoryObject{
+menuButton()
+}
 object FactoryBranding{
 index()*
 }
@@ -28,10 +31,13 @@ object Index{
 FactoryLogo *-- FactoryTag
 FactoryButton *-- FactoryTag
 FactoryMenu *-- FactoryTag
+FactoryObject *-- FactoryMenu
+FactoryObject *-- FactoryButton
 FactoryBranding *-- FactoryLogo
 FactoryHeader *-- FactoryBranding 
-FactoryHeader *-- FactoryMenu 
+
 FactoryFooter *-- FactoryButton 
+FactoryHeader *-- FactoryObject
 Index o-- FactoryHeader : header
 Index o-- FactoryFooter : footer
 @enduml
