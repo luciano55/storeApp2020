@@ -31,6 +31,13 @@ export function FactoryTag() {
     button.type = "button";
     return button;
   };
+  API.div = function (params) {
+    const div = document.createElement("div");
+    div.id = params.id || "";
+    div.className = params.class || "";
+    div.innerHTML = params.text || "";
+    return div;
+  };
   API.footer = function (params) {
     const footer = document.createElement("footer");
     footer.id = params.id || "";
@@ -90,7 +97,8 @@ export function FactoryTag() {
     input.type = params.type || "";
     input.name = params.name || "";
     input.value = params.value || "";
-    input.size = params.size || "";
+    input.size = params.size || 20;
+    //input.setAttribute("role", params.role);
     input.setAttribute("minlength", params.minLength);
     input.maxLength = params.maxLength || "";
     input.required = params.required || "";
@@ -104,7 +112,7 @@ export function FactoryTag() {
     label.id = params.id;
     label.className = params.class || "";
     label.htmlFor = params.for || "";
-    label.innerHTML = params.title || "";
+    label.innerHTML = params.text || "";
     label.dataset.change = params.change || "";
     return label;
   };

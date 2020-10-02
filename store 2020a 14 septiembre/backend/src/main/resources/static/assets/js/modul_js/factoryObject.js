@@ -15,6 +15,7 @@ export function FactoryObject() {
     const section = factoryTag.section(params);
 
     section.appendChild(factoryMenu.index());
+    section.appendChild(factoryButton.darkLight());
     return section;
   };
 

@@ -35,7 +35,7 @@ export function FactoryLogo() {
     params.class = "logo";
     const article = factoryTag.article(params);
 
-    article.innerHTML = `<a href = '#0'> <svg height='60' width='200'><text x='14' y='15' fill='pink' transform='rotate(30 20,40)'> DAM 20-21</text>     Sorry, your browser does not support inline SVG. </svg> </a >`;
+    article.innerHTML = `<a href = '#0'> <svg height='60' width='120'><text x='14' y='15' fill='pink' transform='rotate(30 20,40)'> DAM 20-21</text>     Sorry, your browser does not support inline SVG. </svg> </a >`;
 
     /*
     params = {};

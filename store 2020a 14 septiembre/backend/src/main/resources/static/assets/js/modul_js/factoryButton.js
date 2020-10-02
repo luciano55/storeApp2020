@@ -1,9 +1,12 @@
 import { FactoryTag } from "./factoryTag.js";
 export function FactoryButton() {
   const API = {};
+  const d = document,
+    ls = localStorage;
+  var sw = 0;
 
   const factoryTag = new FactoryTag();
-  const params = {};
+  let params = {};
   API.hamburgerButton = function () {
     params.class = "hamburger-inner";
     const spanIn = factoryTag.span(params);
@@ -17,8 +20,32 @@ export function FactoryButton() {
     button.appendChild(spanEx);
     return button;
   };
+  API.darkLight = function () {
+    const form = factoryTag.form(params);
+    params.id = "darkMode";
+    params.class = "toggle";
+    params.type = "checkbox";
+    params.name = "Dark mode";
+    params.value = "light";
+    const input = factoryTag.input(params);
+    input.setAttribute("role", "switch");
+    params = {};
+    params.for = "dark-mode";
+    params.class = "sr";
+    params.text = "Dark Mode";
+    const label = factoryTag.label(params);
+    params = {};
+    params.class = "curtain";
+    const div = factoryTag.div(params);
+    form.appendChild(input);
+    form.appendChild(label);
+    form.appendChild(div);
+
+    return form;
+  };
   return API;
 }
+
 function humburgerIcon(e) {
   const d = document;
   if (

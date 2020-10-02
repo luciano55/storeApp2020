@@ -60,7 +60,7 @@ main {
   padding: 10px 100px;
 }
 .logo img {
-  width: 3rem;
+  width: 5rem;
   height: auto;
 }
 .logo {
@@ -70,9 +70,6 @@ main {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  /*align-content: center;
-  text-align: center;
-  align-items: center;*/
   font-size: 130%;
   padding: 20px;
 }
