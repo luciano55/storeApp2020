@@ -19,12 +19,18 @@ rotuloDiagonal()*
 object FactoryMenu{
 index()*
 }
+object FactoryFunction{
+darkLight()*
+wheather()*
+}
+
 object FactoryHeader{
 
 }
 object FactoryFooter{
 }
-
+object FactoryHome{
+}
 object Index{
  
 }
@@ -40,4 +46,6 @@ FactoryFooter *-- FactoryButton
 FactoryHeader *-- FactoryObject
 Index o-- FactoryHeader : header
 Index o-- FactoryFooter : footer
+Index o-- FactoryHome : home
+Index o-- FactoryFunction
 @enduml
