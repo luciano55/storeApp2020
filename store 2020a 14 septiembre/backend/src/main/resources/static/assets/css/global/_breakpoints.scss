@@ -1,0 +1,24 @@
+/* ----------- Media query ---------*/
+@media (min-width: 600px) {
+  .humburger-btn {
+    display: none;
+  }
+  .header-content,
+  .menu {
+    flex-direction: row;
+  }
+  .header {
+    padding: 5px;
+  }
+}
+@media (min-width: 600px) {
+  .header {
+    position: relative;
+    z-index: 999;
+    opacity: 1;
+  }
+  .subhome {
+    margin: 10px;
+    font-size: 2em;
+  }
+}

@@ -1,7 +1,8 @@
 export function FactoryFunction() {
   const API = {};
   const d = document,
-    ls = localStorage;
+    ls = localStorage,
+    w = window;
   var sw = 0;
   API.darkLight = function (classDark) {
     const $selectors = d.querySelectorAll("[data-dark]");
@@ -84,6 +85,81 @@ export function FactoryFunction() {
 
     weatherBallon(4167865);
     //weatherBallon(6167865);
+  };
+
+  API.scrollTop = function (btn) {
+    const $scrollBtn = d.querySelector(btn);
+
+    w.addEventListener("scroll", (e) => {
+      let scrollTop = w.pageYOffset || d.documentElement.scrollTop;
+      if (scrollTop > 600) {
+        $scrollBtn.classList.remove("hidden");
+      } else {
+        $scrollBtn.classList.add("hidden");
+      }
+      // console.log(w.pageXOffset,d.documentElement.scrollTop);
+    });
+    d.addEventListener("click", (e) => {
+      if (e.target.matches(btn)) {
+        w.scrollTo({
+          behavior: "smooth",
+          top: 0,
+        });
+      }
+    });
+  };
+
+  API.contactFormValidations = function () {
+    const $form = d.querySelector(".contact-form"),
+      $inputs = d.querySelectorAll(".contact-form [required]");
+    //console.log($inputs);
+    $inputs.forEach((input) => {
+      const $span = d.createElement("span");
+      $span.id = "span" + input.name;
+      $span.textContent = input.title;
+      $span.classList.add("contact-form-error", "none");
+      input.insertAdjacentElement("afterend", $span);
+    });
+
+    d.addEventListener("keyup", (e) => {
+      if (e.target.matches(".contact-form [required]")) {
+        let $input = e.target,
+          pattern = $input.pattern || $input.dataset.pattern;
+        //  console.log($input.value, pattern);
+        if (pattern && $input.value !== "") {
+          //console.log("Tiene patrón");
+          let regex = new RegExp(pattern);
+          return !regex.exec($input.value)
+            ? d.getElementById("span" + $input.name).classList.add("is-active")
+            : d
+                .getElementById("span" + $input.name)
+                .classList.remove("is-active");
+        }
+        if (!pattern) {
+          //console.log("Tiene NO patrón");
+          return $input.value === ""
+            ? d.getElementById($input.name).classList.add("is-active")
+            : d.getElementById($input.name).classList.remove("is-active");
+        }
+      }
+    });
+
+    d.addEventListener("submit", (e) => {
+      //e.preventDefault();
+      //alert("Enviando formulario");
+
+      const $loader = d.querySelector(".contact-form-loader"),
+        $response = d.querySelector(".contact-form-response");
+      $loader.classList.remove("none");
+      setTimeout(() => {
+        $loader.classList.add("none");
+        $response.classList.remove("none");
+        $form.reset();
+        setTimeout(() => {
+          $response.classList.add("none");
+        }, 2000);
+      }, 2000);
+    });
   };
 
   return API;

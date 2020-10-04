@@ -1,0 +1,16 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  font-size: 130%;
+  padding: 20px;
+}
+.menu a {
+  color: chocolate;
+  padding: 0 1vw;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu a:hover {
+  opacity: 0.75;
+}

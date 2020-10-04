@@ -18,7 +18,7 @@ export function FactoryObject() {
     section.appendChild(factoryButton.darkLight());
     return section;
   };
-  API.tempLocation = function () {
+  API.weatherLocation = function () {
     /* <div class="subhome">
     <div id="description"></div>
     <h1 id="temp"></h1>

@@ -1,29 +1,21 @@
-* {
-  border: 0;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/*--------------- switchDark ---------------*/
+.form-darkLight {
 }
-:root {
-  --dur: 0.3s;
-  /* font-size: calc(40px + (80 - 40) * (100vw - 320px) / (2560 - 320));*/
-}
-body,
-input {
+.body-darkLight,
+.input-darkLight {
   color: hsl(0, 0%, 10%);
   font: 1em/1.5 sans-serif;
 }
-
-form,
+.form-darkLight,
 .toggle:before,
 .toggle:after {
   background: hsl(0, 0%, 90%);
 }
-form,
+.form-darkLight,
 .toggle {
   position: relative;
 }
-form {
+.form-darkLight {
   display: flex;
   justify-content: center;
   align-items: center;

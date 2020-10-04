@@ -1,0 +1,43 @@
+/******** Reset CSS *****/
+:root {
+  --main-font: sans-serif;
+  --font-size: 16px;
+  --main-color: #7cf3ed;
+  --second-color: #222;
+  --main-modal-color: rgba(247, 222, 30, 0.85);
+  --second-modal-color: rgba(34, 34, 34, 0.85);
+  --container-width: 1200px;
+  --dur: 0.3s;
+}
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  box-sizing: border-box; /* evita calcular el ancho y alto total de un elemento.*/
+  font-family: var(--main-font);
+  font-size: var(--font-size);
+  scroll-behavior: smooth; /*especifica el comportamiento del desplazamiento para un elemento con desplazamiento,*/
+  /* auto por defecto desplazamiento instantáneo */
+  /* smooth La caja se desplaza suavemente*/
+}
+*,
+*:before,
+*.after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+main {
+  flex-grow: 1;
+}

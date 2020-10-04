@@ -7,7 +7,7 @@ export function FactoryButton() {
 
   const factoryTag = new FactoryTag();
   let params = {};
-  API.hamburgerButton = function () {
+  API.hamburger = function () {
     params.class = "hamburger-inner";
     const spanIn = factoryTag.span(params);
     params.class = "hamburger-box";
@@ -21,6 +21,18 @@ export function FactoryButton() {
     return button;
   };
   API.darkLight = function () {
+    /*<div class="body-darkLight">
+            <form class = "form-darkLight">
+              <input id="darkMode" class=" input-darkLight toggle" type="checkbox" name="Dark mode" role="switch" value="light">
+              <label for="dark-mode" class="sr">Dark Mode</label>
+              <div class="curtain"></div>
+            </form>
+     </div>*/
+
+    params.class = "body-darkLight";
+    const button = factoryTag.div(params);
+
+    params.class = "form-darkLight";
     const form = factoryTag.form(params);
     params.id = "darkMode";
     params.class = "toggle";
@@ -40,9 +52,19 @@ export function FactoryButton() {
     form.appendChild(input);
     form.appendChild(label);
     form.appendChild(div);
-
-    return form;
+    button.appendChild(form);
+    return button;
   };
+  API.scrollTop = function () {
+    /*<button class="scroll-top-btn hidden">&#11014;</button>*/
+  };
+  API.submit = function () {
+    const button = d.createElement("input");
+    button.type = "submit";
+    button.value = "Send";
+    return button;
+  };
+
   return API;
 }
 

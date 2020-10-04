@@ -52,9 +52,10 @@ export function FactoryTag() {
     form.name = params.name || "";
     form.action = params.action || "";
     form.autocomplete = params.autocomplete || "on";
-    form.enctype = params.enctype || "ontext/plain";
+    form.enctype = params.enctype || "text/plain";
     form.method = params.method || "POST";
     form.target = params.target || "_blank";
+    form.submit();
     return form;
   };
   API.img = function (params) {
@@ -99,11 +100,13 @@ export function FactoryTag() {
     input.value = params.value || "";
     input.size = params.size || 20;
     //input.setAttribute("role", params.role);
-    input.setAttribute("minlength", params.minLength);
-    input.maxLength = params.maxLength || "";
-    input.required = params.required || "";
+    input.minLength = params.minLength || 5;
+    input.maxLength = params.maxLength || 524288;
+    input.required = params.required || "true";
+
     input.placeholder = params.placeholder || "";
     input.title = params.title || "";
+    input.pattern = params.pattern || "";
 
     return input;
   };
@@ -115,6 +118,15 @@ export function FactoryTag() {
     label.innerHTML = params.text || "";
     label.dataset.change = params.change || "";
     return label;
+  };
+  API.legend = function (params) {
+    var legend = document.createElement("legend");
+    legend.id = params.id;
+    legend.className = params.class || "";
+    legend.htmlFor = params.for || "";
+    legend.innerHTML = params.text || "";
+    legend.dataset.change = params.change || "";
+    return legend;
   };
   API.nav = function (params) {
     const nav = document.createElement("nav");

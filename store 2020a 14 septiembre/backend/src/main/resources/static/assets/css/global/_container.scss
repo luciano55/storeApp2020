@@ -1,0 +1,19 @@
+.main-container {
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 992px;
+}
+.header {
+  padding: 2rem;
+  background-color: antiquewhite;
+  position: fixed;
+  z-index: -99;
+  opacity: 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

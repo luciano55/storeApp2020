@@ -22,7 +22,7 @@ export function FactoryHome() {
   divSubHome.appendChild(ies);
   divSubHome.appendChild(factoryLogo.harnina());
   divHome.appendChild(divSubHome);
-  divHome.appendChild(factoryObject.tempLocation());
+  divHome.appendChild(factoryObject.weatherLocation());
   params = {};
   const divReturn = factoryTag.div(params);
   divReturn.appendChild(divHome);
