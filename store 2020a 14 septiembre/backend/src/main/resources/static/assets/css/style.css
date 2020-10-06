@@ -226,9 +226,7 @@ main {
     flex-direction: row; }
 
   .header {
-    padding: 5px; } }
-@media (min-width: 600px) {
-  .header {
+    padding: 5px;
     position: relative;
     z-index: 999;
     opacity: 1; }
@@ -264,7 +262,6 @@ main {
   height: 4rem;
   border-radius: 50%;
   padding: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--main-color); }
@@ -315,17 +312,16 @@ main {
 .form-darkLight,
 .toggle:before,
 .toggle:after {
-  background: #e6e6e6; }
+  background: antiquewhite; }
 
 .form-darkLight,
 .toggle {
   position: relative; }
 
 .form-darkLight {
-  display: flex;
   justify-content: center;
   align-items: center;
-  height: 8vh; }
+  height: 4vh; }
 
 .curtain,
 .sr,

@@ -3,25 +3,30 @@ object FactoryTag{
 
 }
 object FactoryButton{
- hamburgerButton()*
+ hamburger()
+ darkLight()
+ scrollTop()
+ submit()
 }
 object FactoryObject{
-menuButton()
+ menuButton()
 }
 object FactoryBranding{
-index()*
+index()
 }
 object FactoryLogo{
-harnina()*
-informatica()*
-rotuloDiagonal()*
+harnina()
+informatica()
+rotuloDiagonal()
 }
 object FactoryMenu{
-index()*
+index()
 }
 object FactoryFunction{
-darkLight()*
-wheather()*
+darkLight()
+wheather()
+scrollTop()
+contactFormValidations()
 }
 
 object FactoryHeader{
@@ -34,10 +39,23 @@ object FactoryHome{
 object Index{
  
 }
+object FactoryFrame{
+ FrameInput()
+}
+object FactoryDataControl{
+ firstname()
+ lastname()
+}
+object FactoryClient{
+ register();
+}
 FactoryLogo *-- FactoryTag
 FactoryButton *-- FactoryTag
 FactoryMenu *-- FactoryTag
+FactoryFrame *-- FactoryTag
+FactoryDataControl *-- FactoryFrame 
 FactoryObject *-- FactoryMenu
+FactoryClient *-- FactoryDataControl
 FactoryObject *-- FactoryButton
 FactoryBranding *-- FactoryLogo
 FactoryHeader *-- FactoryBranding 
@@ -48,4 +66,5 @@ Index o-- FactoryHeader : header
 Index o-- FactoryFooter : footer
 Index o-- FactoryHome : home
 Index o-- FactoryFunction
+Index o-- FactoryClient
 @enduml

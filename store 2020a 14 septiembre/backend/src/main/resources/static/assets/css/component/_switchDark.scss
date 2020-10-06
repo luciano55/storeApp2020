@@ -9,17 +9,16 @@
 .form-darkLight,
 .toggle:before,
 .toggle:after {
-  background: hsl(0, 0%, 90%);
+  background: antiquewhite; //hsl(0, 0%, 90%);
 }
 .form-darkLight,
 .toggle {
   position: relative;
 }
 .form-darkLight {
-  display: flex;
   justify-content: center;
   align-items: center;
-  height: 8vh;
+  height: 4vh;
 }
 .curtain,
 .sr,

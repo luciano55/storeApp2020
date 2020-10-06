@@ -1,5 +1,5 @@
-import { FactoryLogo } from "./FactoryLogo.js";
-import { FactoryTag } from "./FactoryTag.js";
+import { FactoryLogo } from "./factoryLogo.js";
+import { FactoryTag } from "./factoryTag.js";
 
 export function FactoryBranding() {
   const API = {};

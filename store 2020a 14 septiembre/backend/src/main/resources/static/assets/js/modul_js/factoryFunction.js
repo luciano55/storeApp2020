@@ -7,7 +7,7 @@ export function FactoryFunction() {
   API.darkLight = function (classDark) {
     const $selectors = d.querySelectorAll("[data-dark]");
     console.log($selectors);
-
+    /*
     const lightMode = (e) => {
       e.target.value = "light";
       $selectors.forEach((el) => el.classList.remove(classDark));
@@ -18,22 +18,31 @@ export function FactoryFunction() {
       $selectors.forEach((el) => el.classList.add(classDark));
       ls.setItem("theme", "dark");
     };
+*/
+    const changeMode = (e) => {
+      let state = "";
+      e.target.value === "light" ? (state = "dark") : (state = "light");
+      $selectors.forEach((el) => el.classList.toggle(classDark));
+      e.target.value = state;
+      ls.setItem("theme", state);
+    };
     d.addEventListener("click", (e) => {
       if (e.target.id === "darkMode") {
+        changeMode(e);
+        /*
         if (e.target.value === "light") {
           darkMode(e);
         } else {
           lightMode(e);
-        }
+        }*/
       }
     });
     let $btn = d.getElementById("darkMode");
-    if (ls.getItem("theme") === null) ls.setItem("theme", "light");
+    ls.getItem("theme") === null ? ls.setItem("theme", "light") : null;
     if (ls.getItem("theme") === "light") {
       $btn.value = "light";
       $selectors.forEach((el) => el.classList.remove(classDark));
-    }
-    if (ls.getItem("theme") === "dark") {
+    } else {
       $btn.value = "dark";
       $selectors.forEach((el) => el.classList.add(classDark));
     }
@@ -49,7 +58,7 @@ export function FactoryFunction() {
       //fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)
       //fetch('https://api.openweathermap.org/data/2.5/weather?q=arroyo de san servan,spain&APPID=00c14c9fa75c8b84d8f1492058ac4369')
       fetch(
-        "https://api.openweathermap.org/data/2.5/weather?q=bilbao,spain&APPID=00c14c9fa75c8b84d8f1492058ac4369"
+        "https://api.openweathermap.org/data/2.5/weather?q=almendralejo,spain&APPID=00c14c9fa75c8b84d8f1492058ac4369"
       )
         .then(function (resp) {
           return resp.json();

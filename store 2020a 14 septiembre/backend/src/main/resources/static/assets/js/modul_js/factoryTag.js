@@ -52,7 +52,7 @@ export function FactoryTag() {
     form.name = params.name || "";
     form.action = params.action || "";
     form.autocomplete = params.autocomplete || "on";
-    form.enctype = params.enctype || "text/plain";
+    //form.enctype = params.enctype || "text/plain";
     form.method = params.method || "POST";
     form.target = params.target || "_blank";
     form.submit();
