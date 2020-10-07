@@ -55,7 +55,7 @@ export function FactoryTag() {
     //form.enctype = params.enctype || "text/plain";
     form.method = params.method || "POST";
     form.target = params.target || "_blank";
-    form.submit();
+    //form.submit();
     return form;
   };
   API.img = function (params) {

@@ -3,22 +3,25 @@ export function FactoryFunction() {
   const d = document,
     ls = localStorage,
     w = window;
+
   var sw = 0;
   API.darkLight = function (classDark) {
     const $selectors = d.querySelectorAll("[data-dark]");
-    console.log($selectors);
-    /*
-    const lightMode = (e) => {
-      e.target.value = "light";
-      $selectors.forEach((el) => el.classList.remove(classDark));
-      ls.setItem("theme", "light");
+    const $btn = d.getElementById("darkMode");
+
+    const setThemeInitial = function () {
+      if (ls.getItem("theme") === null) {
+        ls.setItem("theme", "light");
+      } else {
+        if (ls.getItem("theme") === "light") {
+          $btn.value = "light";
+          $selectors.forEach((el) => el.classList.remove(classDark));
+        } else {
+          $btn.value = "dark";
+          $selectors.forEach((el) => el.classList.add(classDark));
+        }
+      }
     };
-    const darkMode = (e) => {
-      e.target.value = "dark";
-      $selectors.forEach((el) => el.classList.add(classDark));
-      ls.setItem("theme", "dark");
-    };
-*/
     const changeMode = (e) => {
       let state = "";
       e.target.value === "light" ? (state = "dark") : (state = "light");
@@ -29,23 +32,9 @@ export function FactoryFunction() {
     d.addEventListener("click", (e) => {
       if (e.target.id === "darkMode") {
         changeMode(e);
-        /*
-        if (e.target.value === "light") {
-          darkMode(e);
-        } else {
-          lightMode(e);
-        }*/
       }
     });
-    let $btn = d.getElementById("darkMode");
-    ls.getItem("theme") === null ? ls.setItem("theme", "light") : null;
-    if (ls.getItem("theme") === "light") {
-      $btn.value = "light";
-      $selectors.forEach((el) => el.classList.remove(classDark));
-    } else {
-      $btn.value = "dark";
-      $selectors.forEach((el) => el.classList.add(classDark));
-    }
+    setThemeInitial();
   };
 
   API.weather = function () {
