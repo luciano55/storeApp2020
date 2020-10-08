@@ -1,0 +1,37 @@
+@startuml
+object FactoryTag{
+}
+
+object FactoryValidation{
+validations{}
+
+}
+
+object Index{
+}
+
+object FactoryFrame{
+ FrameInput()
+}
+
+object FactoryDataControl{
+ firstname()
+ lastname()
+}
+
+object FactoryClient{
+ register();
+}
+
+object FactoryBox{
+ error();
+}
+
+FactoryFrame *-- FactoryBox
+FactoryFrame *-- FactoryTag
+FactoryBox *-- FactoryTag
+FactoryDataControl *-- FactoryFrame 
+FactoryClient *-- FactoryDataControl
+FactoryFrame -- FactoryValidation
+Index o-- FactoryClient
+@enduml

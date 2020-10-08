@@ -1,0 +1,15 @@
+.box-error {
+  margin-top: 1rem;
+  font-size: 80%;
+  background-color: var(--error-color);
+  color: #fff;
+  transition: all 800ms ease;
+}
+.box-error.is-active {
+  display: block;
+  animation-name: show-message;
+  animation: 1s 1 normal 0s ease-out both;
+}
+.none {
+  display: none;
+}

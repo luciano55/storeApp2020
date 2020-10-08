@@ -1,17 +1,13 @@
-import { FactoryTag } from "./factoryTag.js";
-import { FactoryLogo } from "./factoryLogo.js";
-import { FactoryObject } from "./factoryObject.js";
-import { FactoryButton } from "./factoryButton.js";
+import { FactoryDataControl } from "./factoryDataControl.js";
 
 export function FactoryClient() {
-  const factoryTag = new FactoryTag();
-  const factoryLogo = new FactoryLogo();
-  const factoryObject = new FactoryObject();
-  const factoryButton = new FactoryButton();
+  const factoryDataControl = new FactoryDataControl();
+
   const d = document;
   const API = {};
   let params = {};
   API.register = function () {
+    /*
     params.id = "seccion1";
     params.class = "section-formJM"; // section
     const section = factoryTag.section(params);
@@ -55,7 +51,7 @@ export function FactoryClient() {
     const submit = factoryButton.submit();
     form.appendChild(submit);
     section.appendChild(form);
-    return section;
+    return section;*/
   };
   return API;
 }

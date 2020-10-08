@@ -1,11 +1,12 @@
-import { FactoryFrameInput } from "./factoryFrameInput.js";
+import { FactoryFrame } from "./factoryFrame.js";
 
 export function FactoryDataControl() {
   const API = {};
-  const factoryFrameInput = new FactoryFrameInput();
+  const factoryFrame = new FactoryFrame();
   let params = {};
 
   API.firstname = function () {
+    /*
     var myObject = {
       id: "firstname",
       validate: "STORE.validate.lettersWithSpace",
@@ -17,9 +18,10 @@ export function FactoryDataControl() {
       placeholder: "input your FirstName",
       title: "2 to 50 characters",
     };
-    return STORE.frameLabelInput(myObject);
+    return STORE.frameLabelInput(myObject);*/
   };
   API.lastname = function () {
+    /*
     var myObject = {
       id: "lastname",
       validate: "validate.lettersWithSpace",
@@ -31,7 +33,7 @@ export function FactoryDataControl() {
       placeholder: "input your LastName",
       title: "2 to 100 characters",
     };
-    return STORE.frameLabelInput(myObject);
+    return STORE.frameLabelInput(myObject);*/
   };
   return API;
 }

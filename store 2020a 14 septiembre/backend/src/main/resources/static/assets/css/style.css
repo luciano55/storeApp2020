@@ -69,16 +69,6 @@ img, video, svg {
   max-width: 100%; }
 
 /******** Reset CSS *****/
-:root {
-  --main-font: sans-serif;
-  --font-size: 16px;
-  --main-color: #7cf3ed;
-  --second-color: #222;
-  --main-modal-color: rgba(247, 222, 30, 0.85);
-  --second-modal-color: rgba(34, 34, 34, 0.85);
-  --container-width: 1200px;
-  --dur: 0.3s; }
-
 * {
   border: 0;
   box-sizing: border-box;
@@ -112,6 +102,34 @@ img {
 
 main {
   flex-grow: 1; }
+
+:root {
+  --main-font: sans-serif;
+  --font-size: 16px;
+  --main-color: #7cf3ed;
+  --second-color: #222;
+  --main-modal-color: rgba(247, 222, 30, 0.85);
+  --second-modal-color: rgba(34, 34, 34, 0.85);
+  --ok-color: #4caf50;
+  --error-color: #f44336;
+  --info-color: #634af1;
+  --container-width: 1200px;
+  --dur: 0.3s; }
+
+.box-error {
+  margin-top: 1rem;
+  font-size: 80%;
+  background-color: var(--error-color);
+  color: #fff;
+  transition: all 800ms ease; }
+
+.box-error.is-active {
+  display: block;
+  animation-name: show-message;
+  animation: 1s 1 normal 0s ease-out both; }
+
+.none {
+  display: none; }
 
 .main-container {
   margin-top: 5px;

@@ -1,3 +1,4 @@
+import { FactoryBox } from "./factoryBox.js";
 export function FactoryFunction() {
   const API = {};
   const d = document,
@@ -110,13 +111,21 @@ export function FactoryFunction() {
   API.contactFormValidations = function () {
     const $form = d.querySelector(".contact-form"),
       $inputs = d.querySelectorAll(".contact-form [required]");
+    const factoryBox = FactoryBox();
     //console.log($inputs);
     $inputs.forEach((input) => {
+      /*
       const $span = d.createElement("span");
       $span.id = "span" + input.name;
       $span.textContent = input.title;
       $span.classList.add("contact-form-error", "none");
-      input.insertAdjacentElement("afterend", $span);
+      */
+      const $errorBox = factoryBox.error();
+      $errorBox.id = "span" + input.name;
+      $errorBox.textContent = input.title;
+      $errorBox.classList.add("none");
+
+      input.insertAdjacentElement("afterend", $errorBox);
     });
 
     d.addEventListener("keyup", (e) => {
