@@ -1,13 +1,21 @@
 import { FactoryTag } from "./factoryTag.js";
 import { FactoryBox } from "./factoryBox.js";
+import { Validations } from "./factoryValidation.js";
 
-export function FrameFrame() {
+export function FactoryFrame() {
   const API = {};
   const factoryTag = new FactoryTag();
   const factoryBox = new FactoryBox();
   let params = {};
 
-  API.input = function () {
+  API.input = function (myParams) {
+    const myId = myParams.id;
+    myParams.id = "div_" + myParams.id;
+    myParams.validate = myParams.validate || Validations.accepted;
+
+
+    
+    return factoryTag.input(myParams);
     /*
     var x = params.id;
     params.id = "div_" + params.id;

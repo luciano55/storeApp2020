@@ -2,10 +2,7 @@
 object FactoryTag{
 }
 
-object FactoryValidation{
-validations{}
 
-}
 
 object Index{
 }
@@ -32,6 +29,6 @@ FactoryFrame *-- FactoryTag
 FactoryBox *-- FactoryTag
 FactoryDataControl *-- FactoryFrame 
 FactoryClient *-- FactoryDataControl
-FactoryFrame -- FactoryValidation
+
 Index o-- FactoryClient
 @enduml

@@ -1,12 +1,26 @@
 import { FactoryFrame } from "./factoryFrame.js";
+import { Validations } from "./factoryValidation.js";
 
 export function FactoryDataControl() {
   const API = {};
   const factoryFrame = new FactoryFrame();
+
   let params = {};
 
   API.firstname = function () {
+    params.id = "firstname";
+    params.validate = "Validations.lettersWithSpace";
+    params.labelOn = false;
+    params.type = "text";
+    params.placeholder = "input your FirstName";
+    params.minLength = "2";
+    params.maxLength = "50";
+    params.required = true;
+    params.title = "2 to 50 characters";
+
+    return factoryFrame.input(params);
     /*
+
     var myObject = {
       id: "firstname",
       validate: "STORE.validate.lettersWithSpace",

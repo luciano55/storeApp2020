@@ -7,6 +7,7 @@ export function FactoryClient() {
   const API = {};
   let params = {};
   API.register = function () {
+    return factoryDataControl.firstname();
     /*
     params.id = "seccion1";
     params.class = "section-formJM"; // section

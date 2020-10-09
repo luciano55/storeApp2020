@@ -1,4 +1,6 @@
 import { FactoryBox } from "./factoryBox.js";
+import { ValidateUtil, Validations } from "./factoryValidation.js";
+
 export function FactoryFunction() {
   const API = {};
   const d = document,
@@ -113,6 +115,7 @@ export function FactoryFunction() {
       $inputs = d.querySelectorAll(".contact-form [required]");
     const factoryBox = FactoryBox();
     //console.log($inputs);
+    /*
     $inputs.forEach((input) => {
       /*
       const $span = d.createElement("span");
@@ -120,15 +123,23 @@ export function FactoryFunction() {
       $span.textContent = input.title;
       $span.classList.add("contact-form-error", "none");
       */
+    /*
       const $errorBox = factoryBox.error();
       $errorBox.id = "span" + input.name;
       $errorBox.textContent = input.title;
-      $errorBox.classList.add("none");
+      // $errorBox.classList.add("none");
 
-      input.insertAdjacentElement("afterend", $errorBox);
-    });
+      input.insertAdjacentElement("afterend", $errorBox)
+    });;*/
 
     d.addEventListener("keyup", (e) => {
+      if (e.target.matches("[data-validate]")) {
+        alert(typeof e.target.dataset.validate);
+          alert(e.target.dataset.validate);
+        //eval("Validations.lettersWithSpace(e)");
+        eval(e.target.dataset.validate + "(e)");
+      }
+      /*
       if (e.target.matches(".contact-form [required]")) {
         let $input = e.target,
           pattern = $input.pattern || $input.dataset.pattern;
@@ -148,7 +159,8 @@ export function FactoryFunction() {
             ? d.getElementById($input.name).classList.add("is-active")
             : d.getElementById($input.name).classList.remove("is-active");
         }
-      }
+       
+      } */
     });
 
     d.addEventListener("submit", (e) => {
