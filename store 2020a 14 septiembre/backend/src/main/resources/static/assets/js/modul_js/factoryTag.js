@@ -150,6 +150,12 @@ export function FactoryTag() {
     section.innerHTML = params.text || "";
     return section;
   };
+ API.select = function(params){
+        var select = document.createElement("select");
+        select.id = "select_" + params.id || "";
+        select.className = params.class || "";
+        return select;
+    };
 
   API.span = function (params) {
     const span = document.createElement("span");

@@ -24,6 +24,8 @@ d.addEventListener("click", (e) => {
     let myBody = d.getElementById("myBody");
     myBody.innerHTML = "";
     myBody.appendChild(factoryClient.register());
-    factoryFunction.contactFormValidations();
+    factoryFunction.validations();
+    factoryFunction.managePrefix("","mobile");
+
   }
 });

@@ -1,3 +1,7 @@
+import {COLOR} from "./color.js";
+import {FactoryBox} from "./factoryBox.js";
+
+
 export const ValidateUtil = {
   getLimitNode: function (node) {
     var limite = {};
@@ -100,19 +104,32 @@ export const ValidateUtil = {
   },
   assessConsequences: function (result, params) {
     if (result) {
-      params.nodo.style.backgroundColor = STORE.color.validColor;
+
+      params.nodo.style.borderColor =  COLOR.VALID;
+      params.nodo.style.borderWidth =  "5px";
+
+      /*
+      params.nodo.style.borderColor = COLOR.VALID;
+      params.nodo.style.borderWidth = "1px 5px 10px 20px";
+       params.nodo.style.background = COLOR.VALID;
+alert(params.nodo.style.backgroundColor);
+     
       if (STORE.stratregyType == "oneByOne") {
         STORE.nodeList.nextVisible(params.nodo);
       }
       STORE.error.off();
       STORE.submit.on();
-      $("labelError_" + params.nodo.id).style.display = "none";
+      $("labelError_" + params.nodo.id).style.display = "none";*/
       // STORE.reponsiWindow();
     } else {
+        params.nodo.style.borderColor = COLOR.ERROR;
+        params.nodo.style.borderWidth =  "10px";
+
+      /*
       params.nodo.style.backgroundColor = STORE.color.errorColor;
       STORE.error.set_message(params.mensajeError);
       STORE.error.on();
-      STORE.submit.off();
+      STORE.submit.off();*/
     }
   },
   callAssessConsequences: function (params) {
@@ -122,28 +139,29 @@ export const ValidateUtil = {
     );
   },
 };
+
 export const Validations = {
- accepted : function(evt){
-        var params = {};
+    accepted : function(evt){
+        const params = {};
         params.nodo = evt.target;
-        STORE.validateUtil.assessConsequences(true,params);
+        ValidateUtil.assessConsequences(true,params);
     },
     address: function (evt) {
-        var params = {};
+        const params = {};
         params.nodo = evt.target;
 
         params.patron = "^([0-9ºª.:,/a-zA-ZñÑáéíóúÜüÁÉÍÓÚ\\s]";
 
         params.mensajeError = "Domicilio NO válido";
 
-        STORE.validateUtil.addLimitPattern(params);
+        ValidateUtil.addLimitPattern(params);
 
-        STORE.validateUtil.callAssessConsequences(params);
+        ValidateUtil.callAssessConsequences(params);
 
     },
     cp: function (evt) {
         var informationPanel;
-        var params = {};
+        const params = {};
         params.nodo = evt.target;
         params.patron = "^(?:0[1-9][0-9]{3}|[1-4][0-9]{4}|5[0-2][0-9]{3})$";
         params.mensajeError = "Formato CP No Válido";
@@ -164,7 +182,7 @@ export const Validations = {
                     params.nodo.parentNode.appendChild(informationPanel);
                 }
 
-                STORE.validateUtil.callAssessConsequences(params);
+                ValidateUtil.callAssessConsequences(params);
 
 
             }, function (Error) {
@@ -174,28 +192,26 @@ export const Validations = {
                     $("informationPanel").style.display = "none";
                 }
 
-                STORE.validateUtil.callAssessConsequences(params);
+                ValidateUtil.callAssessConsequences(params);
 
 
             });
         }
-        STORE.validateUtil.callAssessConsequences(params);
+        ValidateUtil.callAssessConsequences(params);
     },
     date: function (evt) {
-
-        var params = {};
+       const params = {};
         params.nodo = evt.target;
         // aaaa-mm-dd
         params.patron = "^(\\d{4})(\\-)(0[1-9]|1[012])(\\-)(0[1-9]|[1-2]\\d|3[01])$";
         params.mensajeError = "Fecha NO válida";
-        STORE.validateUtil.callAssessConsequences(params);
+       ValidateUtil.callAssessConsequences(params);
 
     },
     dni: function (evt) {
-        var params = {};
+        const params = {};
         params.nodo = evt.target;
         params.patron = "^[0-9]{8,8}[A-Za-z]$";
-
         params.mensajeError = "DNI distinto a 9 caracteres o que el último carácter no es una letra";
 
         if (params.nodo.value.length == 9) {
@@ -209,14 +225,13 @@ export const Validations = {
                 params.nodo.value = params.nodo.value.slice(0, -1) + '*';
             }
         }
-        STORE.validateUtil.callAssessConsequences(params);
+        ValidateUtil.callAssessConsequences(params);
 
 
     },
     nie : function(evt){
-
+            const params = {};
             params.nodo = evt.target;
-
             params.mensajeError = "NIE no válido";
             var nie = "";
             var esValido = false;
@@ -260,16 +275,14 @@ export const Validations = {
                     esValido = (letra == asignacionLetra[resto]);
                 }
 
-                STORE.ValidacionUtil.valorarConsecuencia(esValido,params);
+                ValidacionUtil.valorarConsecuencia(esValido,params);
             }
 
         },
     cifnif : function(evt){
-
+           const  params = {};
             params.nodo = evt.target;
-
             params.mensajeError = "NIFCIF no válido";
-
             var par = 0;
             var non = 0;
             var letras = "ABCDEFGHKLMNPQS";
@@ -278,13 +291,13 @@ export const Validations = {
             if (params.nodo.value.length!=9)
             {
                 params.mensajeError ='El Cif debe tener 9 dígitos';
-               ValidacionUtil.valorarConsecuencia(false,params);
+               ValidateUtil.assessConsequences(false,params);
                 return false;
             }
             if (letras.indexOf(letra.toUpperCase())==-1)
             {
                 params.mensajeError = "El comienzo del Cif no es válido";
-                STORE.ValidacionUtil.valorarConsecuencia(false,params);
+                ValidateUtil.assessConsequences(false,params);
                 return false;
             }
             for (var zz=2;zz<8;zz+=2)
@@ -307,13 +320,13 @@ export const Validations = {
             if (control  !=  params.nodo.value.charAt(8))
             {
                 params.mensajeError = "El Cif no es válido";
-                STORE.ValidacionUtil.valorarConsecuencia(false,parametro);
+                ValidateUtil.assessConsequences(false,parametro);
                 return false;
             }
-            STORE.ValidacionUtil.valorarConsecuencia(true,params);
+            ValidateUtil.assessConsequences(true,params);
         },
     dniNieCif: function (evt) {
-        var params = {};
+        const params = {};
         params.nodo = evt.target;
 
         params.mensajeError = "DNI no válido";
@@ -322,9 +335,9 @@ export const Validations = {
 
         if (params.nodo.value.length == 9 && params.nodo.value.substr(8, 1)) {
 
-            if (STORE.validateUtil.validateAllNumber(los8numeros) && STORE.validateUtil.validateLetterDNI(params.nodo.value)) {
+            if (ValidateUtil.validateAllNumber(los8numeros) && ValidateUtil.validateLetterDNI(params.nodo.value)) {
 
-                STORE.validateUtil.assessConsequences(true, params);
+                ValidateUtil.assessConsequences(true, params);
                 return true;
             }
         }
@@ -374,7 +387,7 @@ export const Validations = {
         }
         if (esValido) {
 
-            STORE.validateUtil.assessConsequences(true, params);
+            ValidateUtil.assessConsequences(true, params);
             return true;
         }
 
@@ -388,11 +401,11 @@ export const Validations = {
         params.mensajeError = 'El documento ni es NIF ni NIE ni CIF';
 
         if (params.nodo.value.length != 9) {
-            STORE.validateUtil.assessConsequences(false, params);
+            ValidateUtil.assessConsequences(false, params);
             return false;
         }
         if (letras.indexOf(letra.toUpperCase()) == -1) {
-            STORE.validateUtil.assessConsequences(false, params);
+            ValidateUtil.assessConsequences(false, params);
             return false;
         }
         for (var zz = 2; zz < 8; zz += 2) {
@@ -412,34 +425,34 @@ export const Validations = {
 
         if (control == params.nodo.value.charAt(8)) {
 
-            STORE.validateUtil.assessConsequences(true, params);
+            ValidateUtil.assessConsequences(true, params);
             return false;
         }
 
-        STORE.validateUtil.assessConsequences(false, params);
+        ValidateUtil.assessConsequences(false, params);
 
     },
     email: function (evt) {
-        var params = {};
+        const params = {};
         params.nodo = evt.target;
 
         params.patron = "^([a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]{3,20}(?:\\.[a-zA-Z0-9-]{2,3}))$";
 
         params.mensajeError = "Email NO válido";
 
-        STORE.validateUtil.callAssessConsequences(params);
+        ValidateUtil.callAssessConsequences(params);
 
     },
     imageName : function(evt){
-         var params = {};
+       const  params = {};
         params.nodo = evt.target;
         var tipo = ['jpg', 'png', 'gif'];
         params.mensajeError = "El tipo de fichero no es válido";
         alert(params.nodo.value);
-        if (STORE.validateUtil.validateListOfValues(STORE.File.getFileExtensionFromURI(params.nodo.value), tipo)){
+        if (ValidateUtil.validateListOfValues(STORE.File.getFileExtensionFromURI(params.nodo.value), tipo)){
             params.patron = "^([a-zA-ZñÑáéíóúÁÉÍÓÚ0_9\\\:\.\/])"; 
             params.mensajeError += " Cualquier caracter ";
-            if( STORE.validateUtil.execExpRegular(params.patron,STORE.File.getFileExtensionFromURI(params.nodo.value)))      
+            if( ValidateUtil.execExpRegular(params.patron,STORE.File.getFileExtensionFromURI(params.nodo.value)))      
                {
                    params.patron = "^([a-zA-ZñÑáéíóúÁÉÍÓÚ0_9\\s])";
 
@@ -449,23 +462,23 @@ export const Validations = {
 
                    params.expregular = new RegExp( params.patron);
                    
-                   STORE.validateUtil.assessConsequences(params.expregular.test(STORE.File.getFileNameFromURI(params.nodo.value)),params);
+                   ValidateUtil.assessConsequences(params.expregular.test(STORE.File.getFileNameFromURI(params.nodo.value)),params);
                   //STORE.ValidacionUtil.valorarConsecuencia(parametro.expregular.test(STORE.File.getFileNameFromURI(parametro.nodo.value)),parametro);
 
                   //$("idFile").value = params.nodo.value;
                }
                else {
-                   STORE.validateUtil.assessConsequences(false,params);
+                   ValidateUtil.assessConsequences(false,params);
                    
                }
             } else {
 
-                   STORE.validateUtil.assessConsequences(false,params);
+                   ValidateUtil.assessConsequences(false,params);
             }
     },
     landline : function (evt) {
         var informationPanel;
-        var params = {};
+        const params = {};
         params.nodo = evt.target;
         params.patron = STORE.prefix_input.regExpFijo;
         params.maximo = STORE.prefix_input.maximo_landline || "9";
@@ -485,48 +498,47 @@ export const Validations = {
             }
 
         }
-        STORE.validateUtil.callAssessConsequences(params);
+        ValidateUtil.callAssessConsequences(params);
 
     },
     lettersWithSpace: function (evt) {
-
-        var params = {};
+        const params = {};
         params.nodo = evt.target;
         params.patron = "^([a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]";
         params.mensajeError = "ERROR: Solo Letras con Espacio ";
 
-        STORE.validateUtil.addLimitPattern(params);
-        STORE.validateUtil.callAssessConsequences(params);
+        ValidateUtil.addLimitPattern(params);
+        ValidateUtil.callAssessConsequences(params);
 
     },
     lettersWithoutSpace : function(evt){
-
+            const params = {};
             params.nodo = evt.target;
-
             params.patron =  "^([a-zA-ZñÑáéíóúÁÉÍÓÚ]";
-
             params.mensajeError = "ERROR: Letras sin Espacio ";
 
-            STORE.ValidacionUtil.addLimitePatron(params);
+            ValidacionUtil.addLimitePatron(params);
 
-            STORE.ValidacionUtil.valorarConsecuencia(STORE.ValidacionUtil.validarExpRegular(params),params);
+            ValidacionUtil.valorarConsecuencia(STORE.ValidacionUtil.validarExpRegular(params),params);
 
         },
     mobile: function (evt) {
-        var informationPanel;
-        var params = {};
+      const factoryBox = new FactoryBox();
+        let informationPanel;
+        const params = {};
         params.nodo = evt.target;
-        params.patron = STORE.prefix_input.regExpMovil;
-        params.maximo = STORE.prefix_input.maximo_mobile || 9;
+        params.patron = sessionStorage.getItem("prefix_input_regExpMovil"); //STORE.prefix_input.regExpMovil;
+        alert("params.patron " + params.patron);
+        params.maximo = sessionStorage.getItem("prefix_input_maximo_mobile") || 9;//STORE.prefix_input.maximo_mobile || 9;
         params.mensajeError = ("Móvil con formato erróneo y ademas debe tener: " + params.maximo + " dígitos");
-        if (!$("informationPanel")) {
-            informationPanel = STORE.informationPanel();
+        if (!document.getElementById("informationPanel")) {
+            informationPanel = factoryBox.informationPanel();
         } else {
-            informationPanel = $("informationPanel");
+            informationPanel = document.getElementById("informationPanel");
         }
 
         if (params.nodo.value.length == params.maximo) {
-            informationPanel.innerHTML = $("select_mobile").value + "-" + params.nodo.value;
+            informationPanel.innerHTML = document.getElementById("select_mobile").value + "-" + params.nodo.value;
             if (params.nodo.nextSibling) {
                 params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
             } else {
@@ -534,11 +546,11 @@ export const Validations = {
             }
 
         }
-        STORE.validateUtil.callAssessConsequences(params);
+        ValidateUtil.callAssessConsequences(params);
 
     },
     password : function(evt){
-        var params = {};
+        const params = {};
         params.nodo = evt.target;
         
         // Minimo 8 caracteres y Maximo 15
@@ -550,16 +562,13 @@ export const Validations = {
 
         params.mensajeError = "Password no válida";
 
-       STORE.validateUtil.callAssessConsequences(params);
+       ValidateUtil.callAssessConsequences(params);
 
         
     },
     user: function (evt) {
-
-        var params = {};
+       const  params = {};
         params.nodo = evt.target;
-
-
         // Los usuarios tienen 7 dígitos.
         //El primer dígito es una letra.
         //Los dígitos 2 y 3 pueden ser letras o números.
@@ -569,6 +578,6 @@ export const Validations = {
 
         params.mensajeError = "Usuario no válido";
 
-       STORE.validateUtil.callAssessConsequences(params);
+       ValidateUtil.callAssessConsequences(params);
     }
 };

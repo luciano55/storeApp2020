@@ -1,13 +1,26 @@
 import { FactoryDataControl } from "./factoryDataControl.js";
+import { FactoryTag } from "./factoryTag.js";
 
 export function FactoryClient() {
   const factoryDataControl = new FactoryDataControl();
-
+ const factoryTag = new FactoryTag();
   const d = document;
   const API = {};
   let params = {};
   API.register = function () {
-    return factoryDataControl.firstname();
+    params.id = "seccion1";
+    params.class = "section-formJM harni-form";     
+    const section = factoryTag.section(params);
+    params = {};
+    params.text = "Register Client";
+    const titleForm = factoryTag.h1(params);
+    section.appendChild(titleForm);
+
+    section.appendChild(factoryDataControl.firstname());
+    section.appendChild(factoryDataControl.lastname());
+    section.appendChild(factoryDataControl.nif());
+      section.appendChild(factoryDataControl.mobile());
+    return section;
     /*
     params.id = "seccion1";
     params.class = "section-formJM"; // section

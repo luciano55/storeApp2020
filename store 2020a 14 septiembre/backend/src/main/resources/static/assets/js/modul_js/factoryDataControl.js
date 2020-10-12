@@ -1,5 +1,5 @@
 import { FactoryFrame } from "./factoryFrame.js";
-import { Validations } from "./factoryValidation.js";
+import { VALIDATOR } from "./validator.js";
 
 export function FactoryDataControl() {
   const API = {};
@@ -8,9 +8,10 @@ export function FactoryDataControl() {
   let params = {};
 
   API.firstname = function () {
+    params = {};
     params.id = "firstname";
-    params.validate = "Validations.lettersWithSpace";
-    params.labelOn = false;
+    params.validate = VALIDATOR.LETTERSWITHSPACE;
+    params.labelOn = true;
     params.type = "text";
     params.placeholder = "input your FirstName";
     params.minLength = "2";
@@ -35,19 +36,43 @@ export function FactoryDataControl() {
     return STORE.frameLabelInput(myObject);*/
   };
   API.lastname = function () {
-    /*
-    var myObject = {
-      id: "lastname",
-      validate: "validate.lettersWithSpace",
-      type: "text",
-      size: "25",
-      minLength: "2",
-      maxLength: "100",
-      required: true,
-      placeholder: "input your LastName",
-      title: "2 to 100 characters",
-    };
-    return STORE.frameLabelInput(myObject);*/
+     params = {};
+    params.id = "lastname";
+    params.validate = VALIDATOR.LETTERSWITHSPACE;
+    params.labelOn = true;
+    params.type = "text";
+    params.placeholder = "input your LastName";
+    params.minLength = "2";
+    params.maxLength = "100";
+    params.required = true;
+    params.title = "2 to 100 characters";
+    return factoryFrame.input(params);   
   };
+  API.nif = function () {
+     params = {};
+    params.id = "nif";
+    params.validate = VALIDATOR.DNI_NIE_CIF;
+    params.labelOn = true;
+    params.type = "text";
+    params.placeholder = "input your nif";
+    params.minLength = "9";
+    params.maxLength = "9";
+    params.required = true;
+    params.title = "9 characters";
+    return factoryFrame.input(params);
+    };
+  API.mobile = function () {
+     params = {};
+    params.id = "mobile";
+    params.validate = VALIDATOR.MOBILE;
+    params.labelOn = true;
+    params.type = "text";
+    params.placeholder = "input your mobile";
+    params.minLength = "9";
+    params.maxLength = "9";
+    params.required = true;
+    params.title = "9 characters";
+    return factoryFrame.labelSelectInput(params);
+    }
   return API;
 }

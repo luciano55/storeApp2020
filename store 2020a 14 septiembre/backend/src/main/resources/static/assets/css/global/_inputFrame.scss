@@ -1,0 +1,46 @@
+::-webkit-input-placeholder {
+  /* Chrome */
+  color: red;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: red;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: red;
+  opacity: 1;
+}
+:-moz-placeholder {
+  /* Firefox 4 - 18 */
+  color: red;
+  opacity: 1;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+input {
+  background-color: rgb(232, 234, 237);
+  border-radius: 5px;
+  border: none;
+  height: 32px;
+  line-height: 24px;
+  font-size: 13px;
+  padding-inline-start: 8px;
+  padding-inline-end: 8px;
+  color: rgba(32, 33, 36, 0.38);
+}
+.div-input {
+  font-family: "Roboto", arial, sans-serif;
+}
+
+.field-title {
+  color: rgb(154, 160, 166);
+  font-size: 10px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}

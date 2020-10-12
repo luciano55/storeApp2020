@@ -1,5 +1,7 @@
 import { FactoryBox } from "./factoryBox.js";
+import {COLOR} from "./color.js"
 import { ValidateUtil, Validations } from "./factoryValidation.js";
+
 
 export function FactoryFunction() {
   const API = {};
@@ -110,7 +112,7 @@ export function FactoryFunction() {
     });
   };
 
-  API.contactFormValidations = function () {
+  API.validations = function () {
     const $form = d.querySelector(".contact-form"),
       $inputs = d.querySelectorAll(".contact-form [required]");
     const factoryBox = FactoryBox();
@@ -134,8 +136,8 @@ export function FactoryFunction() {
 
     d.addEventListener("keyup", (e) => {
       if (e.target.matches("[data-validate]")) {
-        alert(typeof e.target.dataset.validate);
-          alert(e.target.dataset.validate);
+       // alert(typeof e.target.dataset.validate);
+        //  alert(e.target.dataset.validate);
         //eval("Validations.lettersWithSpace(e)");
         eval(e.target.dataset.validate + "(e)");
       }
@@ -180,6 +182,104 @@ export function FactoryFunction() {
       }, 2000);
     });
   };
+   API.capital  = function(string){       
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();    
+    }
+
+ API.managePrefix = function(myLandline, myMobile){
+  'use strict';
+    const factoryBox = FactoryBox();
+    let phonePrefix = null;
+    //const prefix_input = {}; //STORE
+    const countryPattern = {
+        NUMERO_FRANCE_FIJO: /^[1-9](\d{2}){4}$/, //^[1-9](\d{2}){4}$
+        NUMERO_FRANCE_MOVIL: /^[6|7][0-9]{8}$/,
+        NUMERO_SPAIN_FIJO: /^[9][0-9]{8}$/,
+        NUMERO_SPAIN_MOVIL: /^[6|7][0-9]{8}$/,
+        NUMERO_US_FIJO: /^[0-9]{10}$/,
+        NUMERO_US_MOVIL: /^[0-9]{10}$/
+    };
+    const PREFIJOS = [
+        {
+            "default": true,
+            "prefijo": "ES",
+            "value": "+34",
+            "maximo": 9,
+            "flag": "es.png",
+            "expresionRegularMovil": countryPattern.NUMERO_SPAIN_MOVIL,
+            "expresionRegularFijo": countryPattern.NUMERO_SPAIN_FIJO
+        },
+        {
+            "prefijo": "FR",
+            "value": "+33",
+            "maximo": 9,
+            "flag": "fr.png",
+            "expresionRegularMovil": countryPattern.NUMERO_FRANCE_MOVIL,
+            "expresionRegularFijo": countryPattern.NUMERO_FRANCE_FIJO
+        },
+        {
+            "prefijo": "US",
+            "value": "+1",
+            "maximo": 10,
+            "flag": "us.png",
+            "expresionRegularMovil": countryPattern.NUMERO_US_MOVIL,
+            "expresionRegularFijo": countryPattern.NUMERO_US_FIJO
+        },
+    ];
+    const changeFlag = function (flag, tipo) {
+      
+       d.getElementById("label_" + tipo).src = "../assets/img/flags/" + flag;        
+    }
+    const  changePrefix = function (tipo) {
+
+        let nodoActivo = myLandline;
+        if (tipo === myMobile) {nodoActivo = myMobile;}
+        d.getElementById(nodoActivo).placeholder = "new phone";
+        d.getElementById(nodoActivo).style.background = COLOR.ERROR; // STORE.color.errorColor;
+        let selectedValue =  d.getElementById("select_" + nodoActivo).options[ d.getElementById("select_" + nodoActivo).selectedIndex].value;
+        for (let index in PREFIJOS) {
+            if (PREFIJOS[index].value === selectedValue) {
+                if(tipo === myMobile){
+                   sessionStorage.setItem('prefix_input_regExpMovil', PREFIJOS[index].expresionRegularMovil);
+                    sessionStorage.setItem('prefix_input_minimo_mobile',  PREFIJOS[index].minimo);
+                    sessionStorage.setItem('prefix_input_maximo_mobile', PREFIJOS[index].maximo);
+                }
+                else {
+                  sessionStorage.setItem('prefix_input_regExpFijo',           PREFIJOS[index].expresionRegularFijo);
+                   sessionStorage.setItem('prefix_input_minimo_landline',   PREFIJOS[index].minimo);
+                   sessionStorage.setItem('prefix_input_maximo_landline',  PREFIJOS[index].maximo);
+                } 
+                changeFlag(PREFIJOS[index].flag, nodoActivo);  
+                  d.getElementById(nodoActivo).setAttribute("maxlength", PREFIJOS[index].maximo);
+            }
+        }
+    };
+    const createSelectPrefix = function (tipo) {
+        phonePrefix = d.getElementById("select_" + tipo);
+        for (let index in PREFIJOS) {
+            phonePrefix.options[phonePrefix.options.length] = new Option(PREFIJOS[index].prefijo, PREFIJOS[index].value, undefined, PREFIJOS[index].default);
+            if (PREFIJOS[index].default) {
+                if (tipo === myLandline) {
+                   sessionStorage.setItem('prefix_input_regExpFijo', PREFIJOS[index].expresionRegularFijo);
+                } else {
+                    sessionStorage.setItem('prefix_input_regExpMovil',PREFIJOS[index].expresionRegularMovil);                   
+                }
+                d.getElementById(tipo).setAttribute("maxlength", PREFIJOS[index].maximo);
+                let labelId = "label_" + tipo;
+                let label = d.getElementById(labelId);
+                let flagBox = factoryBox.littleImgBox(); //STORE.littleImgBox();
+                label.parentNode.replaceChild(flagBox, label);
+                flagBox.id = "label_" + tipo;
+                changeFlag(PREFIJOS[index].flag,tipo);
+            }
+        }
+        phonePrefix.addEventListener("change", function () {
+            changePrefix(tipo);
+        });
+    };
+    if (myLandline) {createSelectPrefix(myLandline);}
+    if (myMobile) {createSelectPrefix(myMobile);}
+    }
 
   return API;
 }
