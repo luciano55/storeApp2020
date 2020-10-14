@@ -1,4 +1,4 @@
-import {COLOR} from "./color.js";
+import {COLOR} from "./enum_color.js";
 import {FactoryBox} from "./factoryBox.js";
 
 
@@ -160,11 +160,11 @@ export const Validations = {
 
     },
     cp: function (evt) {
-        var informationPanel;
+        let informationPanel;
         const params = {};
         params.nodo = evt.target;
         params.patron = "^(?:0[1-9][0-9]{3}|[1-4][0-9]{4}|5[0-2][0-9]{3})$";
-        params.mensajeError = "Formato CP No Válido";
+        params.mensajeError = "Formato postal code No Válido";
         if (!$("informationPanel")) {
             informationPanel = STORE.informationPanel();
         } else {
@@ -215,10 +215,10 @@ export const Validations = {
         params.mensajeError = "DNI distinto a 9 caracteres o que el último carácter no es una letra";
 
         if (params.nodo.value.length == 9) {
-            var numero = params.nodo.value.substr(0, params.nodo.value.length - 1);
-            var miletra = params.nodo.value.substr(params.nodo.value.length - 1, 1);
+            let numero = params.nodo.value.substr(0, params.nodo.value.length - 1);
+            let miletra = params.nodo.value.substr(params.nodo.value.length - 1, 1);
             numero = numero % 23;
-            letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+            let letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
             letra = letra.substring(numero, numero + 1);
             if (letra != miletra.toUpperCase()) {
                 params.mensajeError = 'Dni erroneo, la letra del NIF no se corresponde';
@@ -233,16 +233,16 @@ export const Validations = {
             const params = {};
             params.nodo = evt.target;
             params.mensajeError = "NIE no válido";
-            var nie = "";
-            var esValido = false;
-            var i = 1;
-            var caracterASCII = 0;
-            var letra = ' ';
-            var miNIE = 0;
-            var resto = 0;
-            var asignacionLetra = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X','B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
-            var patronLetra =  "^([a-zA-Z])$";
-            var expregular = new RegExp(patronLetra);
+            let nie = "";
+            let esValido = false;
+            let i = 1;
+            let caracterASCII = 0;
+            let letra = ' ';
+            let miNIE = 0;
+            let resto = 0;
+            let asignacionLetra = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X','B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+            let patronLetra =  "^([a-zA-Z])$";
+            let expregular = new RegExp(patronLetra);
 
 
             if( params.nodo.value.length == 9 && expregular.test(params.nodo.value.substr(8,1) )
@@ -265,17 +265,16 @@ export const Validations = {
                 } else if(esValido && params.nodo.value.substring(0,1).toUpperCase() == "Z") {
                     nie = "2" + params.nodo.value.substring(1,9);
                 }
-                alert("nie" + nie);
+                //alert("nie" + nie);
                 if(esValido) {
                     letra =  nie.substr(8).toUpperCase();
                     miNIE = nie.substr(0,8);
                     alert("miNIE: " + miNIE)
                     resto = miNIE % 23;
-
                     esValido = (letra == asignacionLetra[resto]);
                 }
 
-                ValidacionUtil.valorarConsecuencia(esValido,params);
+                 ValidateUtil.assessConsequences(esValido,params);
             }
 
         },
@@ -283,10 +282,10 @@ export const Validations = {
            const  params = {};
             params.nodo = evt.target;
             params.mensajeError = "NIFCIF no válido";
-            var par = 0;
-            var non = 0;
-            var letras = "ABCDEFGHKLMNPQS";
-            var letra = params.nodo.value.charAt(0);
+           let par = 0;
+            let non = 0;
+            let letras = "ABCDEFGHKLMNPQS";
+            let letra = params.nodo.value.charAt(0);
 
             if (params.nodo.value.length!=9)
             {
@@ -311,9 +310,9 @@ export const Validations = {
                 if (nn > 9) nn = 1+(nn-10);
                 non = non + nn;
             }
-            var parcial = par + non;
+            let parcial = par + non;
 
-            var control = (10 - ( parcial % 10));
+            let control = (10 - ( parcial % 10));
 
             if (control==10) control=0;
 
@@ -331,7 +330,7 @@ export const Validations = {
 
         params.mensajeError = "DNI no válido";
 
-        var los8numeros = params.nodo.value.substr(0, 8);
+        let los8numeros = params.nodo.value.substr(0, 8);
 
         if (params.nodo.value.length == 9 && params.nodo.value.substr(8, 1)) {
 
@@ -344,16 +343,16 @@ export const Validations = {
 
         // NIE
 
-        var nie = "";
-        var esValido = false;
-        var i = 1;
-        var caracterASCII = 0;
-        var letra = ' ';
-        var miNIE = 0;
-        var resto = 0;
-        var asignacionLetra = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
-        var patronLetra = "^([a-zA-Z])$";
-        var expregular = new RegExp(patronLetra);
+        let nie = "";
+        let esValido = false;
+        let i = 1;
+        let caracterASCII = 0;
+        let letra = ' ';
+        let miNIE = 0;
+        let resto = 0;
+        let asignacionLetra = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+        let patronLetra = "^([a-zA-Z])$";
+        let expregular = new RegExp(patronLetra);
 
 
         if (params.nodo.value.length == 9 && expregular.test(params.nodo.value.substr(8, 1))
@@ -393,10 +392,10 @@ export const Validations = {
 
         // CIF
 
-        var par = 0;
-        var non = 0;
-        var letras = "ABCDEFGHKLMNPQS";
-        var letra = params.nodo.value.charAt(0);
+        let par = 0;
+        let non = 0;
+        let letras = "ABCDEFGHKLMNPQS";
+         letra = params.nodo.value.charAt(0);
 
         params.mensajeError = 'El documento ni es NIF ni NIE ni CIF';
 
@@ -417,9 +416,9 @@ export const Validations = {
             if (nn > 9) nn = 1 + (nn - 10);
             non = non + nn;
         }
-        var parcial = par + non;
+        let parcial = par + non;
 
-        var control = (10 - (parcial % 10));
+        let control = (10 - (parcial % 10));
 
         if (control == 10) control = 0;
 
@@ -446,9 +445,9 @@ export const Validations = {
     imageName : function(evt){
        const  params = {};
         params.nodo = evt.target;
-        var tipo = ['jpg', 'png', 'gif'];
+        let tipo = ['jpg', 'png', 'gif'];
         params.mensajeError = "El tipo de fichero no es válido";
-        alert(params.nodo.value);
+        //alert(params.nodo.value);
         if (ValidateUtil.validateListOfValues(STORE.File.getFileExtensionFromURI(params.nodo.value), tipo)){
             params.patron = "^([a-zA-ZñÑáéíóúÁÉÍÓÚ0_9\\\:\.\/])"; 
             params.mensajeError += " Cualquier caracter ";
@@ -477,20 +476,21 @@ export const Validations = {
             }
     },
     landline : function (evt) {
-        var informationPanel;
+       const factoryBox = new FactoryBox();
+        let informationPanel;
         const params = {};
         params.nodo = evt.target;
         params.patron = STORE.prefix_input.regExpFijo;
         params.maximo = STORE.prefix_input.maximo_landline || "9";
         params.mensajeError = ("Tlf fijo con formato erróneo y ademas debe tener: " + params.maximo + " dígitos");
-        if (!$("informationPanel")) {
-            informationPanel = STORE.informationPanel();
+        if (!document.getElementById("informationPanel")) {
+            informationPanel = factoryBox.informationPanel();
         } else {
-            informationPanel = $("informationPanel");
+            informationPanel = document.getElementById("informationPanel");
         }
 
         if (params.nodo.value.length == params.maximo) {
-            informationPanel.innerHTML = $("select_landline").value + "-" + params.nodo.value;
+            informationPanel.innerHTML = document.getElementById("select_landline").value + "-" + params.nodo.value;
             if (params.nodo.nextSibling) {
                 params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
             } else {

@@ -2,21 +2,31 @@
 object FactoryTag{
 }
 
+object enumVALIDATOR{
+  ACCEPTED,
+  CIF_NIF,
+  DNI_NIE_CIF,  
+  LETTERSWITHSPACE,
+  MOBILE
+}
 
 
 object Index{
 }
 
 object FactoryFrame{
- FrameInput()
+ input()
+ labelSelectInput()
 }
 
 object FactoryDataControl{
  firstname()
  lastname()
+ nif()
+ mobile()
 }
 
-object FactoryClient{
+object ViewClient{
  register();
 }
 
@@ -28,7 +38,9 @@ FactoryFrame *-- FactoryBox
 FactoryFrame *-- FactoryTag
 FactoryBox *-- FactoryTag
 FactoryDataControl *-- FactoryFrame 
-FactoryClient *-- FactoryDataControl
+FactoryDataControl -- enumVALIDATOR
+FactoryFrame -- enumVALIDATOR
+ViewClient *-- FactoryDataControl
 
-Index o-- FactoryClient
+Index o-- ViewClient
 @enduml

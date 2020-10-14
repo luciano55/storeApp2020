@@ -10,7 +10,7 @@ export function FactoryObject() {
   const factoryMenu = new FactoryMenu();
   const factoryButton = new FactoryButton();
 
-  API.menuButton = function () {
+  API.menuButton2 = function () {
     params.class = "header-content container";
     const section = factoryTag.section(params);
 
@@ -18,7 +18,7 @@ export function FactoryObject() {
     section.appendChild(factoryButton.darkLight());
     return section;
   };
-  API.weatherLocation = function () {
+  API.weatherLocation2 = function () {
     /* <div class="subhome">
     <div id="description"></div>
     <h1 id="temp"></h1>

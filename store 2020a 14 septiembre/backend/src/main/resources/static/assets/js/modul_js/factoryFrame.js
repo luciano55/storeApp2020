@@ -1,11 +1,18 @@
 import { FactoryTag } from "./factoryTag.js";
 import { FactoryBox } from "./factoryBox.js";
-import { FactoryFunction } from "./factoryFunction.js";
+import { FactoryMenu } from "./factoryMenu.js";
+import { FactoryButton } from "./factoryButton.js";
+import { GeneralPurposeFunctions } from "./general_purpose_functions.js";
+import {VALIDATOR} from "./enum_validator.js";
+
 
 export function FactoryFrame() {
   const API = {};
   const factoryTag = new FactoryTag();
-  const factoryFunction = new FactoryFunction();
+  const factoryMenu = new FactoryMenu();
+  const factoryButton = new FactoryButton();
+  const generalPurposeFunctions = new GeneralPurposeFunctions();
+ 
   let params = {};
 
   API.input = function (params) {
@@ -21,12 +28,12 @@ export function FactoryFrame() {
       params.for = myId;
       params.class = "label-frame-input";
 
-       params.text =  factoryFunction.capital(myId) + ": ";
+       params.text =  generalPurposeFunctions.capital(myId) + ": ";
        div.appendChild( factoryTag.label(params));
     }
     params.class ="";
      params.id = myId;
-    params.validate = params.validate || "accepted";
+    params.validate = params.validate || VALIDATOR.ACCEPTED;
     params.name = myId;
      div.appendChild(factoryTag.input(params));
    return div;
@@ -85,7 +92,7 @@ export function FactoryFrame() {
                id : "label_" + myId,
             class : "labelInput",            
               for : myId || "",
-            title : factoryFunction.capital(myId) + ": " 
+            title : generalPurposeFunctions.capital(myId) + ": " 
         }
    const label = factoryTag.label(myLabel); 
 
@@ -122,5 +129,37 @@ export function FactoryFrame() {
     div.appendChild(labelError);
     return div;
 };
+  API.menuButton = function () {
+    params.class = "header-content container";
+    const section = factoryTag.section(params);
+
+    section.appendChild(factoryMenu.index());
+    section.appendChild(factoryButton.darkLight());
+    return section;
+  };
+  API.weatherLocation = function () {
+    /* <div class="subhome">
+    <div id="description"></div>
+    <h1 id="temp"></h1>
+    <div id="location"></div>
+  </div>
+</div>*/
+    params.class = "subhome";
+    const divExt = factoryTag.div(params);
+    params = {};
+    params.id = "description";
+    const divFirst = factoryTag.div(params);
+    params = {};
+    params.id = "temp";
+    const h1 = factoryTag.h1(params);
+    params = {};
+    params.id = "location";
+    const divSecond = factoryTag.div(params);
+    divExt.appendChild(divFirst);
+    divExt.appendChild(h1);
+    divExt.appendChild(divSecond);
+    return divExt;
+  };
+
   return API;
 }

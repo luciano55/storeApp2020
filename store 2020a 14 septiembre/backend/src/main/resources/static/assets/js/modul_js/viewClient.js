@@ -1,7 +1,7 @@
 import { FactoryDataControl } from "./factoryDataControl.js";
 import { FactoryTag } from "./factoryTag.js";
 
-export function FactoryClient() {
+export function ViewClient() {
   const factoryDataControl = new FactoryDataControl();
  const factoryTag = new FactoryTag();
   const d = document;

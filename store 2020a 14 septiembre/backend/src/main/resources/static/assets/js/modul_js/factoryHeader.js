@@ -1,12 +1,12 @@
 import { FactoryBranding } from "./factoryBranding.js";
-import { FactoryObject } from "./factoryObject.js";
+import { FactoryFrame } from "./factoryFrame.js";
 
 const factoryBranding = new FactoryBranding();
-const factoryObject = new FactoryObject();
+const factoryFrame = new FactoryFrame();
 
 export function FactoryHeader() {
   const div = document.createElement("div");
   div.appendChild(factoryBranding.index());
-  div.appendChild(factoryObject.menuButton());
+  div.appendChild(factoryFrame.menuButton());
   return div;
 }

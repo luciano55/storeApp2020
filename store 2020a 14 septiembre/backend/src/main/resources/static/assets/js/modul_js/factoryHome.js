@@ -1,11 +1,11 @@
 import { FactoryTag } from "./factoryTag.js";
 import { FactoryLogo } from "./factoryLogo.js";
-import { FactoryObject } from "./factoryObject.js";
+import { FactoryFrame } from "./factoryFrame.js";
 
 export function FactoryHome() {
   const factoryTag = new FactoryTag();
   const factoryLogo = new FactoryLogo();
-  const factoryObject = new FactoryObject();
+  const factoryFrame = new FactoryFrame();
   const d = document;
   let params = {};
   params.id = "myHome";
@@ -22,7 +22,7 @@ export function FactoryHome() {
   divSubHome.appendChild(ies);
   divSubHome.appendChild(factoryLogo.harnina());
   divHome.appendChild(divSubHome);
-  divHome.appendChild(factoryObject.weatherLocation());
+  divHome.appendChild(factoryFrame.weatherLocation());
   params = {};
   const divReturn = factoryTag.div(params);
   divReturn.appendChild(divHome);

@@ -1,9 +1,9 @@
 import { FactoryBox } from "./factoryBox.js";
-import {COLOR} from "./color.js"
+import {COLOR} from "./enum_color.js"
 import { ValidateUtil, Validations } from "./factoryValidation.js";
 
 
-export function FactoryFunction() {
+export function ManagerFunctions() {
   const API = {};
   const d = document,
     ls = localStorage,
@@ -182,11 +182,9 @@ export function FactoryFunction() {
       }, 2000);
     });
   };
-   API.capital  = function(string){       
-      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();    
-    }
+  
 
- API.managePrefix = function(myLandline, myMobile){
+ API.prefix = function(myLandline, myMobile){
   'use strict';
     const factoryBox = FactoryBox();
     let phonePrefix = null;
@@ -232,10 +230,10 @@ export function FactoryFunction() {
     }
     const  changePrefix = function (tipo) {
 
-        let nodoActivo = myLandline;
-        if (tipo === myMobile) {nodoActivo = myMobile;}
+        let nodoActivo = tipo; //myLandline;
+        //if (tipo === myMobile) {nodoActivo = myMobile;}
         d.getElementById(nodoActivo).placeholder = "new phone";
-        d.getElementById(nodoActivo).style.background = COLOR.ERROR; // STORE.color.errorColor;
+        d.getElementById(nodoActivo).style.background = COLOR.ERROR; 
         let selectedValue =  d.getElementById("select_" + nodoActivo).options[ d.getElementById("select_" + nodoActivo).selectedIndex].value;
         for (let index in PREFIJOS) {
             if (PREFIJOS[index].value === selectedValue) {
@@ -267,7 +265,7 @@ export function FactoryFunction() {
                 d.getElementById(tipo).setAttribute("maxlength", PREFIJOS[index].maximo);
                 let labelId = "label_" + tipo;
                 let label = d.getElementById(labelId);
-                let flagBox = factoryBox.littleImgBox(); //STORE.littleImgBox();
+                let flagBox = factoryBox.littleImgBox(); 
                 label.parentNode.replaceChild(flagBox, label);
                 flagBox.id = "label_" + tipo;
                 changeFlag(PREFIJOS[index].flag,tipo);
