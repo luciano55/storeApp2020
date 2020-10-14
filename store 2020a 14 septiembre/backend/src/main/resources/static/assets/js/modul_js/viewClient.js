@@ -19,7 +19,7 @@ export function ViewClient() {
     section.appendChild(factoryDataControl.firstname());
     section.appendChild(factoryDataControl.lastname());
     section.appendChild(factoryDataControl.nif());
-      section.appendChild(factoryDataControl.mobile());
+    section.appendChild(factoryDataControl.mobile());
     return section;
     /*
     params.id = "seccion1";

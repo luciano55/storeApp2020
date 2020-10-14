@@ -4,7 +4,7 @@ export function GeneralPurposeFunctions() {
     ls = localStorage,
     w = window;
     
-     API.capital  = function(string){       
+     API.capital  = function(string){        
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();    
     }
     return API;

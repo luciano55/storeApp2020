@@ -132,7 +132,7 @@ alert(params.nodo.style.backgroundColor);
       STORE.submit.off();*/
     }
   },
-  callAssessConsequences: function (params) {
+  regExpConsequences: function (params) {
     ValidateUtil.assessConsequences(
       ValidateUtil.execExpRegular(params.patron, params.nodo.value),
       params
@@ -156,7 +156,7 @@ export const Validations = {
 
         ValidateUtil.addLimitPattern(params);
 
-        ValidateUtil.callAssessConsequences(params);
+        ValidateUtil.regExpConsequences(params);
 
     },
     cp: function (evt) {
@@ -182,7 +182,7 @@ export const Validations = {
                     params.nodo.parentNode.appendChild(informationPanel);
                 }
 
-                ValidateUtil.callAssessConsequences(params);
+                ValidateUtil.regExpConsequences(params);
 
 
             }, function (Error) {
@@ -192,12 +192,12 @@ export const Validations = {
                     $("informationPanel").style.display = "none";
                 }
 
-                ValidateUtil.callAssessConsequences(params);
+                ValidateUtil.regExpConsequences(params);
 
 
             });
         }
-        ValidateUtil.callAssessConsequences(params);
+        ValidateUtil.regExpConsequences(params);
     },
     date: function (evt) {
        const params = {};
@@ -205,7 +205,7 @@ export const Validations = {
         // aaaa-mm-dd
         params.patron = "^(\\d{4})(\\-)(0[1-9]|1[012])(\\-)(0[1-9]|[1-2]\\d|3[01])$";
         params.mensajeError = "Fecha NO válida";
-       ValidateUtil.callAssessConsequences(params);
+       ValidateUtil.regExpConsequences(params);
 
     },
     dni: function (evt) {
@@ -225,7 +225,7 @@ export const Validations = {
                 params.nodo.value = params.nodo.value.slice(0, -1) + '*';
             }
         }
-        ValidateUtil.callAssessConsequences(params);
+        ValidateUtil.regExpConsequences(params);
 
 
     },
@@ -439,7 +439,7 @@ export const Validations = {
 
         params.mensajeError = "Email NO válido";
 
-        ValidateUtil.callAssessConsequences(params);
+        ValidateUtil.regExpConsequences(params);
 
     },
     imageName : function(evt){
@@ -498,7 +498,7 @@ export const Validations = {
             }
 
         }
-        ValidateUtil.callAssessConsequences(params);
+        ValidateUtil.regExpConsequences(params);
 
     },
     lettersWithSpace: function (evt) {
@@ -508,7 +508,7 @@ export const Validations = {
         params.mensajeError = "ERROR: Solo Letras con Espacio ";
 
         ValidateUtil.addLimitPattern(params);
-        ValidateUtil.callAssessConsequences(params);
+        ValidateUtil.regExpConsequences(params);
 
     },
     lettersWithoutSpace : function(evt){
@@ -527,9 +527,10 @@ export const Validations = {
         let informationPanel;
         const params = {};
         params.nodo = evt.target;
-        params.patron = sessionStorage.getItem("prefix_input_regExpMovil"); //STORE.prefix_input.regExpMovil;
-        alert("params.patron " + params.patron);
-        params.maximo = sessionStorage.getItem("prefix_input_maximo_mobile") || 9;//STORE.prefix_input.maximo_mobile || 9;
+        params.patron = sessionStorage.getItem("prefix_input_regExpMovil");
+       // alert("params.patron " + params.patron);
+        params.maximo = sessionStorage.getItem("prefix_input_maximo_mobile") || 9;
+        params.minimo = sessionStorage.getItem("prefix_input_minimo_mobile") || 9;
         params.mensajeError = ("Móvil con formato erróneo y ademas debe tener: " + params.maximo + " dígitos");
         if (!document.getElementById("informationPanel")) {
             informationPanel = factoryBox.informationPanel();
@@ -546,7 +547,7 @@ export const Validations = {
             }
 
         }
-        ValidateUtil.callAssessConsequences(params);
+        ValidateUtil.regExpConsequences(params);
 
     },
     password : function(evt){
@@ -562,7 +563,7 @@ export const Validations = {
 
         params.mensajeError = "Password no válida";
 
-       ValidateUtil.callAssessConsequences(params);
+       ValidateUtil.regExpConsequences(params);
 
         
     },
@@ -578,6 +579,6 @@ export const Validations = {
 
         params.mensajeError = "Usuario no válido";
 
-       ValidateUtil.callAssessConsequences(params);
+       ValidateUtil.regExpConsequences(params);
     }
 };

@@ -11,6 +11,7 @@ export function FactoryFrame() {
   const factoryTag = new FactoryTag();
   const factoryMenu = new FactoryMenu();
   const factoryButton = new FactoryButton();
+    const factoryBox = new FactoryBox();
   const generalPurposeFunctions = new GeneralPurposeFunctions();
  
   let params = {};
@@ -36,6 +37,10 @@ export function FactoryFrame() {
     params.validate = params.validate || VALIDATOR.ACCEPTED;
     params.name = myId;
      div.appendChild(factoryTag.input(params));
+
+     div.appendChild(factoryBox.error());
+
+
    return div;
     /*
     var x = params.id;
@@ -80,7 +85,7 @@ export function FactoryFrame() {
     div.appendChild(labelError);
     return div;*/
   };
-  API.labelSelectInput = function(params){    
+  API.phone = function(params){    
     
     let myId = params.id;
     params.id = "div_" + myId;
@@ -103,7 +108,7 @@ export function FactoryFrame() {
       
   const myInput = {
               id : myId,
-        validate : params.validate || "",
+        validate : params.validate || VALIDATOR.ACCEPTED,
            class : "etiqueta19 s8" || "",
             type : params.type || "text",
             size : params.size || "", 

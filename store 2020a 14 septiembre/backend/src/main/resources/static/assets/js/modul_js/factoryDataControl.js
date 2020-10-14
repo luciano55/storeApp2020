@@ -72,7 +72,7 @@ export function FactoryDataControl() {
     params.maxLength = "9";
     params.required = true;
     params.title = "9 characters";
-    return factoryFrame.labelSelectInput(params);
+    return factoryFrame.phone(params);
     }
   return API;
 }

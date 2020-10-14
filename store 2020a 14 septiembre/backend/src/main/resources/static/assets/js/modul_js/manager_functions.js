@@ -113,9 +113,9 @@ export function ManagerFunctions() {
   };
 
   API.validations = function () {
-    const $form = d.querySelector(".contact-form"),
-      $inputs = d.querySelectorAll(".contact-form [required]");
-    const factoryBox = FactoryBox();
+//const $form = d.querySelector(".contact-form"),
+  //    $inputs = d.querySelectorAll(".contact-form [required]");
+ //   const factoryBox = FactoryBox();
     //console.log($inputs);
     /*
     $inputs.forEach((input) => {
@@ -164,7 +164,7 @@ export function ManagerFunctions() {
        
       } */
     });
-
+/*
     d.addEventListener("submit", (e) => {
       //e.preventDefault();
       //alert("Enviando formulario");
@@ -180,7 +180,7 @@ export function ManagerFunctions() {
           $response.classList.add("none");
         }, 2000);
       }, 2000);
-    });
+    });*/
   };
   
 
@@ -239,16 +239,17 @@ export function ManagerFunctions() {
             if (PREFIJOS[index].value === selectedValue) {
                 if(tipo === myMobile){
                    sessionStorage.setItem('prefix_input_regExpMovil', PREFIJOS[index].expresionRegularMovil);
-                    sessionStorage.setItem('prefix_input_minimo_mobile',  PREFIJOS[index].minimo);
+                    sessionStorage.setItem('prefix_input_minimo_mobile',  PREFIJOS[index].maximo);
                     sessionStorage.setItem('prefix_input_maximo_mobile', PREFIJOS[index].maximo);
                 }
                 else {
                   sessionStorage.setItem('prefix_input_regExpFijo',           PREFIJOS[index].expresionRegularFijo);
-                   sessionStorage.setItem('prefix_input_minimo_landline',   PREFIJOS[index].minimo);
+                   sessionStorage.setItem('prefix_input_minimo_landline',   PREFIJOS[index].maximo);
                    sessionStorage.setItem('prefix_input_maximo_landline',  PREFIJOS[index].maximo);
                 } 
                 changeFlag(PREFIJOS[index].flag, nodoActivo);  
                   d.getElementById(nodoActivo).setAttribute("maxlength", PREFIJOS[index].maximo);
+                    d.getElementById(nodoActivo).setAttribute("minlength", PREFIJOS[index].maximo);
             }
         }
     };
@@ -263,6 +264,7 @@ export function ManagerFunctions() {
                     sessionStorage.setItem('prefix_input_regExpMovil',PREFIJOS[index].expresionRegularMovil);                   
                 }
                 d.getElementById(tipo).setAttribute("maxlength", PREFIJOS[index].maximo);
+                d.getElementById(tipo).setAttribute("minlength", PREFIJOS[index].maximo);
                 let labelId = "label_" + tipo;
                 let label = d.getElementById(labelId);
                 let flagBox = factoryBox.littleImgBox(); 
