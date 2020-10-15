@@ -1,5 +1,5 @@
-import { FactoryFrame } from "./factoryFrame.js";
-import { VALIDATOR } from "./enum_validator.js";
+import { FactoryFrame } from "../factory/factoryFrame.js";
+import { VALIDATOR } from "../enum/enum_validator.js";
 
 export function FactoryDataControl() {
   const API = {};

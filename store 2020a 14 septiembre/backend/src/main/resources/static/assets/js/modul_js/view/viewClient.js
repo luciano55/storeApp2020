@@ -1,5 +1,5 @@
-import { FactoryDataControl } from "./factoryDataControl.js";
-import { FactoryTag } from "./factoryTag.js";
+import { FactoryDataControl } from "../factory/factoryDataControl.js";
+import { FactoryTag } from "../factory/factoryTag.js";
 
 export function ViewClient() {
   const factoryDataControl = new FactoryDataControl();

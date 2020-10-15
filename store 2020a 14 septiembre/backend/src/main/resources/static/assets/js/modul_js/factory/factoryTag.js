@@ -152,7 +152,7 @@ export function FactoryTag() {
   };
  API.select = function(params){
         var select = document.createElement("select");
-        select.id = "select_" + params.id || "";
+        select.id = params.id || "";
         select.className = params.class || "";
         return select;
     };

@@ -1,24 +1,27 @@
-import { FactoryBox } from "./factoryBox.js";
-import {COLOR} from "./enum_color.js"
-import { ValidateUtil, Validations } from "./factoryValidation.js";
 
+import {COLOR} from "../enum/enum_color.js"
+
+import {ValidateUtil, Validations} from "../factory/factoryValidation.js"
 
 export function ManagerFunctions() {
   const API = {};
   const d = document,
-    ls = localStorage,
+    lS = localStorage,
+    sS = sessionStorage,
     w = window;
+    const $ = function(myId){
+      return d.getElementById(myId);
+    }
 
-  var sw = 0;
   API.darkLight = function (classDark) {
     const $selectors = d.querySelectorAll("[data-dark]");
-    const $btn = d.getElementById("darkMode");
+    const $btn = $("darkMode");
 
     const setThemeInitial = function () {
-      if (ls.getItem("theme") === null) {
-        ls.setItem("theme", "light");
+      if (lS.getItem("theme") === null) {
+        lS.setItem("theme", "light");
       } else {
-        if (ls.getItem("theme") === "light") {
+        if (lS.getItem("theme") === "light") {
           $btn.value = "light";
           $selectors.forEach((el) => el.classList.remove(classDark));
         } else {
@@ -32,7 +35,7 @@ export function ManagerFunctions() {
       e.target.value === "light" ? (state = "dark") : (state = "light");
       $selectors.forEach((el) => el.classList.toggle(classDark));
       e.target.value = state;
-      ls.setItem("theme", state);
+      lS.setItem("theme", state);
     };
     d.addEventListener("click", (e) => {
       if (e.target.id === "darkMode") {
@@ -45,7 +48,7 @@ export function ManagerFunctions() {
   API.weather = function () {
     const key = "00c14c9fa75c8b84d8f1492058ac4369";
     if (key == "")
-      d.getElementById("temp").innerHTML = "Remember to add your api key!";
+      $("temp").innerHTML = "Remember to add your api key!";
 
     function weatherBallon(cityID) {
       //fetch('https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=00c14c9fa75c8b84d8f1492058ac4369')
@@ -71,18 +74,18 @@ export function ManagerFunctions() {
       );
       var description = data.weather[0].description;
 
-      d.getElementById("description").innerHTML = description;
-      d.getElementById("temp").innerHTML = celcius + "&deg;";
-      d.getElementById("location").innerHTML = data.name;
+      $("description").innerHTML = description;
+      $("temp").innerHTML = celcius + "&deg;";
+      $("location").innerHTML = data.name;
 
       if (description.indexOf("rain") > 0) {
-        d.getElementById("myHome").className = "cwbody rainy";
+        $("myHome").className = "cwbody rainy";
       } else if (description.indexOf("cloud") > 0) {
-        d.getElementById("myHome").className = "cwbody cloudy";
+       $("myHome").className = "cwbody cloudy";
       } else if (description.indexOf("sunny") > 0) {
-        d.getElementById("myHome").className = "cwbody sunny";
+        $("myHome").className = "cwbody sunny";
       } else {
-        d.getElementById("myHome").className = "cwbody clear";
+       $("myHome").className = "cwbody clear";
       }
     }
 
@@ -139,6 +142,7 @@ export function ManagerFunctions() {
        // alert(typeof e.target.dataset.validate);
         //  alert(e.target.dataset.validate);
         //eval("Validations.lettersWithSpace(e)");
+       
         eval(e.target.dataset.validate + "(e)");
       }
       /*
@@ -185,14 +189,12 @@ export function ManagerFunctions() {
   
 
  API.prefix = function(myLandline, myMobile){
-  'use strict';
-    const factoryBox = FactoryBox();
-    let phonePrefix = null;
-    //const prefix_input = {}; //STORE
+  'use strict';   
+    
     const countryPattern = {
         NUMERO_FRANCE_FIJO: /^[1-9](\d{2}){4}$/, //^[1-9](\d{2}){4}$
         NUMERO_FRANCE_MOVIL: /^[6|7][0-9]{8}$/,
-        NUMERO_SPAIN_FIJO: /^[9][0-9]{8}$/,
+        NUMERO_SPAIN_FIJO:"^[9][0-9]{8}$",
         NUMERO_SPAIN_MOVIL: /^[6|7][0-9]{8}$/,
         NUMERO_US_FIJO: /^[0-9]{10}$/,
         NUMERO_US_MOVIL: /^[0-9]{10}$/
@@ -226,55 +228,55 @@ export function ManagerFunctions() {
     ];
     const changeFlag = function (flag, tipo) {
       
-       d.getElementById("label_" + tipo).src = "../assets/img/flags/" + flag;        
+       d.getElementById("litleImg_" + tipo).src = "../assets/img/flags/" + flag;        
     }
     const  changePrefix = function (tipo) {
 
-        let nodoActivo = tipo; //myLandline;
-        //if (tipo === myMobile) {nodoActivo = myMobile;}
-        d.getElementById(nodoActivo).placeholder = "new phone";
-        d.getElementById(nodoActivo).style.background = COLOR.ERROR; 
-        let selectedValue =  d.getElementById("select_" + nodoActivo).options[ d.getElementById("select_" + nodoActivo).selectedIndex].value;
+        let nodoActivo = tipo;      
+        $(nodoActivo).placeholder = "new phone";
+        $(nodoActivo).style.background = COLOR.ERROR; 
+        let selectedValue =  $("select_" + nodoActivo).options[ $("select_" + nodoActivo).selectedIndex].value;
         for (let index in PREFIJOS) {
             if (PREFIJOS[index].value === selectedValue) {
                 if(tipo === myMobile){
-                   sessionStorage.setItem('prefix_input_regExpMovil', PREFIJOS[index].expresionRegularMovil);
-                    sessionStorage.setItem('prefix_input_minimo_mobile',  PREFIJOS[index].maximo);
-                    sessionStorage.setItem('prefix_input_maximo_mobile', PREFIJOS[index].maximo);
+                  sS.setItem('patternMovil', PREFIJOS[index].expresionRegularMovil);
+                    sS.setItem('min_mobile',  PREFIJOS[index].maximo);
+                    sS.setItem('max_mobile', PREFIJOS[index].maximo);
                 }
                 else {
-                  sessionStorage.setItem('prefix_input_regExpFijo',           PREFIJOS[index].expresionRegularFijo);
-                   sessionStorage.setItem('prefix_input_minimo_landline',   PREFIJOS[index].maximo);
-                   sessionStorage.setItem('prefix_input_maximo_landline',  PREFIJOS[index].maximo);
+                  sS.setItem('patternFijo',           PREFIJOS[index].expresionRegularFijo);
+                   sS.setItem('min_landline',   PREFIJOS[index].maximo);
+                   sS.setItem('max_landline',  PREFIJOS[index].maximo);
                 } 
                 changeFlag(PREFIJOS[index].flag, nodoActivo);  
-                  d.getElementById(nodoActivo).setAttribute("maxlength", PREFIJOS[index].maximo);
-                    d.getElementById(nodoActivo).setAttribute("minlength", PREFIJOS[index].maximo);
+                  $(nodoActivo).setAttribute("maxlength", PREFIJOS[index].maximo);
+                    $(nodoActivo).setAttribute("minlength", PREFIJOS[index].maximo);
             }
         }
     };
     const createSelectPrefix = function (tipo) {
-        phonePrefix = d.getElementById("select_" + tipo);
+        let countries = $("select_" + tipo);
         for (let index in PREFIJOS) {
-            phonePrefix.options[phonePrefix.options.length] = new Option(PREFIJOS[index].prefijo, PREFIJOS[index].value, undefined, PREFIJOS[index].default);
+            countries.options[countries.options.length] = new Option(PREFIJOS[index].prefijo, PREFIJOS[index].value, undefined, PREFIJOS[index].default);
             if (PREFIJOS[index].default) {
                 if (tipo === myLandline) {
-                   sessionStorage.setItem('prefix_input_regExpFijo', PREFIJOS[index].expresionRegularFijo);
+                   sS.setItem('patternFijo', PREFIJOS[index].expresionRegularFijo);
                 } else {
-                    sessionStorage.setItem('prefix_input_regExpMovil',PREFIJOS[index].expresionRegularMovil);                   
+                   sS.setItem('patternMovil',PREFIJOS[index].expresionRegularMovil);                   
                 }
-                d.getElementById(tipo).setAttribute("maxlength", PREFIJOS[index].maximo);
-                d.getElementById(tipo).setAttribute("minlength", PREFIJOS[index].maximo);
-                
+               $(tipo).setAttribute("maxlength", PREFIJOS[index].maximo);
+                $(tipo).setAttribute("minlength", PREFIJOS[index].maximo);
+                /*
                 let labelId = "label_" + tipo;
                 let label = d.getElementById(labelId);
                 let flagBox = factoryBox.littleImgBox(); 
                 label.parentNode.replaceChild(flagBox, label);
                 flagBox.id = "label_" + tipo;
+                */
                 changeFlag(PREFIJOS[index].flag,tipo);
             }
         }
-        phonePrefix.addEventListener("change", function () {
+        countries.addEventListener("change", function () {
             changePrefix(tipo);
         });
     };

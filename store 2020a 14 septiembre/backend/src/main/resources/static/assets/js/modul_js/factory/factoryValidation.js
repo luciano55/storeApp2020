@@ -1,4 +1,4 @@
-import {COLOR} from "./enum_color.js";
+import {COLOR} from "../enum/enum_color.js";
 import {FactoryBox} from "./factoryBox.js";
 
 
@@ -133,6 +133,7 @@ alert(params.nodo.style.backgroundColor);
     }
   },
   regExpConsequences: function (params) {
+    //alert (params.nodo.value);
     ValidateUtil.assessConsequences(
       ValidateUtil.execExpRegular(params.patron, params.nodo.value),
       params
@@ -480,9 +481,10 @@ export const Validations = {
         let informationPanel;
         const params = {};
         params.nodo = evt.target;
-        params.patron =  sessionStorage.getItem("prefix_input_regExpFijo");
-         params.maximo = sessionStorage.getItem("prefix_input_maximo_landline") || 9;
-        params.minimo = sessionStorage.getItem("prefix_input_minimo_landline") || 9;
+        params.patron =  sessionStorage.getItem("patternFijo");
+        //alert( params.patron);
+         params.maximo = sessionStorage.getItem("maximo_landline") || 9;
+        params.minimo = sessionStorage.getItem("minimo_landline") || 9;
         params.mensajeError = ("Tlf fijo con formato erróneo y ademas debe tener: " + params.maximo + " dígitos");
         if (!document.getElementById("informationPanel")) {
             informationPanel = factoryBox.informationPanel();
@@ -528,11 +530,11 @@ export const Validations = {
         let informationPanel;
         const params = {};
         params.nodo = evt.target;
-        params.patron = sessionStorage.getItem("prefix_input_regExpMovil");
-       // alert("params.patron " + params.patron);
-        params.maximo = sessionStorage.getItem("prefix_input_maximo_mobile") || 9;
-        params.minimo = sessionStorage.getItem("prefix_input_minimo_mobile") || 9;
-        params.mensajeError = ("Móvil con formato erróneo y ademas debe tener: " + params.maximo + " dígitos");
+        params.patron = sessionStorage.getItem("patternMovil");
+       
+        params.maximo = sessionStorage.getItem("maximo_mobile") || 9;
+        params.minimo = sessionStorage.getItem("minimo_mobile") || 9;
+        params.mensajeError = ("Móvil con formato erróneo y además debe tener: " + params.maximo + " dígitos");
         if (!document.getElementById("informationPanel")) {
             informationPanel = factoryBox.informationPanel();
         } else {
@@ -540,13 +542,17 @@ export const Validations = {
         }
 
         if (params.nodo.value.length == params.maximo) {
+          console.log(params.patron);
+          let regExp = new RegExp(/^[9][0-9]{8}$/);
+           console.log("validación: " +regExp.test("924323314"));
+
             informationPanel.innerHTML = document.getElementById("select_mobile").value + "-" + params.nodo.value;
             if (params.nodo.nextSibling) {
                 params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
             } else {
                 params.nodo.parentNode.appendChild(informationPanel);
             }
-
+ 
         }
         ValidateUtil.regExpConsequences(params);
 

@@ -1,5 +1,5 @@
-import { FactoryButton } from "./factoryButton.js";
-export function FactoryFooter() {
+import { FactoryButton } from "../factory/factoryButton.js";
+export function ViewFooter() {
   const factoryButton = new FactoryButton();
   const humburgerButton = factoryButton.hamburger();
   return humburgerButton;

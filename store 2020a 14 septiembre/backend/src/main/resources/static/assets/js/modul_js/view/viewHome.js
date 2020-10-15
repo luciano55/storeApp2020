@@ -1,8 +1,8 @@
-import { FactoryTag } from "./factoryTag.js";
-import { FactoryLogo } from "./factoryLogo.js";
-import { FactoryFrame } from "./factoryFrame.js";
+import { FactoryTag } from "../factory/factoryTag.js";
+import { FactoryLogo } from "../factory/factoryLogo.js";
+import { FactoryFrame } from "../factory/factoryFrame.js";
 
-export function FactoryHome() {
+export function ViewHome() {
   const factoryTag = new FactoryTag();
   const factoryLogo = new FactoryLogo();
   const factoryFrame = new FactoryFrame();
