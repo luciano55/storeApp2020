@@ -265,6 +265,7 @@ export function ManagerFunctions() {
                 }
                 d.getElementById(tipo).setAttribute("maxlength", PREFIJOS[index].maximo);
                 d.getElementById(tipo).setAttribute("minlength", PREFIJOS[index].maximo);
+                
                 let labelId = "label_" + tipo;
                 let label = d.getElementById(labelId);
                 let flagBox = factoryBox.littleImgBox(); 

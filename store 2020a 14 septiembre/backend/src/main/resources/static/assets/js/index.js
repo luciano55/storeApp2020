@@ -25,7 +25,7 @@ d.addEventListener("click", (e) => {
     myBody.innerHTML = "";
     myBody.appendChild(viewClient.register());
     managerFunctions.validations();
-    managerFunctions.prefix("","mobile");
+    managerFunctions.prefix("landline","mobile");
 
   }
 });

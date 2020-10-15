@@ -14,10 +14,48 @@ export function FactoryFrame() {
     const factoryBox = new FactoryBox();
   const generalPurposeFunctions = new GeneralPurposeFunctions();
  
-  let params = {};
 
-  API.input = function (params) {
 
+  API.div_ = function (params) {
+    const myId = params.id;
+    params.id = "div_" + params.id;
+    params.class = ""; // "harni-form"; 
+    const div = factoryTag.div(params);     
+   params.id  = myId ;
+    return div;    
+  }
+  API.label_ = function (params) {
+    const myId = params.id;
+   if(params.labelOn=== true){      
+      // myParams ={};
+      
+      params.for =  params.id;
+      params.class = "label-frame-input";
+      params.id  =  params.id ;
+       params.text =  generalPurposeFunctions.capital( params.id) + ": ";
+       params.id = "label_" + params.id;
+       const x =  factoryTag.label(params);
+       params.id  = myId;
+       return x;
+    }
+  }
+  API.select_ = function (params) {
+     const select = factoryTag.select(params); 
+     alert(select.id);
+     //select.id = "select_" + select.id;
+     return select;
+  }
+  API.input_  = function (params) {
+      params.validate = params.validate || VALIDATOR.ACCEPTED;
+    params.name = params.id;
+     return  factoryTag.input(params);
+  }
+
+  API.divLabelInput = function (params) {
+        const divLabelInput = API.div_(params).appendChild(API.label_(params));
+        divLabelInput.appendChild(API.input_(params));
+        return divLabelInput;
+    /*
     const myId = params.id;
     params.id = "div_" + params.id;
     params.class = ""; // "harni-form"; 
@@ -40,53 +78,28 @@ export function FactoryFrame() {
 
      div.appendChild(factoryBox.error());
 
-
    return div;
-    /*
-    var x = params.id;
-    params.id = "div_" + params.id;
-    params.class = "contenedorFila";
-    params.text = "";
-    var div = factoryTag.div(params);
-    params.id = x;
-
-    var miLabel = {
-      id: "label_" + params.id,
-      class: "labelInput",
-      for: params.id,
-      title: STORE.generalPurposeFunctions.capital(params.id) + ": ",
-    };
-    var label = factoryTag.label(miLabel);
-
-    var miInput = {
-      id: params.id,
-      validate: params.validate || "STORE.validate.accepted",
-      class: "etiqueta19 s8",
-      type: params.type,
-      size: params.size,
-      minLength: params.minLength,
-      maxLength: params.maxLength,
-      required: params.required,
-      placeholder: params.placeholder,
-      title: params.title,
-    };
-    var input = factoryTag.input(miInput);
-
-    var miLabelError = {
-      id: "labelError_" + params.id,
-      class: "labelInput",
-      for: params.id,
-      title: "Aviso: ",
-    };
-    var labelError = factoryTag.label(miLabelError);
-
-    div.appendChild(label);
-    div.appendChild(input);
-    div.appendChild(labelError);
-    return div;*/
+*/
   };
-  API.phone = function(params){    
-    
+  API.divLabelSelectInput = function(params){
+const divLabelSelectInput  = API.div_(params).appendChild(API.label_(params));
+        divLabelSelectInput .appendChild(API.select_(params));
+          divLabelSelectInput .appendChild(API.input_(params));
+        return divLabelSelectInput ;
+    /*
+      const divLabelInput = API.divLabelInput(params);
+      alert()
+      const label = document.getElementById("label_"+params.id);
+      alert(label.id);
+      const select = factoryTag.select(params); 
+      label.parentNode.insertBefore(select, label.nextSibling);
+      return divLabelInput;*/
+  }
+  API.phone = function(params){  
+
+    return API.divLabelSelectInput(params);
+
+    /*
     let myId = params.id;
     params.id = "div_" + myId;
     params.class = "contenedorFila";
@@ -132,9 +145,11 @@ export function FactoryFrame() {
     div.appendChild(select);
     div.appendChild(input);
     div.appendChild(labelError);
-    return div;
+    
+    return div;*/
 };
   API.menuButton = function () {
+    let params = {};
     params.class = "header-content container";
     const section = factoryTag.section(params);
 
@@ -149,6 +164,7 @@ export function FactoryFrame() {
     <div id="location"></div>
   </div>
 </div>*/
+let params = {};
     params.class = "subhome";
     const divExt = factoryTag.div(params);
     params = {};

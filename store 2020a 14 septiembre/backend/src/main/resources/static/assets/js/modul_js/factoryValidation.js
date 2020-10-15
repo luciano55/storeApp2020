@@ -480,8 +480,9 @@ export const Validations = {
         let informationPanel;
         const params = {};
         params.nodo = evt.target;
-        params.patron = STORE.prefix_input.regExpFijo;
-        params.maximo = STORE.prefix_input.maximo_landline || "9";
+        params.patron =  sessionStorage.getItem("prefix_input_regExpFijo");
+         params.maximo = sessionStorage.getItem("prefix_input_maximo_landline") || 9;
+        params.minimo = sessionStorage.getItem("prefix_input_minimo_landline") || 9;
         params.mensajeError = ("Tlf fijo con formato erróneo y ademas debe tener: " + params.maximo + " dígitos");
         if (!document.getElementById("informationPanel")) {
             informationPanel = factoryBox.informationPanel();

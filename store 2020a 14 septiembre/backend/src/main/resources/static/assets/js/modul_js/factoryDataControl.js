@@ -19,7 +19,7 @@ export function FactoryDataControl() {
     params.required = true;
     params.title = "2 to 50 characters";
 
-    return factoryFrame.input(params);
+    return factoryFrame.divLabelInput(params);
     /*
 
     var myObject = {
@@ -46,7 +46,7 @@ export function FactoryDataControl() {
     params.maxLength = "100";
     params.required = true;
     params.title = "2 to 100 characters";
-    return factoryFrame.input(params);   
+    return factoryFrame.divLabelInput(params);   
   };
   API.nif = function () {
      params = {};
@@ -59,7 +59,7 @@ export function FactoryDataControl() {
     params.maxLength = "9";
     params.required = true;
     params.title = "9 characters";
-    return factoryFrame.input(params);
+    return factoryFrame.divLabelInput(params);
     };
   API.mobile = function () {
      params = {};
@@ -68,6 +68,19 @@ export function FactoryDataControl() {
     params.labelOn = true;
     params.type = "text";
     params.placeholder = "input your mobile";
+    params.minLength = "9";
+    params.maxLength = "9";
+    params.required = true;
+    params.title = "9 characters";
+    return factoryFrame.phone(params);
+    }
+    API.landline = function () {
+     params = {};
+    params.id = "landline";
+    params.validate = VALIDATOR.LANDLINE;
+    params.labelOn = true;
+    params.type = "text";
+    params.placeholder = "input your landline";
     params.minLength = "9";
     params.maxLength = "9";
     params.required = true;

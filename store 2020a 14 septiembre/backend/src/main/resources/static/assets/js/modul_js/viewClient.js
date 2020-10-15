@@ -20,6 +20,8 @@ export function ViewClient() {
     section.appendChild(factoryDataControl.lastname());
     section.appendChild(factoryDataControl.nif());
     section.appendChild(factoryDataControl.mobile());
+    section.appendChild(factoryDataControl.landline());
+
     return section;
     /*
     params.id = "seccion1";
