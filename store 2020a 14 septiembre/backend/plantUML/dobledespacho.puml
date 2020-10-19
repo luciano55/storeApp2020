@@ -1,0 +1,35 @@
+@startuml dobledespacho
+
+Interface OperationControllerVisitor{
+visit(StartController)
+visit(PutController)
+}
+Class TictactoeView{
+
+}
+Interface Controller{
+}
+Class OperationController{
+  accept(OperationControllerVisitor)
+}
+OperationControllerVisitor o-- TictactoeView
+Controller  o--  OperationController
+
+Interface IProfesor{
+  saludar(ICurso curso);
+  visit(Segundo segundo);
+  visit(Primero primero);
+  despedirse();
+}
+Class Jose {
+  curso.aceptar(this);  
+}
+Interface ICurso {
+  aceptar(IProfesor profesor);
+}
+Class Primero {
+
+}
+ICurso o-- Primero
+IProfesor o-- Jose
+@enduml

@@ -1,4 +1,4 @@
-@startuml
+@startuml factory
 object FactoryTag{
 
 }

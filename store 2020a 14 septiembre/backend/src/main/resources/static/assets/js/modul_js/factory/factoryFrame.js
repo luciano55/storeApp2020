@@ -17,8 +17,7 @@ export function FactoryFrame() {
   API.div_ = function (params) {
     const myId = params.id;
     params.id = "div_" + params.id;
-    params.class = ""; // "harni-form"; 
-    const div = factoryTag.div(params);     
+   const div = factoryTag.div(params);     
    params.id  = myId ;
     return div;    
   }
@@ -36,19 +35,25 @@ export function FactoryFrame() {
   }
   API.select_ = function (params) {
      const select = factoryTag.select(params); 
-     select.id = "select_" + select.id;
+     select.id = "select_" + params.id;
      return select;
   }
   API.input_  = function (params) {
       params.validate = params.validate || VALIDATOR.ACCEPTED;
     params.name = params.id;
-     return  factoryTag.input(params);
+    return  factoryTag.input(params);
   }  
+  API.errorBox_ = function(params){
+    const errorBox = factoryBox.error();
+    errorBox.id = "boxerror_" + params.id;
+    return errorBox;
+  }
 
   API.divLabelInput = function (params) {
         const divLabelInput = API.div_(params);
         divLabelInput.appendChild(API.label_(params));
         divLabelInput.appendChild(API.input_(params));
+         divLabelInput.appendChild(API.errorBox_(params));
         return divLabelInput;    
   };
   API.divLabelSelectInput = function(params){
@@ -67,12 +72,13 @@ export function FactoryFrame() {
       return divLabelInput;*/
   }
   API.phone = function(params){  
-      const phone  = API.div_(params);
+        const phone  = API.div_(params);
         const littleImgBox = factoryBox.littleImgBox();
          littleImgBox.id = "litleImg_"  + params.id;
          phone.appendChild(littleImgBox);
          phone .appendChild(API.select_(params));
          phone .appendChild(API.input_(params));
+         phone .appendChild(API.errorBox_(params));
         return phone ;    
 };
   API.menuButton = function () {

@@ -1,20 +1,13 @@
 
-import {COLOR} from "../enum/enum_color.js"
-
-import {ValidateUtil, Validations} from "../factory/factoryValidation.js"
+import {COLOR} from "../enum/enum_color.js";
+import {d,$,lS,sS,Qa} from "./global.js";
+import {ValidateUtil, Validations} from "../factory/factoryValidation.js";
 
 export function ManagerFunctions() {
-  const API = {};
-  const d = document,
-    lS = localStorage,
-    sS = sessionStorage,
-    w = window;
-    const $ = function(myId){
-      return d.getElementById(myId);
-    }
+  const API = {};   
 
   API.darkLight = function (classDark) {
-    const $selectors = d.querySelectorAll("[data-dark]");
+    const $selectors = Qa("[data-dark]");
     const $btn = $("darkMode");
 
     const setThemeInitial = function () {
@@ -188,16 +181,16 @@ export function ManagerFunctions() {
   };
   
 
- API.prefix = function(myLandline, myMobile){
+ API.phone = function(){
   'use strict';   
     
     const countryPattern = {
-        NUMERO_FRANCE_FIJO: /^[1-9](\d{2}){4}$/, //^[1-9](\d{2}){4}$
-        NUMERO_FRANCE_MOVIL: /^[6|7][0-9]{8}$/,
+        NUMERO_FRANCE_FIJO: "^[0-9]{9}$", ///^[1-9](\d{2}){4}$
+        NUMERO_FRANCE_MOVIL: "^[6|7][0-9]{8}$",
         NUMERO_SPAIN_FIJO:"^[9][0-9]{8}$",
-        NUMERO_SPAIN_MOVIL: /^[6|7][0-9]{8}$/,
-        NUMERO_US_FIJO: /^[0-9]{10}$/,
-        NUMERO_US_MOVIL: /^[0-9]{10}$/
+        NUMERO_SPAIN_MOVIL: "^[6|7][0-9]{8}$",
+        NUMERO_US_FIJO: "^[0-9]{10}$",
+        NUMERO_US_MOVIL: "^[0-9]{10}$"
     };
     const PREFIJOS = [
         {
@@ -230,58 +223,77 @@ export function ManagerFunctions() {
       
        d.getElementById("litleImg_" + tipo).src = "../assets/img/flags/" + flag;        
     }
-    const  changePrefix = function (tipo) {
-
-        let nodoActivo = tipo;      
-        $(nodoActivo).placeholder = "new phone";
-        $(nodoActivo).style.background = COLOR.ERROR; 
-        let selectedValue =  $("select_" + nodoActivo).options[ $("select_" + nodoActivo).selectedIndex].value;
+    const  changePrefix = function (e) {
+       let tipo = e.target.className;
+          let names =  e.target.id.split("_");
+          let inputPhone = names[1]+"_" + names[2];
+          $(inputPhone).value = "";
+        $(inputPhone).placeholder = "enter new phone";
+        $(inputPhone).style.borderColor = COLOR.ERROR
+        let selectedValue =  $("select_" + inputPhone).options[ $("select_" + inputPhone).selectedIndex].value;
         for (let index in PREFIJOS) {
             if (PREFIJOS[index].value === selectedValue) {
-                if(tipo === myMobile){
-                  sS.setItem('patternMovil', PREFIJOS[index].expresionRegularMovil);
-                    sS.setItem('min_mobile',  PREFIJOS[index].maximo);
-                    sS.setItem('max_mobile', PREFIJOS[index].maximo);
+              let i = names[2];
+                
+               if(tipo =="mobile"){                 
+                   sS.setItem('pattern_'+i, PREFIJOS[index].expresionRegularMovil);
+                   /*
+                    sS.setItem('minMobile_'+i,  PREFIJOS[index].maximo);
+                    sS.setItem('maxMobile_'+ i, PREFIJOS[index].maximo);*/
                 }
                 else {
-                  sS.setItem('patternFijo',           PREFIJOS[index].expresionRegularFijo);
-                   sS.setItem('min_landline',   PREFIJOS[index].maximo);
-                   sS.setItem('max_landline',  PREFIJOS[index].maximo);
-                } 
-                changeFlag(PREFIJOS[index].flag, nodoActivo);  
-                  $(nodoActivo).setAttribute("maxlength", PREFIJOS[index].maximo);
-                    $(nodoActivo).setAttribute("minlength", PREFIJOS[index].maximo);
+                  sS.setItem('pattern_'+i,           PREFIJOS[index].expresionRegularFijo);
+                  /*
+                   sS.setItem('min_landline_'+i,   PREFIJOS[index].maximo);
+                   sS.setItem('max_landline_'+i,  PREFIJOS[index].maximo);*/                } 
+                  sS.setItem('numberLength_'+i,   PREFIJOS[index].maximo);
+                changeFlag(PREFIJOS[index].flag, inputPhone);  
+                  $(inputPhone).setAttribute("maxlength", PREFIJOS[index].maximo);
+                    $(inputPhone).setAttribute("minlength", PREFIJOS[index].maximo);
             }
         }
     };
-    const createSelectPrefix = function (tipo) {
-        let countries = $("select_" + tipo);
-        for (let index in PREFIJOS) {
-            countries.options[countries.options.length] = new Option(PREFIJOS[index].prefijo, PREFIJOS[index].value, undefined, PREFIJOS[index].default);
-            if (PREFIJOS[index].default) {
-                if (tipo === myLandline) {
-                   sS.setItem('patternFijo', PREFIJOS[index].expresionRegularFijo);
+    const createSelectPrefix = function (phone,index) {
+        let tipo = phone.className;
+        let countries = $("select_" + phone.id);
+        for (let i in PREFIJOS) {
+            countries.options[countries.options.length] = new Option(PREFIJOS[i].prefijo, PREFIJOS[i].value, undefined, PREFIJOS[i].default);
+            if (PREFIJOS[i].default) {  
+               if(tipo =="mobile"){       
+                   sS.setItem('pattern_'+index, PREFIJOS[i].expresionRegularMovil);
+               }else{
+                   sS.setItem('pattern_'+index, PREFIJOS[i].expresionRegularFijo);
+                  
+               }
+              /*
+                if (phone.id.indexOf("landline") != -1){
+                   sS.setItem('patternFijo_'+index, PREFIJOS[i].expresionRegularFijo);
                 } else {
-                   sS.setItem('patternMovil',PREFIJOS[index].expresionRegularMovil);                   
-                }
-               $(tipo).setAttribute("maxlength", PREFIJOS[index].maximo);
-                $(tipo).setAttribute("minlength", PREFIJOS[index].maximo);
-                /*
-                let labelId = "label_" + tipo;
-                let label = d.getElementById(labelId);
-                let flagBox = factoryBox.littleImgBox(); 
-                label.parentNode.replaceChild(flagBox, label);
-                flagBox.id = "label_" + tipo;
-                */
-                changeFlag(PREFIJOS[index].flag,tipo);
+                   sS.setItem('patternMovil_'+index,PREFIJOS[i].expresionRegularMovil);                   
+                } */
+               $(phone.id).setAttribute("maxlength", PREFIJOS[i].maximo);
+                $(phone.id).setAttribute("minlength", PREFIJOS[i].maximo);
+            
+                changeFlag(PREFIJOS[i].flag,phone.id);
             }
         }
-        countries.addEventListener("change", function () {
-            changePrefix(tipo);
+        countries.addEventListener("change", function (e) {
+            changePrefix(e);
         });
     };
-    if (myLandline) {createSelectPrefix(myLandline);}
-    if (myMobile) {createSelectPrefix(myMobile);}
+    // Crear dos array con los phones
+    const phones = Qa("input.mobile, input.landline");
+    console.log(phones);
+    phones.forEach(createSelectPrefix);
+    // const landlines = d.querySelectorAll("input.landline");
+    //console.log(landlines);
+    //landlines.forEach(createSelectPrefix);
+   /* function myFunction(item, index) {
+  createSelectPrefix(item);*/
+
+  //  if (myLandline) {createSelectPrefix(myLandline);}
+    /*if (myMobile) {createSelectPrefix(myMobile);}*/
+
     }
 
   return API;

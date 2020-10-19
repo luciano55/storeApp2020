@@ -3,7 +3,7 @@ export const VALIDATOR = {
   CIF_NIF :  "Validations.cifnif",
   DNI_NIE_CIF : "Validations.dniNieCif",  
   LETTERSWITHSPACE : "Validations.lettersWithSpace" ,
-  MOBILE: "Validations.mobile" ,
-  LANDLINE:"Validations.landline"
+  PHONE: "Validations.phone" 
+  
 } 
 Object.freeze(VALIDATOR)

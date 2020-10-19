@@ -6,7 +6,7 @@ export function ViewHome() {
   const factoryTag = new FactoryTag();
   const factoryLogo = new FactoryLogo();
   const factoryFrame = new FactoryFrame();
-  const d = document;
+  
   let params = {};
   params.id = "myHome";
   const divHome = factoryTag.div(params);

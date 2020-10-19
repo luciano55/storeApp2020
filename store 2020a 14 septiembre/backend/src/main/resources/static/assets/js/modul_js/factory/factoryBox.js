@@ -3,7 +3,6 @@ import { FactoryTag } from "./factoryTag.js";
 export function FactoryBox() {
   const factoryTag = new FactoryTag();
 
-  const d = document;
   const API = {};
   let params = {};
 

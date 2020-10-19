@@ -107,6 +107,8 @@ export const ValidateUtil = {
 
       params.nodo.style.borderColor =  COLOR.VALID;
       params.nodo.style.borderWidth =  "5px";
+     document.getElementById("boxerror_"+params.nodo.id).classList.add("none");
+      //document.getElementById()
 
       /*
       params.nodo.style.borderColor = COLOR.VALID;
@@ -124,6 +126,8 @@ alert(params.nodo.style.backgroundColor);
     } else {
         params.nodo.style.borderColor = COLOR.ERROR;
         params.nodo.style.borderWidth =  "10px";
+        document.getElementById("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
+        document.getElementById("boxerror_"+params.nodo.id).classList.remove("none");
 
       /*
       params.nodo.style.backgroundColor = STORE.color.errorColor;
@@ -133,7 +137,7 @@ alert(params.nodo.style.backgroundColor);
     }
   },
   regExpConsequences: function (params) {
-    //alert (params.nodo.value);
+    
     ValidateUtil.assessConsequences(
       ValidateUtil.execExpRegular(params.patron, params.nodo.value),
       params
@@ -476,34 +480,6 @@ export const Validations = {
                    ValidateUtil.assessConsequences(false,params);
             }
     },
-    landline : function (evt) {
-       const factoryBox = new FactoryBox();
-        let informationPanel;
-        const params = {};
-        params.nodo = evt.target;
-        params.patron =  sessionStorage.getItem("patternFijo");
-        //alert( params.patron);
-         params.maximo = sessionStorage.getItem("maximo_landline") || 9;
-        params.minimo = sessionStorage.getItem("minimo_landline") || 9;
-        params.mensajeError = ("Tlf fijo con formato erróneo y ademas debe tener: " + params.maximo + " dígitos");
-        if (!document.getElementById("informationPanel")) {
-            informationPanel = factoryBox.informationPanel();
-        } else {
-            informationPanel = document.getElementById("informationPanel");
-        }
-
-        if (params.nodo.value.length == params.maximo) {
-            informationPanel.innerHTML = document.getElementById("select_landline").value + "-" + params.nodo.value;
-            if (params.nodo.nextSibling) {
-                params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
-            } else {
-                params.nodo.parentNode.appendChild(informationPanel);
-            }
-
-        }
-        ValidateUtil.regExpConsequences(params);
-
-    },
     lettersWithSpace: function (evt) {
         const params = {};
         params.nodo = evt.target;
@@ -524,39 +500,7 @@ export const Validations = {
 
             ValidacionUtil.valorarConsecuencia(STORE.ValidacionUtil.validarExpRegular(params),params);
 
-        },
-    mobile: function (evt) {
-      const factoryBox = new FactoryBox();
-        let informationPanel;
-        const params = {};
-        params.nodo = evt.target;
-        params.patron = sessionStorage.getItem("patternMovil");
-       
-        params.maximo = sessionStorage.getItem("maximo_mobile") || 9;
-        params.minimo = sessionStorage.getItem("minimo_mobile") || 9;
-        params.mensajeError = ("Móvil con formato erróneo y además debe tener: " + params.maximo + " dígitos");
-        if (!document.getElementById("informationPanel")) {
-            informationPanel = factoryBox.informationPanel();
-        } else {
-            informationPanel = document.getElementById("informationPanel");
-        }
-
-        if (params.nodo.value.length == params.maximo) {
-          console.log(params.patron);
-          let regExp = new RegExp(/^[9][0-9]{8}$/);
-           console.log("validación: " +regExp.test("924323314"));
-
-            informationPanel.innerHTML = document.getElementById("select_mobile").value + "-" + params.nodo.value;
-            if (params.nodo.nextSibling) {
-                params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
-            } else {
-                params.nodo.parentNode.appendChild(informationPanel);
-            }
- 
-        }
-        ValidateUtil.regExpConsequences(params);
-
-    },
+        },    
     password : function(evt){
         const params = {};
         params.nodo = evt.target;
@@ -573,6 +517,34 @@ export const Validations = {
        ValidateUtil.regExpConsequences(params);
 
         
+    },
+    phone: function (evt) {
+      const factoryBox = new FactoryBox();
+        let informationPanel;
+        const params = {};
+        let names =  evt.target.id.split("_");
+         let pattern = "pattern" + "_"+ names[1];        
+        params.nodo = evt.target;         
+        params.patron = sessionStorage.getItem(pattern);       
+        params.maximo = sessionStorage.getItem("numberLength"+"_"+ names[1]) || 9;
+        params.mensajeError = ("Phone con formato erróneo y/o debe tener: " + params.maximo + " dígitos");
+        if (!document.getElementById("informationPanel")) {
+            informationPanel = factoryBox.informationPanel();
+        } else {
+            informationPanel = document.getElementById("informationPanel");
+        }
+
+        if (params.nodo.value.length == params.maximo) {
+            informationPanel.innerHTML = document.getElementById("select_phone_"+ names[1]).value + "-" + params.nodo.value;
+            if (params.nodo.nextSibling) {
+                params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
+            } else {
+                params.nodo.parentNode.appendChild(informationPanel);
+            }
+ 
+        }
+        ValidateUtil.regExpConsequences(params);
+
     },
     user: function (evt) {
        const  params = {};

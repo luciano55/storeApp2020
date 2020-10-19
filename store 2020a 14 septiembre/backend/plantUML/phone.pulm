@@ -1,0 +1,27 @@
+@startuml phone
+object FactoryTag{
+}
+
+object Index{ 
+}
+object FactoryFrame{
+ phone()
+}
+object FactoryDataControl{
+  phone() 
+}
+object ViewClient{
+ register();
+}
+object ManagerFunction{
+    validations()
+    phone()
+}
+
+FactoryFrame *-- FactoryTag
+FactoryDataControl *-- FactoryFrame 
+ViewClient *-- FactoryDataControl
+
+Index o-- ManagerFunction
+Index o-- ViewClient
+@enduml

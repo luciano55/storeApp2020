@@ -1,10 +1,11 @@
 import { FactoryDataControl } from "../factory/factoryDataControl.js";
 import { FactoryTag } from "../factory/factoryTag.js";
+import {PHONE} from "../enum/enum_phone.js"
 
 export function ViewClient() {
   const factoryDataControl = new FactoryDataControl();
  const factoryTag = new FactoryTag();
-  const d = document;
+  
   const API = {};
   let params = {};
   API.register = function () {
@@ -16,14 +17,24 @@ export function ViewClient() {
     const titleForm = factoryTag.h1(params);
     section.appendChild(titleForm);
 
-    section.appendChild(factoryDataControl.firstname());
-    section.appendChild(factoryDataControl.lastname());
-    section.appendChild(factoryDataControl.nif());
-    section.appendChild(factoryDataControl.mobile());
-    section.appendChild(factoryDataControl.landline());
+    //section.appendChild(factoryDataControl.firstname());
+    //section.appendChild(factoryDataControl.lastname());
+    //section.appendChild(factoryDataControl.nif());
+    
+   // section.appendChild(factoryDataControl.mobile("mobile01")); 
+    //section.appendChild(factoryDataControl.mobile("mobile02")); 
+    //section.appendChild(factoryDataControl.landline()); // pasar el id
+
+  // factoryDataControl.phone("mobile", 3, section);
+ //  factoryDataControl.phone("landline", 2, section);
+
+factoryDataControl.phone(PHONE.MOBILE, 3, section);
+factoryDataControl.phone(PHONE.LANDLINE, 2, section);
 
     return section;
     /*
+
+
     params.id = "seccion1";
     params.class = "section-formJM"; // section
     const section = factoryTag.section(params);

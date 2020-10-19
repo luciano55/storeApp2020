@@ -1,10 +1,8 @@
 import { FactoryTag } from "./factoryTag.js";
+
 export function FactoryButton() {
   const API = {};
-  const d = document,
-    ls = localStorage;
-  var sw = 0;
-
+ 
   const factoryTag = new FactoryTag();
   let params = {};
   API.hamburger = function () {
@@ -69,13 +67,13 @@ export function FactoryButton() {
 }
 
 function humburgerIcon(e) {
-  const d = document;
+  
   if (
     e.target.matches(".humburger-btn") ||
     e.target.matches(`${".humburger-btn"} *`)
   ) {
-    let $header = d.getElementById("myHeader");
-    d.querySelector(".humburger-btn").classList.toggle("is-active");
+    let $header = document.getElementById("myHeader");
+    document.querySelector(".humburger-btn").classList.toggle("is-active");
     if ($header.computedStyleMap().get("position") == "fixed") {
       $header.style.position = "relative";
       $header.style.opacity = "1";
