@@ -8,7 +8,6 @@ export function FactoryDataControl() {
   let params = {};
 
 
-
  const tfno = function(params){
    params.id = "phone_" + params.id;
    params.placeholder = "input your " + params.class;
@@ -93,7 +92,7 @@ export function FactoryDataControl() {
         let i;
           for ( i=phoneInicio; i<(num + phoneInicio); i++){
             // node.appendChild(tipo=="mobile"?mobile(i):landline(i));
-              node.appendChild(eval(tipo + "(i)"));
+             node.appendChild(eval(tipo + "(i)"));
           }
           phoneInicio = i;
           return node;

@@ -1,4 +1,4 @@
-package com.example.demo.model.factoryDAO;
+package com.example.demo.DAO.factoryDAO;
 
 public class FactoriaDAO {
   /*

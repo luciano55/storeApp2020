@@ -39,9 +39,16 @@ export function FactoryFrame() {
      return select;
   }
   API.input_  = function (params) {
+    const myId  = params.id;
+    //params.id = "inputerror_" + myId;
+      params.id = "";
+      const div = factoryTag.div(params);  
+      params.id = myId;
       params.validate = params.validate || VALIDATOR.ACCEPTED;
     params.name = params.id;
-    return  factoryTag.input(params);
+    div.appendChild(factoryTag.input(params));
+    div.appendChild(API.errorBox_(params));
+    return div;
   }  
   API.errorBox_ = function(params){
     const errorBox = factoryBox.error();
@@ -52,15 +59,14 @@ export function FactoryFrame() {
   API.divLabelInput = function (params) {
         const divLabelInput = API.div_(params);
         divLabelInput.appendChild(API.label_(params));
-        divLabelInput.appendChild(API.input_(params));
-         divLabelInput.appendChild(API.errorBox_(params));
+        divLabelInput.appendChild(API.input_(params));        
         return divLabelInput;    
   };
   API.divLabelSelectInput = function(params){
       const divLabelSelectInput  = API.div_(params);
          divLabelSelectInput.appendChild(API.label_(params));
          divLabelSelectInput .appendChild(API.select_(params));
-         divLabelSelectInput .appendChild(API.input_(params));
+         divLabelSelectInput .appendChild(API.input_(params));        
         return divLabelSelectInput ;
     /*
       const divLabelInput = API.divLabelInput(params);
@@ -77,8 +83,7 @@ export function FactoryFrame() {
          littleImgBox.id = "litleImg_"  + params.id;
          phone.appendChild(littleImgBox);
          phone .appendChild(API.select_(params));
-         phone .appendChild(API.input_(params));
-         phone .appendChild(API.errorBox_(params));
+         phone .appendChild(API.input_(params));       
         return phone ;    
 };
   API.menuButton = function () {

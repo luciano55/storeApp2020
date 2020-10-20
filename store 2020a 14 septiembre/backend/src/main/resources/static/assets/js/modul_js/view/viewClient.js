@@ -25,8 +25,8 @@ export function ViewClient() {
     //section.appendChild(factoryDataControl.mobile("mobile02")); 
     //section.appendChild(factoryDataControl.landline()); // pasar el id
 
-  // factoryDataControl.phone("mobile", 3, section);
- //  factoryDataControl.phone("landline", 2, section);
+ //  factoryDataControl.phone("mobile", 3, section);
+  //factoryDataControl.phone("landline", 2, section);
 
 factoryDataControl.phone(PHONE.MOBILE, 3, section);
 factoryDataControl.phone(PHONE.LANDLINE, 2, section);

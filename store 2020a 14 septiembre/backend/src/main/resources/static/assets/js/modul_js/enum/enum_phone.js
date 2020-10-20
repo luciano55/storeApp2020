@@ -2,8 +2,7 @@ export const PHONE = {
  
    MOBILE : 'mobile',
 
-   LANDLINE: 'landline'
-   
+   LANDLINE: 'landline' 
 
 } 
 Object.freeze(PHONE)

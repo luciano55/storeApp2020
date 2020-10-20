@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.SQLException;
 
-import com.example.demo.model.accessDB.AccessMysql;
+import com.example.demo.DAO.accessDB.AccessMysql;
 
 import org.junit.jupiter.api.Test;
 

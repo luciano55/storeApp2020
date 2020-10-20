@@ -1,6 +1,6 @@
 import {COLOR} from "../enum/enum_color.js";
 import {FactoryBox} from "./factoryBox.js";
-
+import {d,$,sS} from "../function/global.js";
 
 export const ValidateUtil = {
   getLimitNode: function (node) {
@@ -107,7 +107,7 @@ export const ValidateUtil = {
 
       params.nodo.style.borderColor =  COLOR.VALID;
       params.nodo.style.borderWidth =  "5px";
-     document.getElementById("boxerror_"+params.nodo.id).classList.add("none");
+     $("boxerror_"+params.nodo.id).classList.add("none");
       //document.getElementById()
 
       /*
@@ -126,8 +126,8 @@ alert(params.nodo.style.backgroundColor);
     } else {
         params.nodo.style.borderColor = COLOR.ERROR;
         params.nodo.style.borderWidth =  "10px";
-        document.getElementById("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
-        document.getElementById("boxerror_"+params.nodo.id).classList.remove("none");
+       $("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
+        $("boxerror_"+params.nodo.id).classList.remove("none");
 
       /*
       params.nodo.style.backgroundColor = STORE.color.errorColor;
@@ -164,46 +164,7 @@ export const Validations = {
         ValidateUtil.regExpConsequences(params);
 
     },
-    cp: function (evt) {
-        let informationPanel;
-        const params = {};
-        params.nodo = evt.target;
-        params.patron = "^(?:0[1-9][0-9]{3}|[1-4][0-9]{4}|5[0-2][0-9]{3})$";
-        params.mensajeError = "Formato postal code No Válido";
-        if (!$("informationPanel")) {
-            informationPanel = STORE.informationPanel();
-        } else {
-            informationPanel = $("informationPanel");            
-             $("informationPanel").style.display = "";
-            
-        }
-        if (params.nodo.value.length == 5) {
-            STORE.getCityByCp(params.nodo.value).then(function (response) {
-
-                informationPanel.innerHTML = response;
-                if (params.nodo.nextSibling) {
-                    params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
-                } else {
-                    params.nodo.parentNode.appendChild(informationPanel);
-                }
-
-                ValidateUtil.regExpConsequences(params);
-
-
-            }, function (Error) {
-                params.mensajeError = "CP No Válido";
-                params.nodo.value = "?????";
-                if ($("informationPanel")) {
-                    $("informationPanel").style.display = "none";
-                }
-
-                ValidateUtil.regExpConsequences(params);
-
-
-            });
-        }
-        ValidateUtil.regExpConsequences(params);
-    },
+   
     date: function (evt) {
        const params = {};
         params.nodo = evt.target;
@@ -525,26 +486,55 @@ export const Validations = {
         let names =  evt.target.id.split("_");
          let pattern = "pattern" + "_"+ names[1];        
         params.nodo = evt.target;         
-        params.patron = sessionStorage.getItem(pattern);       
-        params.maximo = sessionStorage.getItem("numberLength"+"_"+ names[1]) || 9;
+        params.patron = sS.getItem(pattern);       
+        params.maximo = sS.getItem("numberLength"+"_"+ names[1]) || 9;
         params.mensajeError = ("Phone con formato erróneo y/o debe tener: " + params.maximo + " dígitos");
-        if (!document.getElementById("informationPanel")) {
+        if (!$("informationPanel")) {
             informationPanel = factoryBox.informationPanel();
         } else {
-            informationPanel = document.getElementById("informationPanel");
+            informationPanel = $("informationPanel");
         }
-
         if (params.nodo.value.length == params.maximo) {
-            informationPanel.innerHTML = document.getElementById("select_phone_"+ names[1]).value + "-" + params.nodo.value;
+            informationPanel.innerHTML = $("select_phone_"+ names[1]).value + "-" + params.nodo.value;
             if (params.nodo.nextSibling) {
                 params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
             } else {
                 params.nodo.parentNode.appendChild(informationPanel);
-            }
- 
+            } 
         }
         ValidateUtil.regExpConsequences(params);
-
+    },
+    postalCode: function (evt) {
+        let informationPanel;
+        const params = {};
+        params.nodo = evt.target;
+        params.patron = "^(?:0[1-9][0-9]{3}|[1-4][0-9]{4}|5[0-2][0-9]{3})$";
+        params.mensajeError = "Formato postal code No Válido";
+        if (!$("informationPanel")) {
+            informationPanel =  factoryBox.informationPanel();
+        } else {
+            informationPanel = $("informationPanel");            
+            informationPanel.style.display = "";            
+        }
+        if (params.nodo.value.length == 5) {
+            STORE.getCityByCp(params.nodo.value).then(function (response) {
+                informationPanel.innerHTML = response;
+                if (params.nodo.nextSibling) {
+                    params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
+                } else {
+                    params.nodo.parentNode.appendChild(informationPanel);
+                }
+                ValidateUtil.regExpConsequences(params);
+            }, function (Error) {
+                params.mensajeError = "CP No Válido";
+                params.nodo.value = "?????";
+                if ($("informationPanel")) {
+                    $("informationPanel").style.display = "none";
+                }
+                ValidateUtil.regExpConsequences(params);
+            });
+        }
+        ValidateUtil.regExpConsequences(params);
     },
     user: function (evt) {
        const  params = {};

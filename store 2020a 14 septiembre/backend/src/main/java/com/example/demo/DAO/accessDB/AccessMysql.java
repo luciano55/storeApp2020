@@ -1,4 +1,4 @@
-package com.example.demo.model.accessDB;
+package com.example.demo.DAO.accessDB;
 
 import java.sql.*;
 
