@@ -9,8 +9,11 @@ public class Segundo implements ICurso {
     System.out.println("Chao profe, buen fin de semana te desean los de segundo");
   }
 
-  public void aceptar(IProfesor profesor) {
+  public void aceptar(IProfesorSegundo profesor) {
     profesor.impartir(this);
   }
 
+  public void aceptar(IProfesorX profesor) {
+    // profesor.impartir(this);
+  }
 }

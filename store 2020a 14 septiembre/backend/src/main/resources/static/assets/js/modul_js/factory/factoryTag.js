@@ -93,7 +93,8 @@ export function FactoryTag() {
   API.input = function (params) {
     var input = document.createElement("input");
     input.id = params.id;
-    input.setAttribute("data-validate", params.validate);
+    input.setAttribute("data-validate", params.validate);  
+    //input.setAttribute("data-phoneType", params.phoneType);  
     input.className = params.class || "";
     input.type = params.type || "";
     input.name = params.name || "";

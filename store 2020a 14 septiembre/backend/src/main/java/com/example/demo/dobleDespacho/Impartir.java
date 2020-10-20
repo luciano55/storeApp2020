@@ -18,22 +18,22 @@ public class Impartir {
   private void simularEscenario() {
     Random random = new Random(System.currentTimeMillis());
     for (int i = 0; i < 5; i++) {
-      IProfesor profesor = null;
-      int r = random.nextInt(4);
+      IProfesorX profesor = null;
+      int r = random.nextInt(3);
       if (r == 0) {
         profesor = new Luciano();
       } else if (r == 1) {
         profesor = new Jose();
       } else if (r == 2) {
         profesor = new Ade();
-      } else if (r == 3) {
-        profesor = new Olga();
+        // } else if (r == 3) {
+        // profesor = new Olga();
       }
       this.simularEscenario(profesor);
     }
   }
 
-  private void simularEscenario(IProfesor profesor) {
+  private void simularEscenario(IProfesorX profesor) {
     segundo.saludar();
     profesor.saludar(segundo);
     segundo.despedirse();

@@ -1,6 +1,6 @@
 package com.example.demo.dobleDespacho;
 
-public class Luciano implements IProfesor {
+public class Luciano extends IProfesorCiclo {
 
   public void saludar(ICurso curso) {
     System.out.println("Hola chicos, soy Luciano");

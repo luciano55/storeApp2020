@@ -12,6 +12,8 @@ export function FactoryDataControl() {
    params.id = "phone_" + params.id;
    params.placeholder = "input your " + params.class;
     params.validate = VALIDATOR.PHONE;
+    params.phoneType =  params.class;
+    params.tipo = params.class;
     params.labelOn = true;
     params.type = "text";    
     params.minLength = "9";

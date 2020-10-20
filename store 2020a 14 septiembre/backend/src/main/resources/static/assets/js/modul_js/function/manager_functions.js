@@ -178,8 +178,7 @@ export function ManagerFunctions() {
         }, 2000);
       }, 2000);
     });*/
-  };
-  
+  };  
 
  API.phone = function(){
   'use strict';   
@@ -199,103 +198,68 @@ export function ManagerFunctions() {
             "value": "+34",
             "maximo": 9,
             "flag": "es.png",
-            "mobileresionRegularMovil": COUNTRYPATTERN.REGEX_SPAIN_MOVIL,
-            "expresionRegularFijo": COUNTRYPATTERN.REGEX_SPAIN_FIJO
+            "mobile": COUNTRYPATTERN.REGEX_SPAIN_MOVIL,
+            "landline": COUNTRYPATTERN.REGEX_SPAIN_FIJO
         },
         {
             "prefijo": "FR",
             "value": "+33",
             "maximo": 9,
             "flag": "fr.png",
-            "expresionRegularMovil": COUNTRYPATTERN.REGEX_FRANCE_MOVIL,
-            "expresionRegularFijo": COUNTRYPATTERN.REGEX_FRANCE_FIJO
+            "mobile": COUNTRYPATTERN.REGEX_FRANCE_MOVIL,
+            "landline": COUNTRYPATTERN.REGEX_FRANCE_FIJO
         },
         {
             "prefijo": "US",
             "value": "+1",
             "maximo": 10,
             "flag": "us.png",
-            "expresionRegularMovil": COUNTRYPATTERN.REGEX_US_MOVIL,
-            "expresionRegularFijo": COUNTRYPATTERN.REGEX_US_FIJO
+            "mobile": COUNTRYPATTERN.REGEX_US_MOVIL,
+            "landline": COUNTRYPATTERN.REGEX_US_FIJO
         },
     ];
+    function updateChanges(phoneNumber, idCountry, phoneType){
+        eval("sS.setItem('pattern_'+"+phoneNumber+", Prefix["+idCountry+"]."+phoneType+")");
+      sS.setItem('numberLength_'+phoneNumber,   Prefix[idCountry].maximo);
+      $("phone_"+phoneNumber).setAttribute("maxlength", Prefix[idCountry].maximo);
+      $("phone_"+phoneNumber).setAttribute("minlength", Prefix[idCountry].maximo);
+      changeFlag(Prefix[idCountry].flag,$("phone_"+phoneNumber).id);
+}
+
     const changeFlag = function (flag, myId) {
       
        $("litleImg_" + myId).src = "../assets/img/flags/" + flag;        
     }
     const  changePrefix = function (e) {
-       let tipo = e.target.className;
-          let names =  e.target.id.split("_");
-          let inputPhone = names[1]+"_" + names[2];
-          $(inputPhone).value = "";
-        $(inputPhone).placeholder = "enter new phone";
-        $(inputPhone).style.borderColor = COLOR.ERROR;
+       let phoneType = e.target.className;
+       let names =  e.target.id.split("_");
+       let phoneInput = names[1]+"_" + names[2];
+       $(phoneInput).value = "";
+       $(phoneInput).placeholder = "enter new phone";
+       $(phoneInput).style.borderColor = COLOR.ERROR;
         let selectedValue = e.target.options[ e.target.selectedIndex].value;
         for (let index in Prefix) {
             if (Prefix[index].value === selectedValue) {
-              let i = names[2];
-                
-               if(tipo =="mobile"){                 
-                   sS.setItem('pattern_'+i, Prefix[index].expresionRegularMovil);
-                   /*
-                    sS.setItem('minMobile_'+i,  PREFIJOS[index].maximo);
-                    sS.setItem('maxMobile_'+ i, PREFIJOS[index].maximo);*/
-                }
-                else {
-                  sS.setItem('pattern_'+i,           Prefix[index].expresionRegularFijo);
-                  /*
-                   sS.setItem('min_landline_'+i,   PREFIJOS[index].maximo);
-                   sS.setItem('max_landline_'+i,  PREFIJOS[index].maximo);*/                } 
-                  sS.setItem('numberLength_'+i,   Prefix[index].maximo);
-                changeFlag(Prefix[index].flag, inputPhone);  
-                  $(inputPhone).setAttribute("maxlength", Prefix[index].maximo);
-                    $(inputPhone).setAttribute("minlength", Prefix[index].maximo);
+                updateChanges(names[2], index, phoneType);            
             }
-        }
-    };
+        };
+  }
     const fillSelectPrefix = function (phone,index) {
-        let tipo = phone.className; //.toUpperCase();
-
-        let countries = $("select_" + phone.id);
+        let selectPrefixInternational = $("select_" + phone.id);
         for (let i in Prefix) {
-            countries.options[countries.options.length] = new Option(Prefix[i].prefijo, Prefix[i].value, undefined, Prefix[i].default);
+            selectPrefixInternational.options[selectPrefixInternational.options.length] = new Option(Prefix[i].prefijo, Prefix[i].value, undefined, Prefix[i].default);
             if (Prefix[i].default) {  
-
-               if(tipo =="mobile"){       
-                   sS.setItem('pattern_'+index, Prefix[i].expresionRegularMovil);
-               }else{
-                   sS.setItem('pattern_'+index, Prefix[i].expresionRegularFijo);                  
-               }
-              /*
-                if (phone.id.indexOf("landline") != -1){
-                   sS.setItem('patternFijo_'+index, PREFIJOS[i].expresionRegularFijo);
-                } else {
-                   sS.setItem('patternMovil_'+index,PREFIJOS[i].expresionRegularMovil);                   
-                } */
-               $(phone.id).setAttribute("maxlength", Prefix[i].maximo);
-                $(phone.id).setAttribute("minlength", Prefix[i].maximo);
-            
-                changeFlag(Prefix[i].flag,phone.id);
-            }
+              updateChanges(index, i, phone.className);               
+             }              
         }
-        countries.addEventListener("change", function (e) {
+        selectPrefixInternational.addEventListener("change", function (e) {
             changePrefix(e);
         });
     };
-    // Crear dos array con los phones
-    const phones = Qa("input.mobile, input.landline");
+    const phones = Qa("input[data-phoneType]");
     console.log(phones);
     phones.forEach(fillSelectPrefix);
-    // const landlines = d.querySelectorAll("input.landline");
-    //console.log(landlines);
-    //landlines.forEach(createSelectPrefix);
-   /* function myFunction(item, index) {
-  createSelectPrefix(item);*/
-
-  //  if (myLandline) {createSelectPrefix(myLandline);}
-    /*if (myMobile) {createSelectPrefix(myMobile);}*/
-
-    }
-
+ }
   return API;
 }
+

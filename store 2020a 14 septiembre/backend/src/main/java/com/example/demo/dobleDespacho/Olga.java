@@ -1,14 +1,10 @@
 package com.example.demo.dobleDespacho;
 
-public class Olga implements IProfesor {
+public class Olga {// implements IProfesorPrimero {
 
-  public void saludar(ICurso curso) {
+  public void saludar(Primero primero) {
     System.out.println("Hola chicos, soy Olga");
-    curso.aceptar(this);
-  }
-
-  public void impartir(Segundo segundo) {
-    System.out.println("No doy en segundo");
+    // primero.aceptar(this);
   }
 
   public void impartir(Primero primero) {

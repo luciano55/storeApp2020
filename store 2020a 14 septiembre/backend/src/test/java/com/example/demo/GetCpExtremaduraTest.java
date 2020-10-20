@@ -16,7 +16,7 @@ public class GetCpExtremaduraTest {
     CallerPostalCode callerPostalCode = new CallerPostalCode();
     JSONArray cpsJson = new JSONArray();
     cpsJson = callerPostalCode.getPostalCodeExtremadura();
-    System.out.println("test");
+    System.out.println(cpsJson);
     boolean a = false;
     // System.out.println(cpsJson);
     assertEquals(true, a);

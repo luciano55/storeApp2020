@@ -108,41 +108,20 @@ export const ValidateUtil = {
       params.nodo.style.borderColor =  COLOR.VALID;
       params.nodo.style.borderWidth =  "5px";
      $("boxerror_"+params.nodo.id).classList.add("none");
-      //document.getElementById()
-
-      /*
-      params.nodo.style.borderColor = COLOR.VALID;
-      params.nodo.style.borderWidth = "1px 5px 10px 20px";
-       params.nodo.style.background = COLOR.VALID;
-alert(params.nodo.style.backgroundColor);
-     
-      if (STORE.stratregyType == "oneByOne") {
-        STORE.nodeList.nextVisible(params.nodo);
-      }
-      STORE.error.off();
-      STORE.submit.on();
-      $("labelError_" + params.nodo.id).style.display = "none";*/
-      // STORE.reponsiWindow();
+    
     } else {
         params.nodo.style.borderColor = COLOR.ERROR;
         params.nodo.style.borderWidth =  "10px";
        $("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
-        $("boxerror_"+params.nodo.id).classList.remove("none");
-
-      /*
-      params.nodo.style.backgroundColor = STORE.color.errorColor;
-      STORE.error.set_message(params.mensajeError);
-      STORE.error.on();
-      STORE.submit.off();*/
+        $("boxerror_"+params.nodo.id).classList.remove("none");      
     }
   },
-  regExpConsequences: function (params) {
-    
+  regExpConsequences: function (params) {    
     ValidateUtil.assessConsequences(
       ValidateUtil.execExpRegular(params.patron, params.nodo.value),
       params
     );
-  },
+  }
 };
 
 export const Validations = {

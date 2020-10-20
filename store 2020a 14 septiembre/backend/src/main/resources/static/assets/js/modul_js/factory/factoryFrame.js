@@ -45,8 +45,14 @@ export function FactoryFrame() {
       const div = factoryTag.div(params);  
       params.id = myId;
       params.validate = params.validate || VALIDATOR.ACCEPTED;
-    params.name = params.id;
-    div.appendChild(factoryTag.input(params));
+      params.phoneType = params.phoneType || "";
+     params.name = params.id;   
+     const myInput = factoryTag.input(params);
+     if (params.phoneType){
+       myInput.setAttribute("data-phoneType", params.phoneType);  
+     }
+          
+    div.appendChild(myInput);
     div.appendChild(API.errorBox_(params));
     return div;
   }  
@@ -78,12 +84,12 @@ export function FactoryFrame() {
       return divLabelInput;*/
   }
   API.phone = function(params){  
-        const phone  = API.div_(params);
-        const littleImgBox = factoryBox.littleImgBox();
+      const phone  = API.div_(params);
+      const littleImgBox = factoryBox.littleImgBox();
          littleImgBox.id = "litleImg_"  + params.id;
          phone.appendChild(littleImgBox);
          phone .appendChild(API.select_(params));
-         phone .appendChild(API.input_(params));       
+         phone.appendChild(API.input_(params));       
         return phone ;    
 };
   API.menuButton = function () {
