@@ -4,7 +4,7 @@ import { ManagerFunctions } from "./modul_js/function/manager_functions.js";
 import { ViewHome } from "./modul_js/view/viewHome.js";
 import { ViewClient } from "./modul_js/view/viewClient.js";
 import {d,$} from "./modul_js/function/global.js";
-
+import {CreateBBDDpostalCode} from "./modul_js/indexedDB/CreateBBDDpostalCode.js";
 
 
 const managerFunctions = new ManagerFunctions();
@@ -16,6 +16,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
   $("myBody").appendChild(ViewHome());
   managerFunctions.darkLight("dark-mode");
   managerFunctions.weather();
+  CreateBBDDpostalCode();
 });
 
 /*d.addEventListener("load", (e) => {
