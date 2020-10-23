@@ -1,7 +1,7 @@
 STORE.namespace("STORE.getCityByCp");
 STORE.getCityByCp = function (cp) {
     return new Promise(function (resolve, reject) {
-            window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+            //window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
             window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
             window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
             if (!window.indexedDB) {
@@ -26,7 +26,6 @@ STORE.getCityByCp = function (cp) {
                     var cursor = evt.target.result;
                     if (cursor) {
                         resolve(cursor.value.municipality);
-
                     } else {
                         $("cp").style.background = "red";
                         reject('No está error code:');

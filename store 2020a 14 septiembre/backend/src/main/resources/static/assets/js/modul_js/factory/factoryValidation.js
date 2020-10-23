@@ -1,6 +1,7 @@
 import {COLOR} from "../enum/enum_color.js";
 import {FactoryBox} from "./factoryBox.js";
 import {d,$,sS} from "../function/global.js";
+import {getCity} from "../indexedDB/createBBDDpostalCode.js"
 
 export const ValidateUtil = {
   getLimitNode: function (node) {
@@ -123,7 +124,7 @@ export const ValidateUtil = {
     );
   }
 };
-
+ const factoryBox = new FactoryBox();
 export const Validations = {
     accepted : function(evt){
         const params = {};
@@ -458,8 +459,7 @@ export const Validations = {
 
         
     },
-    phone: function (evt) {
-      const factoryBox = new FactoryBox();
+    phone: function (evt) {     
         let informationPanel;
         const params = {};
         let names =  evt.target.id.split("_");
@@ -484,6 +484,7 @@ export const Validations = {
         ValidateUtil.regExpConsequences(params);
     },
     postalCode: function (evt) {
+
         let informationPanel;
         const params = {};
         params.nodo = evt.target;
@@ -496,7 +497,7 @@ export const Validations = {
             informationPanel.style.display = "";            
         }
         if (params.nodo.value.length == 5) {
-            STORE.getCityByCp(params.nodo.value).then(function (response) {
+            getCity(params.nodo.value).then(function (response) {
                 informationPanel.innerHTML = response;
                 if (params.nodo.nextSibling) {
                     params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);

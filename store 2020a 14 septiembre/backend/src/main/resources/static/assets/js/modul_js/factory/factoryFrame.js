@@ -21,7 +21,8 @@ export function FactoryFrame() {
    params.id  = myId ;
     return div;    
   }
-  API.label_ = function (params) {    
+  API.label_ = function (params) {  
+   
    if(params.labelOn=== true){      
       const myId = params.id;
       params.for =  params.id;
@@ -32,6 +33,9 @@ export function FactoryFrame() {
        params.id  = myId;
        return x;
     }
+    const labelEmpty ={};
+    labelEmpty.class="none";
+    return factoryTag.label(labelEmpty);
   }
   API.select_ = function (params) {
      const select = factoryTag.select(params); 

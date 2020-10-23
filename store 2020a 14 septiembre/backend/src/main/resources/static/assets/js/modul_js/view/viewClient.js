@@ -28,8 +28,9 @@ export function ViewClient() {
  //  factoryDataControl.phone("mobile", 3, section);
   //factoryDataControl.phone("landline", 2, section);
 
-factoryDataControl.phone(PHONE.MOBILE, 3, section);
-factoryDataControl.phone(PHONE.LANDLINE, 2, section);
+//factoryDataControl.phone(PHONE.MOBILE, 3, section);
+//factoryDataControl.phone(PHONE.LANDLINE, 2, section);
+section.appendChild(factoryDataControl.cp());
 
     return section;
     /*

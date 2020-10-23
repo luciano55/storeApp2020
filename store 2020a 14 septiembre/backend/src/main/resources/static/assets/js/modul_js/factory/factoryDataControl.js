@@ -35,7 +35,20 @@ export function FactoryDataControl() {
     params.class = "mobile";
     return tfno(params);    
     }
-
+ API.cp = function () {
+            var myObject = {
+                id: "cp",
+                validate: VALIDATOR.CP,
+                type: "text",
+                required: true,
+                title: "Código Postal",
+                size: "5",
+                minLength: "5",
+                maxLength: "5",
+                placeholder: "Intro postal code"
+            }
+            return factoryFrame.divLabelInput(myObject);
+        },
   API.firstname = function () {
     params = {};
     params.id = "firstname";
