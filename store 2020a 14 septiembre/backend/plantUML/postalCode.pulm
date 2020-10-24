@@ -1,0 +1,43 @@
+@startuml
+object FactoryTag{
+}
+
+object Index{ 
+}
+object FactoryFrame{
+ divLabelInput()
+}
+object FactoryDataControl{
+  cp() 
+}
+object ViewClient{
+ register()
+}
+object ManagerFunction{
+  validations()
+}
+object IndexedDB{
+   CreateBBDDpostalCode()
+   getCity(cp)
+}
+class GetPostalCodeController{
+    servlet(post,get)
+}
+class CallerPostalCode{  
+}
+object MySql{
+   GetCpExtremadura()
+}
+
+FactoryFrame *-- FactoryTag
+FactoryDataControl *-- FactoryFrame 
+ViewClient *-- FactoryDataControl
+
+Index o-- ManagerFunction
+Index o-- ViewClient
+ManagerFunction -- IndexedDB : getCp
+Index o--IndexedDB : cpBBDD
+IndexedDB *-- GetPostalCodeController : /getcpExtremadura
+GetPostalCodeController *-- CallerPostalCode
+CallerPostalCode -- MySql
+@enduml

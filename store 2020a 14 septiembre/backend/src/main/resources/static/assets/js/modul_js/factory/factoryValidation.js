@@ -484,7 +484,6 @@ export const Validations = {
         ValidateUtil.regExpConsequences(params);
     },
     postalCode: function (evt) {
-
         let informationPanel;
         const params = {};
         params.nodo = evt.target;

@@ -18,12 +18,12 @@ public class CallerPostalCode extends GetConnectionMySql {
     ResultSet results = null;
     JSONArray cpsJson = new JSONArray();
     try {
-      CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call getCp()}");
+      CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call GetCpExtremadura()}");
       try {
         results = cstmt.executeQuery();
         while (results.next()) {
           JSONObject oneJson = new JSONObject();
-          oneJson.put("postalCode", results.getString("cp"));
+          oneJson.put("postalCode", results.getString("postalCode"));
           oneJson.put("municipality", results.getString("municipality"));
           cpsJson.add(oneJson);
         }
