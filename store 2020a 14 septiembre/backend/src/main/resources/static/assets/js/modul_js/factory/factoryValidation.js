@@ -1,7 +1,7 @@
 import {COLOR} from "../enum/enum_color.js";
 import {FactoryBox} from "./factoryBox.js";
 import {d,$,sS} from "../function/global.js";
-import {getCity} from "../indexedDB/createBBDDpostalCode.js"
+import {ManagerFunctions} from "../function/manager_functions.js"
 
 export const ValidateUtil = {
   getLimitNode: function (node) {
@@ -105,16 +105,22 @@ export const ValidateUtil = {
   },
   assessConsequences: function (result, params) {
     if (result) {
-
       params.nodo.style.borderColor =  COLOR.VALID;
       params.nodo.style.borderWidth =  "5px";
-     $("boxerror_"+params.nodo.id).classList.add("none");
+      if($("boxinfo_"+params.nodo.id)){
+           $("boxinfo_"+params.nodo.id).innerHTML = params.mensajeInfo;
+          $("boxinfo_"+params.nodo.id).classList.remove("none"); 
+      }       
+      $("boxerror_"+params.nodo.id).classList.add("none");
     
     } else {
         params.nodo.style.borderColor = COLOR.ERROR;
         params.nodo.style.borderWidth =  "10px";
        $("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
-        $("boxerror_"+params.nodo.id).classList.remove("none");      
+       $("boxerror_"+params.nodo.id).classList.remove("none");   
+        if($("boxinfo_"+params.nodo.id)){   
+                $("boxinfo_"+params.nodo.id).classList.add("none");
+        }
     }
   },
   regExpConsequences: function (params) {    
@@ -125,6 +131,7 @@ export const ValidateUtil = {
   }
 };
  const factoryBox = new FactoryBox();
+ const managerFunctions = new ManagerFunctions();
 export const Validations = {
     accepted : function(evt){
         const params = {};
@@ -467,19 +474,22 @@ export const Validations = {
         params.nodo = evt.target;         
         params.patron = sS.getItem(pattern);       
         params.maximo = sS.getItem("numberLength"+"_"+ names[1]) || 9;
-        params.mensajeError = ("Phone con formato erróneo y/o debe tener: " + params.maximo + " dígitos");
+        params.mensajeError = ("Phone con formato erróneo y/o debe tener: " + params.maximo + " dígitos");       
+        /*
         if (!$("informationPanel")) {
             informationPanel = factoryBox.informationPanel();
         } else {
             informationPanel = $("informationPanel");
-        }
+        }*/
         if (params.nodo.value.length == params.maximo) {
+               params.mensajeInfo =  $("select_phone_"+ names[1]).value + "-" + params.nodo.value;
+          /*
             informationPanel.innerHTML = $("select_phone_"+ names[1]).value + "-" + params.nodo.value;
             if (params.nodo.nextSibling) {
                 params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
             } else {
                 params.nodo.parentNode.appendChild(informationPanel);
-            } 
+            } */
         }
         ValidateUtil.regExpConsequences(params);
     },
@@ -489,28 +499,33 @@ export const Validations = {
         params.nodo = evt.target;
         params.patron = "^(?:0[1-9][0-9]{3}|[1-4][0-9]{4}|5[0-2][0-9]{3})$";
         params.mensajeError = "Formato postal code No Válido";
+        /*
         if (!$("informationPanel")) {
             informationPanel =  factoryBox.informationPanel();
         } else {
             informationPanel = $("informationPanel");            
             informationPanel.style.display = "";            
-        }
+        }*/
         if (params.nodo.value.length == 5) {
-            getCity(params.nodo.value).then(function (response) {
+            managerFunctions.getCity(params.nodo.value).then(function (response) {
+                 params.mensajeInfo = response;
+              /*
                 informationPanel.innerHTML = response;
                 if (params.nodo.nextSibling) {
                     params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
                 } else {
                     params.nodo.parentNode.appendChild(informationPanel);
-                }
+                }*/
                 ValidateUtil.regExpConsequences(params);
             }, function (Error) {
-                params.mensajeError = "CP No Válido";
+                params.mensajeError = Error;
                 params.nodo.value = "?????";
+                /*
                 if ($("informationPanel")) {
                     $("informationPanel").style.display = "none";
-                }
-                ValidateUtil.regExpConsequences(params);
+                }*/
+                ValidateUtil.assessConsequences(false, params);
+                //ValidateUtil.regExpConsequences(params);
             });
         }
         ValidateUtil.regExpConsequences(params);

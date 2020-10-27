@@ -260,6 +260,108 @@ export function ManagerFunctions() {
     console.log(phones);
     phones.forEach(fillSelectPrefix);
  }
+ API.dado = function(){
+  const dados = ['dado informatica', 'dado harnina','dado juntaextremadura'];
+  const imagenes = ['assets/img/escudo02.png','assets/img/harni01.png','assets/img/Escudo_de_Extremadura.png'];
+  const clases = ['cara frontal','cara trasera','cara derecha','cara izquierda','cara arriba','cara abajo'];
+
+const creaImagen = function(imag,a, b, i){
+      var imagen = document.createElement("img");
+      imagen.setAttribute('src', imag);
+      imagen.className = 'Imagen';
+      imagen.id = ("cara"+ a + "-" + b + "-" + i);
+      return imagen;
+  }
+ const creaCara = function(dado, a, b, imagen){
+    for (let i = 0; i < clases.length; i++){
+        var cara = document.createElement('div');
+        cara.className = clases[i];
+        cara.appendChild(creaImagen(imagen,a,b,i));
+        dado[b].appendChild(cara);
+    }
+}
+  
+for (let i = 0; i < dados.length; i++) {
+    const pageDados = document.getElementsByClassName(dados[i]);
+    for (let j = 0; j < pageDados.length; j++){
+        creaCara(pageDados,i, j, imagenes[i]);
+    }
+}
+
+ }
+
+ // IndexedDB
+ const browserCompatibility = function(){
+                              let myIndexdDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+                              window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+                              window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+                              if (!myIndexdDB) {
+                                          window.alert("Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas");
+                              }
+                              return myIndexdDB;
+}
+API.CreateBBDDpostalCode = function(){
+        fetch("/getcpExtremadura").then(response => response.json())
+                    .then(data => {
+                          const  myIndexdDB = browserCompatibility();
+                          let db = null;
+                          const dbNombre = "postalCodeBBDD";
+                          const request = myIndexdDB.open(dbNombre, 1);
+                          request.onerror = function (event) {
+                                     alert('Fallo en la apertura: 1 ' + event.target.message);
+                            };
+                            request.onupgradeneeded = function (event) {
+                                  db = event.target.result;
+                                  const store = db.createObjectStore("postalCode", {
+                                                            keyPath: "idCp",
+                                                              autoIncrement: true
+                                    });
+                                  store.createIndex("postalCodeIndex", "postalCode", {
+                                      unique: false
+                                  });
+                                  store.transaction.oncomplete = function(event) {
+                                          const customerObjectStore = db.transaction("postalCode", "readwrite").objectStore("postalCode");
+                                          for (let i in data) {
+                                              //console.log(data[i]);
+                                              customerObjectStore.add(data[i]);
+                                        }
+                                        alert("BBDD cargada");
+                                    } 
+                            }
+                          })              
+
+}
+API.getCity = function(myCP){
+    return new Promise(function (resolve, reject) {
+        const myIndexdDB = browserCompatibility();
+        let db = null;
+        const dbNombre = "postalCodeBBDD";
+        const request = myIndexdDB.open(dbNombre, 1);
+
+        request.onerror = function (e) {
+            alert('Fallo en la apertura: ' + e.target.message);
+        };
+        request.onsuccess = function (e) {
+                    db = e.target.result;
+                    const range = IDBKeyRange.only(myCP);
+                    const transaction = db.transaction(["postalCode"], "readwrite");
+                    const store = transaction.objectStore("postalCode");
+                    const index = store.index("postalCodeIndex");
+                    index.openCursor(range).onsuccess = function (e) {
+                        var cursor = e.target.result;
+                        console.log(e.target);
+                        if (cursor) {
+                            resolve(cursor.value.municipality);
+                        } else {
+                            reject('Wrong error postal code');
+                        }
+                    };
+                };
+})
+}
+
+
   return API;
 }
 

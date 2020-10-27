@@ -58,5 +58,54 @@ export function FactoryLogo() {
     */
     return article;
   };
+  API.dadoMedio = function(params){
+    const myClass = params.class;
+    /*
+    const myA ={
+      href : params.href,
+      target : "_blank",
+      title : params.title
+    }*/
+    params.id = "dado_" + myClass;
+    params.target = "_blank";
+     const a = factoryTag.a(params);   
+    params.class = "medio dadoCatalogo";
+  const divDadoHarnina = factoryTag.div(params);    
+      params.id = "";
+     params.class = "dado d1 " + myClass; //"dado d1 harnina";
+     divDadoHarnina.appendChild(factoryTag.div(params));
+     a.appendChild(divDadoHarnina);
+    return a;    
+  }
+  API.dadoHarnina= function(){
+    const params = {};
+     params.href = "https://iesarroyoharnina.educarex.es/";
+     params.target = "_blank";
+     params.title = "I.E.S. Arroyo Harnina";
+     const a = factoryTag.a(params);
+     params.id="dadoHarnina";
+     params.class = "medio dadoCatalogo";
+     const divDadoHarnina = factoryTag.div(params);      
+     params.id = "";
+     params.class = "dado d1 harnina";
+     divDadoHarnina.appendChild(factoryTag.div(params));
+     a.appendChild(divDadoHarnina);
+     return a;
+  }
+   API.dadoInformatica= function(){
+     const params = {};
+     params.href = "";
+     params.target = "_blank";
+     params.title = "";
+     const a = factoryTag.a(params);
+     params.id="dadoInformatica";
+     params.class = "medio dadoCatalogo";
+     const divDadoInformatica = factoryTag.div(params);
+     params.id = "";
+     params.class = "dado d1 informatica";
+     divDadoInformatica.appendChild(factoryTag.div(params));
+       a.appendChild(divDadoInformatica);
+      return a;
+  }
   return API;
 }

@@ -20,6 +20,7 @@ export function FactoryDataControl() {
     params.maxLength = "9";
     params.required = true;
     params.title = "9 characters";
+    params.infoBox = true;
     return factoryFrame.phone(params);
 
  }
@@ -35,20 +36,37 @@ export function FactoryDataControl() {
     params.class = "mobile";
     return tfno(params);    
     }
- API.cp = function () {
-            var myObject = {
-                id: "cp",
+ const cp = function (i) {
+            var params = {
+                id: "cp" + i,
                 validate: VALIDATOR.CP,
+                  labelOn : true,
                 type: "text",
                 required: true,
                 title: "Código Postal",
                 size: "5",
                 minLength: "5",
                 maxLength: "5",
-                placeholder: "Intro postal code"
+                placeholder: "Intro postal code",
+                infoBox: true
             }
-            return factoryFrame.divLabelInput(myObject);
-        },
+            return factoryFrame.divLabelInput(params);
+        };
+API.email = function(){
+        var params = {
+            id: "email",
+            validate: VALIDATOR.EMAIL,
+            labelOn : true,
+            type: "email",
+            size: "25",
+            minLength: "10",
+            maxLength: "150",
+            required: true,
+            placeholder: "input your Email",
+            title: "10 to 150 characters"
+        }
+        return factoryFrame.divLabelInput(params);
+    };      
   API.firstname = function () {
     params = {};
     params.id = "firstname";
@@ -112,5 +130,11 @@ export function FactoryDataControl() {
           phoneInicio = i;
           return node;
   }  
+  API.postalCode = function(num, node) {
+    for (let  i = 0; i< num; i++){
+             node.appendChild(cp(i));
+          }          
+    return node;
+  }
   return API;
 }

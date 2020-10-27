@@ -17,20 +17,16 @@ export function ViewClient() {
     const titleForm = factoryTag.h1(params);
     section.appendChild(titleForm);
 
-    //section.appendChild(factoryDataControl.firstname());
-    //section.appendChild(factoryDataControl.lastname());
-    //section.appendChild(factoryDataControl.nif());
-    
-   // section.appendChild(factoryDataControl.mobile("mobile01")); 
-    //section.appendChild(factoryDataControl.mobile("mobile02")); 
-    //section.appendChild(factoryDataControl.landline()); // pasar el id
+   section.appendChild(factoryDataControl.firstname());
+   section.appendChild(factoryDataControl.lastname());
+   section.appendChild(factoryDataControl.nif());
+ 
+  factoryDataControl.phone(PHONE.MOBILE, 2, section);
+  factoryDataControl.phone(PHONE.LANDLINE, 1, section);
 
- //  factoryDataControl.phone("mobile", 3, section);
-  //factoryDataControl.phone("landline", 2, section);
+  factoryDataControl.postalCode(2, section);
 
-//factoryDataControl.phone(PHONE.MOBILE, 3, section);
-//factoryDataControl.phone(PHONE.LANDLINE, 2, section);
-section.appendChild(factoryDataControl.cp());
+  section.appendChild(factoryDataControl.email());
 
     return section;
     /*

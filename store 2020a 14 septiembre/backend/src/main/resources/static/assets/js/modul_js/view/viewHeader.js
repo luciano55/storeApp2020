@@ -6,7 +6,7 @@ const factoryFrame = new FactoryFrame();
 
 export function ViewHeader() {
   const div = document.createElement("div");
-  div.appendChild(factoryBranding.index());
+  div.appendChild(factoryBranding.dices());
   div.appendChild(factoryFrame.menuButton());
   return div;
 }

@@ -21,12 +21,12 @@ public class GetPostalCodeController extends HttpServlet {
    *
    */
   private static final long serialVersionUID = 1L;
-  HttpSession session;
+  // HttpSession session;
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    System.out.println("IN controller");
-    session = request.getSession();
+    // System.out.println("IN controller");
+    // session = request.getSession();
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html;charset=UTF-8");
     JSONArray cpsJson = new JSONArray();

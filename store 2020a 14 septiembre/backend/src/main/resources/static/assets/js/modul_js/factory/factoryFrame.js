@@ -26,10 +26,11 @@ export function FactoryFrame() {
    if(params.labelOn=== true){      
       const myId = params.id;
       params.for =  params.id;
-      params.class = "label-frame-input";
+      //params.class = "label-frame-input";
       params.text =  generalPurposeFunctions.capital( params.id) + ": ";
        params.id = "label_" + params.id;
        const x =  factoryTag.label(params);
+       params.text ="";
        params.id  = myId;
        return x;
     }
@@ -44,9 +45,10 @@ export function FactoryFrame() {
   }
   API.input_  = function (params) {
     const myId  = params.id;
-    //params.id = "inputerror_" + myId;
-      params.id = "";
-      const div = factoryTag.div(params);  
+    params.id = "div_input_" + myId;
+   // params.class = "class";
+   const div = factoryTag.div(params);  
+   // etiqueta
       params.id = myId;
       params.validate = params.validate || VALIDATOR.ACCEPTED;
       params.phoneType = params.phoneType || "";
@@ -54,16 +56,23 @@ export function FactoryFrame() {
      const myInput = factoryTag.input(params);
      if (params.phoneType){
        myInput.setAttribute("data-phoneType", params.phoneType);  
-     }
-          
+     }          
     div.appendChild(myInput);
     div.appendChild(API.errorBox_(params));
+    if(params.infoBox){
+          div.appendChild(API.infoBox_(params));
+    }    
     return div;
   }  
   API.errorBox_ = function(params){
     const errorBox = factoryBox.error();
     errorBox.id = "boxerror_" + params.id;
     return errorBox;
+  }
+  API.infoBox_ = function(params){
+    const infoBox = factoryBox.info();
+    infoBox.id = "boxinfo_" + params.id;
+    return infoBox;
   }
 
   API.divLabelInput = function (params) {

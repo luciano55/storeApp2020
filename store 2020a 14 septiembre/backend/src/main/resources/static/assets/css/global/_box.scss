@@ -5,6 +5,13 @@
   color: #fff;
   transition: all 800ms ease;
 }
+.box-info {
+  margin-top: 1rem;
+  font-size: 80%;
+  background-color: var(--info-color);
+  color: #fff;
+  transition: all 800ms ease;
+}
 .box-error.is-active {
   display: block;
   animation-name: show-message;
@@ -12,4 +19,20 @@
 }
 .none {
   display: none;
+}
+.box-input-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
+}
+.box-input-column {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
 }
