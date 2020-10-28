@@ -127,18 +127,3 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebeef0', endColorstr='#4891b3', GradientType=0 );
   box-shadow: 0px 0px 15px #000 inset, 0px 0px 5px #000;
 }
-@media screen and (min-width: 600px) {
-  .dadoCatalogo {
-    width: 40%;
-    font-size: 7em;
-  }
-  .informatica {
-    display: block;
-  }
-}
-@media screen and (min-width: 800px) {
-  .dadoCatalogo {
-    width: 25%;
-    font-size: 9em;
-  }
-}

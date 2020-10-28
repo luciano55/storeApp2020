@@ -1,5 +1,5 @@
 /* ----------- Media query ---------*/
-@media (min-width: 600px) {
+@media screen and (min-width: 600px) {
   .humburger-btn {
     display: none;
   }
@@ -23,5 +23,39 @@
   }
   .label-frame-input {
     display: block;
+  }
+  .dadoCatalogo {
+    width: 40%;
+    font-size: 7em;
+  }
+  .informatica {
+    display: block;
+  }
+  .box-input-orientation {
+    flex-direction: row;
+  }
+  .harni-form > * {
+    display: inline;
+  }
+  .box-input-children {
+    //background: #00b285;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    //color: #fff;
+    //margin: 30px;
+    //padding: 20px;
+    // font-size: 40px;
+    //text-align: center;
+    /*flex-grow: 1;
+	flex-shrink: 0;*/
+    flex: 1 1 auto;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .dadoCatalogo {
+    width: 25%;
+    font-size: 9em;
   }
 }

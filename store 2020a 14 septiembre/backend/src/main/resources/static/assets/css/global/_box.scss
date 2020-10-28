@@ -20,19 +20,25 @@
 .none {
   display: none;
 }
-.box-input-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  align-items: center;
-  align-content: stretch;
-}
-.box-input-column {
+
+.box-input {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-around;
-  align-items: center;
-  align-content: stretch;
+  // align-items: center;
+  // align-content: stretch;
+}
+.box-input-children {
+  //background: #00b285;
+  width: 100%;
+  height: auto;
+  //color: #fff;
+  //margin: 30px;
+  //padding: 20px;
+  // font-size: 40px;
+  //text-align: center;
+  /*flex-grow: 1;
+	flex-shrink: 0;*/
+  flex: 1 1 auto;
 }

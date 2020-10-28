@@ -1,5 +1,6 @@
 import { FactoryFrame } from "../factory/factoryFrame.js";
 import { VALIDATOR } from "../enum/enum_validator.js";
+import { PHONE } from "../enum/enum_phone.js";
 
 export function FactoryDataControl() {
   const API = {};
@@ -10,37 +11,40 @@ export function FactoryDataControl() {
 
  const tfno = function(params){
    params.id = "phone_" + params.id;
-   params.placeholder = "input your " + params.class;
+   params.placeholder = "input your " +params.phoneType;
     params.validate = VALIDATOR.PHONE;
-    params.phoneType =  params.class;
-    params.tipo = params.class;
-    params.labelOn = true;
+   // params.phoneType =  params.class;
+   // params.tipo = params.class;
+    params.labelOn = false;
     params.type = "text";    
     params.minLength = "9";
     params.maxLength = "9";
     params.required = true;
     params.title = "9 characters";
     params.infoBox = true;
+    params.errorBox = true;
     return factoryFrame.phone(params);
 
  }
  const landline = function (myId) {
      params = {};
     params.id = myId;
-    params.class = "landline";   
+    //params.class = "box-input-children";   
+    params.phoneType = PHONE.LANDLINE;
     return tfno(params);
     }
  const mobile = function (myId) {
      params = {};
     params.id = myId;
-    params.class = "mobile";
+   // params.class = "box-input-children";
+     params.phoneType = PHONE.MOBILE;
     return tfno(params);    
     }
  const cp = function (i) {
             var params = {
                 id: "cp" + i,
                 validate: VALIDATOR.CP,
-                  labelOn : true,
+                labelOn : true,
                 type: "text",
                 required: true,
                 title: "Código Postal",
@@ -48,12 +52,13 @@ export function FactoryDataControl() {
                 minLength: "5",
                 maxLength: "5",
                 placeholder: "Intro postal code",
+                errorBox:true,
                 infoBox: true
             }
-            return factoryFrame.divLabelInput(params);
+            return factoryFrame.input(params);
         };
 API.email = function(){
-        var params = {
+        const params = {
             id: "email",
             validate: VALIDATOR.EMAIL,
             labelOn : true,
@@ -63,63 +68,55 @@ API.email = function(){
             maxLength: "150",
             required: true,
             placeholder: "input your Email",
-            title: "10 to 150 characters"
+            title: "10 to 150 characters",
+            errorBox : true,
         }
-        return factoryFrame.divLabelInput(params);
+        return factoryFrame.input(params);
     };      
   API.firstname = function () {
-    params = {};
-    params.id = "firstname";
-    params.validate = VALIDATOR.LETTERSWITHSPACE;
-    params.labelOn = true;
-    params.type = "text";
-    params.placeholder = "input your FirstName";
-    params.minLength = "2";
-    params.maxLength = "50";
-    params.required = true;
-    params.title = "2 to 50 characters";
-
-    return factoryFrame.divLabelInput(params);
-    /*
-
-    var myObject = {
-      id: "firstname",
-      validate: "STORE.validate.lettersWithSpace",
-      type: "text",
-      size: "25",
-      minLength: "2",
-      maxLength: "50",
-      required: true,
-      placeholder: "input your FirstName",
-      title: "2 to 50 characters",
-    };
-    return STORE.frameLabelInput(myObject);*/
+   const  params = {
+        id : "firstname",
+        validate : VALIDATOR.LETTERSWITHSPACE,
+        labelOn : true,
+        type : "text",
+        placeholder : "input your FirstName",
+        minLength : "2",
+        maxLength : "50",
+        required : true,
+        title : "2 to 50 characters",
+        errorBox : true
+   }
+    return factoryFrame.input(params);
   }; 
   API.lastname = function () {
-     params = {};
-    params.id = "lastname";
-    params.validate = VALIDATOR.LETTERSWITHSPACE;
-    params.labelOn = true;
-    params.type = "text";
-    params.placeholder = "input your LastName";
-    params.minLength = "2";
-    params.maxLength = "100";
-    params.required = true;
-    params.title = "2 to 100 characters";
-    return factoryFrame.divLabelInput(params);   
+     const  params = {
+        id : "lastname",
+        validate : VALIDATOR.LETTERSWITHSPACE,
+        labelOn : true,
+        type : "text",
+        placeholder : "input your LastName",
+        minLength : "2",
+        maxLength : "100",
+        required : true,
+        title : "2 to 100 characters",
+        errorBox : true,
+      }
+    return factoryFrame.input(params);   
   };  
   API.nif = function () {
-     params = {};
-    params.id = "nif";
-    params.validate = VALIDATOR.DNI_NIE_CIF;
-    params.labelOn = true;
-    params.type = "text";
-    params.placeholder = "input your nif";
-    params.minLength = "9";
-    params.maxLength = "9";
-    params.required = true;
-    params.title = "9 characters";
-    return factoryFrame.divLabelInput(params);
+      const  params = {
+        id : "nif",
+        validate : VALIDATOR.DNI_NIE_CIF,
+        labelOn : true,
+        type : "text",
+        placeholder : "input your NIF",
+        minLength : "9",
+        maxLength : "9",
+        required : true,
+        title : "9 characters",
+        errorBox : true,
+      } 
+    return factoryFrame.input(params);
     };  
   API.phone = function(tipo, num, node){
         let i;

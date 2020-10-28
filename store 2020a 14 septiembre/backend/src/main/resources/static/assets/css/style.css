@@ -138,11 +138,25 @@ main {
 .none {
   display: none; }
 
+.box-input {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around; }
+
+.box-input-children {
+  width: 100%;
+  height: auto;
+  /*flex-grow: 1;
+	flex-shrink: 0;*/
+  flex: 1 1 auto; }
+
 .main-container {
   margin-top: 5px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 992px; }
+  max-width: 1592px;
+  width: 90%; }
 
 .header {
   padding: 2rem;
@@ -365,19 +379,8 @@ select:-webkit-autofill:active {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebeef0', endColorstr='#4891b3', GradientType=0 );
   box-shadow: 0px 0px 15px #000 inset, 0px 0px 5px #000; }
 
-@media screen and (min-width: 600px) {
-  .dadoCatalogo {
-    width: 40%;
-    font-size: 7em; }
-
-  .informatica {
-    display: block; } }
-@media screen and (min-width: 800px) {
-  .dadoCatalogo {
-    width: 25%;
-    font-size: 9em; } }
 /* ----------- Media query ---------*/
-@media (min-width: 600px) {
+@media screen and (min-width: 600px) {
   .humburger-btn {
     display: none; }
 
@@ -399,7 +402,32 @@ select:-webkit-autofill:active {
     width: 100%; }
 
   .label-frame-input {
-    display: block; } }
+    display: block; }
+
+  .dadoCatalogo {
+    width: 40%;
+    font-size: 7em; }
+
+  .informatica {
+    display: block; }
+
+  .box-input-orientation {
+    flex-direction: row; }
+
+  .harni-form > * {
+    display: inline; }
+
+  .box-input-children {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    /*flex-grow: 1;
+	flex-shrink: 0;*/
+    flex: 1 1 auto; } }
+@media screen and (min-width: 800px) {
+  .dadoCatalogo {
+    width: 25%;
+    font-size: 9em; } }
 .logoRow {
   display: flex;
   justify-content: space-between;

@@ -9,12 +9,12 @@ export function FactoryBox() {
   API.error = function () {
     params.id = "errorBox";
     params.class = "box-error none";
-    return factoryTag.div(params);
+    return factoryTag.span(params);
   };
 API.info = function () {
     params.id = "infoBox";
     params.class = "box-info none";
-    return factoryTag.div(params);
+    return factoryTag.span(params);
   };
   API.informationPanel = function(){    
     var informationBox = document.createElement("div");

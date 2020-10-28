@@ -231,7 +231,7 @@ export function ManagerFunctions() {
        $("litleImg_" + myId).src = "../assets/img/flags/" + flag;        
     }
     const  changePrefix = function (e) {
-       let phoneType = e.target.className;
+       let phoneType = e.target.dataset.phonetype;
        let names =  e.target.id.split("_");
        let phoneInput = names[1]+"_" + names[2];
        $(phoneInput).value = "";
@@ -249,7 +249,7 @@ export function ManagerFunctions() {
         for (let i in Prefix) {
             selectPrefixInternational.options[selectPrefixInternational.options.length] = new Option(Prefix[i].prefijo, Prefix[i].value, undefined, Prefix[i].default);
             if (Prefix[i].default) {  
-              updateChanges(index, i, phone.className);               
+              updateChanges(index, i, selectPrefixInternational.dataset.phonetype);               
              }              
         }
         selectPrefixInternational.addEventListener("change", function (e) {

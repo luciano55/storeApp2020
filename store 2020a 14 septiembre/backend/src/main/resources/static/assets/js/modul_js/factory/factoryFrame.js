@@ -14,96 +14,74 @@ export function FactoryFrame() {
   const factoryBox = new FactoryBox();
   const generalPurposeFunctions = new GeneralPurposeFunctions();
 
-  API.div_ = function (params) {
-    const myId = params.id;
-    params.id = "div_" + params.id;
-   const div = factoryTag.div(params);     
-   params.id  = myId ;
-    return div;    
+API.input = function(params){
+  const myId = params.id;
+  const divBoxInput = factoryTag.div(params);
+  divBoxInput.id = "divbox_input_" + params.id;
+  params.class?divBoxInput.className = params.class : divBoxInput.className = "box-input";
+ 
+  
+  if(params.labelOn){
+    params.for =  params.id;
+     params.id = "label_" + params.id;
+     params.class = "box-input-children";
+     params.text =  generalPurposeFunctions.capital(myId) + ": ";
+    divBoxInput.appendChild(factoryTag.label(params));  
+      params.text  ="";
+       params.id = myId;
   }
-  API.label_ = function (params) {  
-   
-   if(params.labelOn=== true){      
-      const myId = params.id;
-      params.for =  params.id;
-      //params.class = "label-frame-input";
-      params.text =  generalPurposeFunctions.capital( params.id) + ": ";
-       params.id = "label_" + params.id;
-       const x =  factoryTag.label(params);
-       params.text ="";
-       params.id  = myId;
-       return x;
-    }
-    const labelEmpty ={};
-    labelEmpty.class="none";
-    return factoryTag.label(labelEmpty);
+  const divInput =  factoryTag.div(params);
+  divInput.id = "div_input_" + params.id;
+  if(params.required){
+    params.text = "* "
+   params.id = "span_" + params.id;
+   divInput.appendChild(factoryTag.span(params));
+    params.id = myId;
   }
-  API.select_ = function (params) {
-     const select = factoryTag.select(params); 
-     select.id = "select_" + params.id;
-     return select;
-  }
-  API.input_  = function (params) {
-    const myId  = params.id;
-    params.id = "div_input_" + myId;
-   // params.class = "class";
-   const div = factoryTag.div(params);  
-   // etiqueta
-      params.id = myId;
-      params.validate = params.validate || VALIDATOR.ACCEPTED;
-      params.phoneType = params.phoneType || "";
-     params.name = params.id;   
-     const myInput = factoryTag.input(params);
-     if (params.phoneType){
+  params.validate = params.validate || VALIDATOR.ACCEPTED;
+  const myInput = factoryTag.input(params);
+  
+  if (params.phoneType){
        myInput.setAttribute("data-phoneType", params.phoneType);  
-     }          
-    div.appendChild(myInput);
-    div.appendChild(API.errorBox_(params));
-    if(params.infoBox){
-          div.appendChild(API.infoBox_(params));
-    }    
-    return div;
-  }  
-  API.errorBox_ = function(params){
-    const errorBox = factoryBox.error();
+     }     
+  divInput.appendChild(myInput);     
+  divBoxInput.appendChild(divInput);
+  if(params.errorBox){
+    const errorBox =  factoryBox.error();
     errorBox.id = "boxerror_" + params.id;
-    return errorBox;
+    //errorBox.classList.add("box-input-children");
+    divBoxInput.appendChild(errorBox);
   }
-  API.infoBox_ = function(params){
-    const infoBox = factoryBox.info();
-    infoBox.id = "boxinfo_" + params.id;
-    return infoBox;
-  }
-
-  API.divLabelInput = function (params) {
-        const divLabelInput = API.div_(params);
-        divLabelInput.appendChild(API.label_(params));
-        divLabelInput.appendChild(API.input_(params));        
-        return divLabelInput;    
-  };
-  API.divLabelSelectInput = function(params){
-      const divLabelSelectInput  = API.div_(params);
-         divLabelSelectInput.appendChild(API.label_(params));
-         divLabelSelectInput .appendChild(API.select_(params));
-         divLabelSelectInput .appendChild(API.input_(params));        
-        return divLabelSelectInput ;
-    /*
-      const divLabelInput = API.divLabelInput(params);
-      alert()
-      const label = document.getElementById("label_"+params.id);
-      alert(label.id);
-      const select = factoryTag.select(params); 
-      label.parentNode.insertBefore(select, label.nextSibling);
-      return divLabelInput;*/
-  }
+  if(params.infoBox){
+     const errorInfo =  factoryBox.info();
+     errorInfo.id = "boxinfo_" + params.id;
+     divBoxInput.appendChild(errorInfo);
+    }    
+    return divBoxInput;
+}
   API.phone = function(params){  
-      const phone  = API.div_(params);
+    //params.s = "box-input-children";
+      const phone  = factoryTag.div(params);
+      phone.id = "div_" + params.id;    
+      phone.className = "box-input";
+      params.class = "box-input-children";   
       const littleImgBox = factoryBox.littleImgBox();
          littleImgBox.id = "litleImg_"  + params.id;
+         //littleImgBox.className = "box-input-children";   
          phone.appendChild(littleImgBox);
-         phone .appendChild(API.select_(params));
-         phone.appendChild(API.input_(params));       
-        return phone ;    
+         const myId = params.id;
+         params.id = "select_" + myId;
+        const select = factoryTag.select(params);
+        //select.className = "box-input-children";   
+        select.setAttribute("data-phoneType", params.phoneType);  
+          phone .appendChild(select);
+        params.id = myId;
+      //  const input = API.input(params);
+      //  input.setAttribute("data-phoneType", params.phoneType);  
+     //   phone.appendChild(input);
+     // params.class = "box-input-children";   
+       phone.appendChild(API.input(params));
+        return phone;    
 };
   API.menuButton = function () {
     let params = {};
@@ -114,7 +92,7 @@ export function FactoryFrame() {
     section.appendChild(factoryButton.darkLight());
     return section;
   };
-  API.weatherLocation = function () {
+API.weatherLocation = function () {
     
 let params = {};
     params.class = "subhome";
