@@ -13,13 +13,13 @@ export function ViewClient() {
        viewRegister.appendChild(factoryDataControl.firstname());
         viewRegister.appendChild(factoryDataControl.lastname());
         viewRegister.appendChild(factoryDataControl.nif());
- 
-  factoryDataControl.phone(PHONE.MOBILE, 2, viewRegister);
-  factoryDataControl.phone(PHONE.LANDLINE, 1, viewRegister);
+   viewRegister.appendChild(factoryDataControl.email());
+    factoryDataControl.phone(PHONE.MOBILE, 2, viewRegister);
+     viewRegister.appendChild(factoryDataControl.birthdate());
+  factoryDataControl.postalCode(1, viewRegister,["domicilio habitual"]);
+  viewRegister.appendChild(factoryDataControl.address());
 
-  factoryDataControl.postalCode(2, viewRegister,["domicilio","2ª residencia"]);
 
-  viewRegister.appendChild(factoryDataControl.email());
 
     return viewRegister;
 

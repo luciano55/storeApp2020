@@ -5,7 +5,9 @@ export const VALIDATOR = {
   DNI_NIE_CIF : "Validations.dniNieCif",  
   EMAIL : "Validations.email" ,
   LETTERSWITHSPACE : "Validations.lettersWithSpace" ,
-  PHONE: "Validations.phone"  
+  PHONE: "Validations.phone" ,
+  DATE : "Validations.date" ,
+  ADDRESS : "Validations.address"
   
 } 
 Object.freeze(VALIDATOR)

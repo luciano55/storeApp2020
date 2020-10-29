@@ -59,7 +59,38 @@ API.email = function(){
             errorBox : true,
         }
         return factoryFrame.input(params);
-    };      
+    };   
+API.address = function(){
+  const  params = {
+        id : "address",
+        validate : VALIDATOR.ADDRESS,
+        labelOn : true,
+        type : "text",
+        placeholder : "input your address",
+        minLength : "2",
+        maxLength : "100",
+        required : true,
+        title : "2 to 100 characters",
+        errorBox : true
+   }
+    return factoryFrame.input(params);
+}   
+API.birthdate = function(){
+    const params = {
+            id: "birthdate",
+            validate: VALIDATOR.DATE,
+            labelOn : true,
+            type: "date",
+            size: "25",
+            minLength: "10",
+            maxLength: "10",
+            required: true,
+            placeholder: "input your birthdate",
+            title: "10 to 10 characters",
+            errorBox : true
+        }
+        return factoryFrame.input(params);
+}
   API.firstname = function () {
    const  params = {
         id : "firstname",
@@ -114,8 +145,8 @@ API.email = function(){
           phoneInicio = i;
           return node;
   }  
-  API.postalCode = function(num, node,label) {
-    for (let  i = 0; i< num; i++){
+  API.postalCode = function(num,node,label) {
+    for (let  i = 0; i< num;  i++){
              node.appendChild(cp(i,label[i]));
           }          
     return node;
