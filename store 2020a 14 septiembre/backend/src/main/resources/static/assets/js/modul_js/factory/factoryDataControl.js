@@ -9,38 +9,24 @@ export function FactoryDataControl() {
   let params = {};
 
 
- const tfno = function(params){
-   params.id = "phone_" + params.id;
-   params.placeholder = "input your " +params.phoneType;
-    params.validate = VALIDATOR.PHONE;
-   // params.phoneType =  params.class;
-   // params.tipo = params.class;
-    params.labelOn = false;
-    params.type = "text";    
-    params.minLength = "9";
-    params.maxLength = "9";
-    params.required = true;
-    params.title = "9 characters";
-    params.infoBox = true;
-    params.errorBox = true;
+ const tfno = function(myId, tipo){
+   const params = {  
+             id : "phone_" +myId,
+             placeholder : "input your " +tipo,
+             validate : VALIDATOR.PHONE,
+             phoneType : tipo,
+             labelOn : false,
+            type : "text",   
+            minLength : "9",
+            maxLength : "9",
+            required : true,
+            title : "9 characters",
+            infoBox : true,
+            errorBox : true
+     }
     return factoryFrame.phone(params);
-
- }
- const landline = function (myId) {
-     params = {};
-    params.id = myId;
-    //params.class = "box-input-children";   
-    params.phoneType = PHONE.LANDLINE;
-    return tfno(params);
-    }
- const mobile = function (myId) {
-     params = {};
-    params.id = myId;
-   // params.class = "box-input-children";
-     params.phoneType = PHONE.MOBILE;
-    return tfno(params);    
-    }
- const cp = function (i) {
+ } 
+ const cp = function (i,label) {
             var params = {
                 id: "cp" + i,
                 validate: VALIDATOR.CP,
@@ -53,7 +39,8 @@ export function FactoryDataControl() {
                 maxLength: "5",
                 placeholder: "Intro postal code",
                 errorBox:true,
-                infoBox: true
+                infoBox: true,
+                labelText: label              
             }
             return factoryFrame.input(params);
         };
@@ -121,15 +108,15 @@ API.email = function(){
   API.phone = function(tipo, num, node){
         let i;
           for ( i=phoneInicio; i<(num + phoneInicio); i++){
-            // node.appendChild(tipo=="mobile"?mobile(i):landline(i));
-             node.appendChild(eval(tipo + "(i)"));
+                //node.appendChild(eval(tipo + "(i)"));
+                node.appendChild(tfno(i,tipo));
           }
           phoneInicio = i;
           return node;
   }  
-  API.postalCode = function(num, node) {
+  API.postalCode = function(num, node,label) {
     for (let  i = 0; i< num; i++){
-             node.appendChild(cp(i));
+             node.appendChild(cp(i,label[i]));
           }          
     return node;
   }

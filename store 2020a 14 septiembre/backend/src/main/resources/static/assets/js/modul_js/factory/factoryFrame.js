@@ -18,22 +18,21 @@ API.input = function(params){
   const myId = params.id;
   const divBoxInput = factoryTag.div(params);
   divBoxInput.id = "divbox_input_" + params.id;
-  params.class?divBoxInput.className = params.class : divBoxInput.className = "box-input";
- 
-  
+  params.class?divBoxInput.className = params.class : divBoxInput.className = "box-input"; 
+   params.class = "box-input-children";
   if(params.labelOn){
     params.for =  params.id;
-     params.id = "label_" + params.id;
-     params.class = "box-input-children";
-     params.text =  generalPurposeFunctions.capital(myId) + ": ";
+     params.id = "label_" + params.id;     
+     params.labelText ?  params.text = generalPurposeFunctions.capital(params.labelText) : params.text = generalPurposeFunctions.capital(myId) + ": ";
     divBoxInput.appendChild(factoryTag.label(params));  
       params.text  ="";
        params.id = myId;
   }
   const divInput =  factoryTag.div(params);
   divInput.id = "div_input_" + params.id;
+
   if(params.required){
-    params.text = "* "
+    params.text = "* ";
    params.id = "span_" + params.id;
    divInput.appendChild(factoryTag.span(params));
     params.id = myId;
@@ -59,31 +58,24 @@ API.input = function(params){
     }    
     return divBoxInput;
 }
-  API.phone = function(params){  
-    //params.s = "box-input-children";
+API.phone = function(params){  
       const phone  = factoryTag.div(params);
       phone.id = "div_" + params.id;    
       phone.className = "box-input";
       params.class = "box-input-children";   
       const littleImgBox = factoryBox.littleImgBox();
          littleImgBox.id = "litleImg_"  + params.id;
-         //littleImgBox.className = "box-input-children";   
          phone.appendChild(littleImgBox);
          const myId = params.id;
          params.id = "select_" + myId;
         const select = factoryTag.select(params);
-        //select.className = "box-input-children";   
         select.setAttribute("data-phoneType", params.phoneType);  
           phone .appendChild(select);
-        params.id = myId;
-      //  const input = API.input(params);
-      //  input.setAttribute("data-phoneType", params.phoneType);  
-     //   phone.appendChild(input);
-     // params.class = "box-input-children";   
+        params.id = myId; 
        phone.appendChild(API.input(params));
         return phone;    
 };
-  API.menuButton = function () {
+API.menuButton = function () {
     let params = {};
     params.class = "header-content container";
     const section = factoryTag.section(params);
@@ -111,6 +103,17 @@ let params = {};
     divExt.appendChild(divSecond);
     return divExt;
   };
+  API.viewTitle = function(id,title){
+   let params = {};
+    params.id = id;
+    params.class = "section-formJM harni-form";     
+    const section = factoryTag.section(params);
+    params = {};
+    params.text = title;
+    const titleForm = factoryTag.h1(params);
+    section.appendChild(titleForm);
+    return section;
+  }
 
   return API;
 }
