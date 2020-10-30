@@ -25,8 +25,8 @@ export function FactoryBranding() {
     section.appendChild(factoryLogo.dadoMedio(params));
     section.appendChild(factoryLogo.rotuloDiagonal());
     params.class = "informatica";
-    params.href = "#";
-    params.title = "";
+    params.href = "https://www.ccii.es/";
+    params.title = "ingeniería informática";
     section.appendChild(factoryLogo.dadoMedio(params));
     return section;
   }

@@ -52,9 +52,11 @@
 .harni-form ::placeholder {
   color: rgb(156, 145, 145);
 }
+
 .harni-form [required]:valid {
   border: thin solid var(--form-ok-color);
 }
+
 .harni-form [required]:invalid {
   border: thin solid var(--form-error-color);
 }

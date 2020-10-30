@@ -257,7 +257,7 @@ export function ManagerFunctions() {
         });
     };
     const phones = Qa("input[data-phoneType]");
-    console.log(phones);
+    //console.log(phones);
     phones.forEach(fillSelectPrefix);
  }
  API.dado = function(){

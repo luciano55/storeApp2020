@@ -93,7 +93,9 @@ export function FactoryTag() {
   API.input = function (params) {
     var input = document.createElement("input");
     input.id = params.id;
-    input.setAttribute("data-validate", params.validate);      
+    if (params.validate){
+              input.setAttribute("data-validate", params.validate);     
+    }    
     input.className = params.class || "";
     input.type = params.type || "";
     input.name = params.name || "";
@@ -102,9 +104,8 @@ export function FactoryTag() {
     //input.setAttribute("role", params.role);
     input.minLength = params.minLength || 5;
     input.maxLength = params.maxLength || 524288;
-    input.required = params.required || "true";
-
-    input.placeholder = params.placeholder || "";
+   input.required  = params.required || "";
+   input.placeholder = params.placeholder || "";
     input.title = params.title || "";
     input.pattern = params.pattern || "";
 

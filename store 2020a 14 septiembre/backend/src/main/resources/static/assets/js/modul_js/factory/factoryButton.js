@@ -29,14 +29,15 @@ export function FactoryButton() {
 
     params.class = "body-darkLight";
     const button = factoryTag.div(params);
-
     params.class = "form-darkLight";
     const form = factoryTag.form(params);
+
     params.id = "darkMode";
     params.class = "toggle";
     params.type = "checkbox";
     params.name = "Dark mode";
     params.value = "light";
+    //params.required = false;
     const input = factoryTag.input(params);
     input.setAttribute("role", "switch");
     params = {};
@@ -56,10 +57,12 @@ export function FactoryButton() {
   API.scrollTop = function () {
     /*<button class="scroll-top-btn hidden">&#11014;</button>*/
   };
-  API.submit = function () {
-    const button = d.createElement("input");
+  API.submit = function (display) {
+    const button = document.createElement("input");
+    button.id = "submit";
     button.type = "submit";
     button.value = "Send";
+    button.style.display= display;
     return button;
   };
 

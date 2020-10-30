@@ -84,8 +84,8 @@ API.birthdate = function(){
             size: "25",
             minLength: "10",
             maxLength: "10",
-            required: true,
-            placeholder: "input your birthdate",
+            //required: false,
+            placeholder: "into your birthdate",
             title: "10 to 10 characters",
             errorBox : true
         }

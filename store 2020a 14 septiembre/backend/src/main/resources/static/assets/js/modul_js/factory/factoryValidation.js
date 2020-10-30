@@ -1,6 +1,6 @@
 import {COLOR} from "../enum/enum_color.js";
 import {FactoryBox} from "./factoryBox.js";
-import {d,$,sS} from "../function/global.js";
+import {d,$,sS,Qa} from "../function/global.js";
 import {ManagerFunctions} from "../function/manager_functions.js"
 
 export const ValidateUtil = {
@@ -104,15 +104,14 @@ export const ValidateUtil = {
     return regExp.test(value);
   },
   assessConsequences: function (result, params) {
-    if (result) {
+    if (result) {      
       params.nodo.style.borderColor =  COLOR.VALID;
       params.nodo.style.borderWidth =  "5px";
       if($("boxinfo_"+params.nodo.id)){
            $("boxinfo_"+params.nodo.id).innerHTML = params.mensajeInfo;
           $("boxinfo_"+params.nodo.id).classList.remove("none"); 
       }       
-      $("boxerror_"+params.nodo.id).classList.add("none");
-    
+      $("boxerror_"+params.nodo.id).classList.add("none");    
     } else {
         params.nodo.style.borderColor = COLOR.ERROR;
         params.nodo.style.borderWidth =  "10px";
@@ -122,6 +121,27 @@ export const ValidateUtil = {
                 $("boxinfo_"+params.nodo.id).classList.add("none");
         }
     }
+
+
+
+ const dataControls =  Qa("input[data-validate][required]");  
+       let aviso = true;     
+      // alert($(sS.getItem("dataControls0")).style.borderColor);
+      for (let dataControl of dataControls) {      
+           if(dataControl.style.borderColor != COLOR.VALIDRGB){
+            aviso = false;
+           break;  }             
+      }
+      aviso?$("submit").style.display = "block" :  $("submit").style.display = "none";     
+
+
+
+
+
+
+
+
+      
   },
   regExpConsequences: function (params) {    
     ValidateUtil.assessConsequences(
@@ -132,6 +152,8 @@ export const ValidateUtil = {
 };
  const factoryBox = new FactoryBox();
  const managerFunctions = new ManagerFunctions();
+
+
 export const Validations = {
     accepted : function(evt){
         const params = {};
