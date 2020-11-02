@@ -4,7 +4,8 @@ import { ManagerFunctions } from "./modul_js/function/manager_functions.js";
 import { ViewHome } from "./modul_js/view/viewHome.js";
 import { ViewClient } from "./modul_js/view/viewClient.js";
 import {d,$,Qa,sS} from "./modul_js/function/global.js";
-//import {CreateBBDDpostalCode} from "./modul_js/function/indexedDB.js";
+import {STRATEGY} from "./modul_js/enum/enum_stratey.js";
+
 
 
 const managerFunctions = new ManagerFunctions();
@@ -18,13 +19,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
   managerFunctions.CreateBBDDpostalCode();
   managerFunctions.dado();
 });
-  const saveDataControls = function(){
-          const  dataControls =  Qa("input[data-validate][required]"); 
-          sS.setItem("lenDataControls",dataControls.length);
-          for (let i=0; i< dataControls.length; i++) {   
-                  sS.setItem("dataControls" + i,dataControls[i].id);
-            }             
-      }
+  
 /*d.addEventListener("load", (e) => {
  
 });*/
@@ -35,9 +30,8 @@ d.addEventListener("click", (e) => {
     myBody.appendChild(viewClient.register());    
     managerFunctions.validations();
     managerFunctions.phone();
-    saveDataControls();
+     managerFunctions.saveDataControls();
+     managerFunctions.showIniStrategy(STRATEGY.ONETOONE);
   }
-
-
   
 });

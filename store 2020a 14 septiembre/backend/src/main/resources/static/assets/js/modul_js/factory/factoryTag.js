@@ -163,6 +163,7 @@ export function FactoryTag() {
     span.id = params.id || "";
     span.className = params.class || "";
     span.innerHTML = params.text || "";
+    span.title = params.title || "";
     return span;
   };
   API.svg = function (params) {

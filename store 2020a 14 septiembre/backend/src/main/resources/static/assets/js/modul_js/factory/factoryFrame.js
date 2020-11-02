@@ -19,6 +19,7 @@ API.input = function(params){
   const divBoxInput = factoryTag.div(params);
   divBoxInput.id = "divbox_input_" + params.id;
   params.class?divBoxInput.className = params.class : divBoxInput.className = "box-input"; 
+  //divBoxInput.setAttribute("data-divcontrol", "true");  
    params.class = "box-input-children";
   if(params.labelOn){
     params.for =  params.id;
@@ -32,10 +33,13 @@ API.input = function(params){
   divInput.id = "div_input_" + params.id;
 
   if(params.required){
-    params.text = "* ";
+    params.text = "*";
    params.id = "span_" + params.id;
+   params.class = "asterisco";
+   params.title = "required";
    divInput.appendChild(factoryTag.span(params));
     params.id = myId;
+     params.class = "";
   }
   params.validate = params.validate || VALIDATOR.ACCEPTED;
   const myInput = factoryTag.input(params);
@@ -113,6 +117,14 @@ let params = {};
     const titleForm = factoryTag.h1(params);
     section.appendChild(titleForm);
     return section;
+  }
+  API.createControl = function(params, control){
+
+  const divDataControl = factoryTag.div(params);
+ divDataControl.id = "div_dataControl_" + params.id;
+ divDataControl.setAttribute("data-divcontrol", "true");  
+ divDataControl.appendChild(eval("API." + control + "(params)"));
+    return divDataControl;
   }
 
   return API;

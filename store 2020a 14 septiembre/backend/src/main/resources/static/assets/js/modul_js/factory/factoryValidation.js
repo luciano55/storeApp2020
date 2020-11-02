@@ -2,7 +2,8 @@ import {COLOR} from "../enum/enum_color.js";
 import {FactoryBox} from "./factoryBox.js";
 import {d,$,sS,Qa} from "../function/global.js";
 import {ManagerFunctions} from "../function/manager_functions.js"
-
+const factoryBox = new FactoryBox();
+ const managerFunctions = new ManagerFunctions();
 export const ValidateUtil = {
   getLimitNode: function (node) {
     var limite = {};
@@ -104,44 +105,44 @@ export const ValidateUtil = {
     return regExp.test(value);
   },
   assessConsequences: function (result, params) {
-    if (result) {      
+    if (result) { 
+          
       params.nodo.style.borderColor =  COLOR.VALID;
-      params.nodo.style.borderWidth =  "5px";
+      params.nodo.style.borderWidth = COLOR.VALIDBORDER;
+      /* 
       if($("boxinfo_"+params.nodo.id)){
            $("boxinfo_"+params.nodo.id).innerHTML = params.mensajeInfo;
           $("boxinfo_"+params.nodo.id).classList.remove("none"); 
       }       
-      $("boxerror_"+params.nodo.id).classList.add("none");    
-    } else {
+      //$("boxerror_"+params.nodo.id).classList.add("none"); */ 
+          if(managerFunctions.info().exist(params)){
+                      managerFunctions.info().message(params);
+                      managerFunctions.info().on(params);
+          }       
+           managerFunctions.error().off(params);
+           //managerFunctions.showOneToOneStrategy();
+    } else {      
         params.nodo.style.borderColor = COLOR.ERROR;
-        params.nodo.style.borderWidth =  "10px";
+        params.nodo.style.borderWidth =  COLOR.ERRORBORDER;
+         /*
        $("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
-       $("boxerror_"+params.nodo.id).classList.remove("none");   
-        if($("boxinfo_"+params.nodo.id)){   
-                $("boxinfo_"+params.nodo.id).classList.add("none");
+       $("boxerror_"+params.nodo.id).classList.remove("none");   */
+        managerFunctions.error().message(params);
+        managerFunctions.error().on(params);
+        if(managerFunctions.info().exist(params)){   
+               managerFunctions.info().off(params);
         }
     }
-
-
-
- const dataControls =  Qa("input[data-validate][required]");  
+      managerFunctions.submit().on();
+    /*
        let aviso = true;     
-      // alert($(sS.getItem("dataControls0")).style.borderColor);
-      for (let dataControl of dataControls) {      
-           if(dataControl.style.borderColor != COLOR.VALIDRGB){
+        for (let i=0; i< sS.getItem("lenDataControls");i++){
+              if($(sS.getItem("dataControls"+i)).style.borderColor != COLOR.VALIDRGB){               
             aviso = false;
            break;  }             
       }
-      aviso?$("submit").style.display = "block" :  $("submit").style.display = "none";     
-
-
-
-
-
-
-
-
-      
+     aviso?$("submit").style.display = "block" :  $("submit").style.display = "none";     
+*/
   },
   regExpConsequences: function (params) {    
     ValidateUtil.assessConsequences(
@@ -150,10 +151,6 @@ export const ValidateUtil = {
     );
   }
 };
- const factoryBox = new FactoryBox();
- const managerFunctions = new ManagerFunctions();
-
-
 export const Validations = {
     accepted : function(evt){
         const params = {};

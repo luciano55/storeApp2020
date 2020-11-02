@@ -379,6 +379,14 @@ select:-webkit-autofill:active {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebeef0', endColorstr='#4891b3', GradientType=0 );
   box-shadow: 0px 0px 15px #000 inset, 0px 0px 5px #000; }
 
+.none {
+  display: none; }
+
+.asterisco {
+  font-size: 1.8rem;
+  width: 15px;
+  margin-right: 10px; }
+
 /* ----------- Media query ---------*/
 @media screen and (min-width: 600px) {
   .humburger-btn {
@@ -399,7 +407,7 @@ select:-webkit-autofill:active {
     font-size: 2em; }
 
   .harni-form {
-    width: 100%; }
+    width: 60%; }
 
   .label-frame-input {
     display: block; }
@@ -423,7 +431,10 @@ select:-webkit-autofill:active {
     height: auto;
     /*flex-grow: 1;
 	flex-shrink: 0;*/
-    flex: 1 1 auto; } }
+    flex: 1 1 auto; }
+
+  .box-input {
+    flex-direction: row; } }
 @media screen and (min-width: 800px) {
   .dadoCatalogo {
     width: 25%;

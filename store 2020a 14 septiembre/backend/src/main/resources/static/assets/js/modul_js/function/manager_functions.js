@@ -135,8 +135,16 @@ export function ManagerFunctions() {
        // alert(typeof e.target.dataset.validate);
         //  alert(e.target.dataset.validate);
         //eval("Validations.lettersWithSpace(e)");
-       
-        eval(e.target.dataset.validate + "(e)");
+       /* let characterCode = e.which || e.charCode || e.keyCode;
+        if (characterCode  == 13) {
+          API.showOneToOneStrategy();
+          }
+        else {
+                  eval(e.target.dataset.validate + "(e)");
+        }*/
+        //alert("e.code:" + e.code + "e.key" + e.key);
+        e.code == "Enter" ?  API.showOneToOneStrategy(): eval(e.target.dataset.validate + "(e)");
+        
       }
       /*
       if (e.target.matches(".contact-form [required]")) {
@@ -360,8 +368,112 @@ API.getCity = function(myCP){
                 };
 })
 }
+API.submit = function(){
+   'use strict';
+    var submit = $("submit");
+    return {
+        message : function(content){
+            submit.innerHTML = content;
+        },
+        off  : function(){
+            submit.style.display="none";
+        },
+        on  : function(){
+             let aviso = true;     
+              for (let i=0; i< sS.getItem("lenDataControls");i++){
+                   if($(sS.getItem("dataControls"+i)).style.borderColor != COLOR.VALIDRGB){               
+                        aviso = false;
+                        break; 
+                    }             
+              }
+              aviso?$("submit").style.display = "block" :  $("submit").style.display = "none"; 
+        }
 
+    }
+  }
+API.error = function(){
+     'use strict';
+   
+    return {      
+        message : function(params){
+          
+            $("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
+        },
+        off : function(params){
+           $("boxerror_"+params.nodo.id).classList.add("none");   
+        },
+        on : function(params){
+            // minima sorpresa
+              //params.nodo.style.borderColor = COLOR.ERROR;
+            // params.nodo.style.borderWidth =  COLOR.ERRORBORDER;
+              $("boxerror_"+params.nodo.id).classList.remove("none");   
+          }
 
+    }
+  }
+  API.info = function(){
+     'use strict';
+   
+    return {    
+      exist : function(params){
+        if($("boxinfo_"+params.nodo.id)){
+              return true;
+        } else{
+                return false;
+        }
+      },
+        message : function(params){          
+            $("boxinfo_"+params.nodo.id).innerHTML = params.mensajeInfo;
+        },
+        off : function(params){
+           $("boxinfo_"+params.nodo.id).classList.add("none");   
+        },
+        on : function(params){
+            // principio de la mínima sorpresa
+             // params.nodo.style.borderColor = COLOR.VALID;
+            // params.nodo.style.borderWidth =  COLOR.VALIDBORDER;
+             $("boxinfo_"+params.nodo.id).classList.remove("none");   
+          }
+
+    }
+  }
+  API. saveDataControls = function(){
+          const  dataControlrequired =  Qa("input[data-validate][required]"); 
+          sS.setItem("lenDataControls",dataControlrequired.length);
+          for (let i=0; i< dataControlrequired.length; i++) {   
+                  sS.setItem("dataControls" + i, dataControlrequired[i].id);
+            }  
+            const  divDataControls =  Qa("div[data-divcontrol]"); 
+            //console.log(divDataControls);
+            sS.setItem("lenDiv_DataControls",divDataControls.length);
+          for (let i=0; i< divDataControls.length; i++) {   
+                  sS.setItem("div_DataControls" + i, divDataControls[i].id);
+            }            
+            
+      }
+  API.showItAllStrategy = function(){
+     for (let i=0; i< sS.getItem("lenDiv_DataControls");i++){
+          $(sS.getItem("div_DataControls"+i)).style.display = "block" ;   
+       }
+    }
+  API.showOneToOneStrategy = function(){
+     for (let i=0; i< sS.getItem("lenDiv_DataControls");i++){
+        if(  $(sS.getItem("div_DataControls"+i)).style.display == "none")
+        { 
+            $(sS.getItem("div_DataControls"+i)).style.display = "block" ;   
+            break;
+        }          
+       }
+    }
+
+  API.showIniStrategy = function(strategy){
+    if(strategy == "all"){  API.showItAllStrategy();}
+    if(strategy == "oneToOne"){
+     for (let i=1; i< sS.getItem("lenDiv_DataControls");i++){
+         $(sS.getItem("div_DataControls"+i)).style.display = "none";              
+       }
+        $(sS.getItem("div_DataControls0")).style.display = "block";  
+      }
+    }
   return API;
 }
-

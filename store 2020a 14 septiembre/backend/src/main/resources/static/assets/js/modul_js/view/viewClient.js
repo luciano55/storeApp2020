@@ -11,18 +11,18 @@ const factoryButton = new FactoryButton();
   const API = {};
   
   API.register = function () {
-    const viewRegister = factoryFrame.viewTitle("viewRegister","Register Client");
+    const viewRegister = factoryFrame.viewTitle("viewRegister","Register Client"); 
 
        viewRegister.appendChild(factoryDataControl.firstname());      
-        viewRegister.appendChild(factoryDataControl.lastname());
-     /*   
+       viewRegister.appendChild(factoryDataControl.lastname());
+  
      viewRegister.appendChild(factoryDataControl.nif());
    viewRegister.appendChild(factoryDataControl.email());
-    factoryDataControl.phone(PHONE.MOBILE, 2, viewRegister);
+    factoryDataControl.phone(PHONE.MOBILE, 1, viewRegister);
      viewRegister.appendChild(factoryDataControl.birthdate());
      
   factoryDataControl.postalCode(1, viewRegister,["cp del domicilio habitual"]);
-  viewRegister.appendChild(factoryDataControl.address());*/
+  viewRegister.appendChild(factoryDataControl.address());
  viewRegister.appendChild(factoryButton.submit("none"));
    
 

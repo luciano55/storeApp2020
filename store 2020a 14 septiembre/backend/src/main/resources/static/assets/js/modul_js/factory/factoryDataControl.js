@@ -24,7 +24,7 @@ export function FactoryDataControl() {
             infoBox : true,
             errorBox : true
      }
-    return factoryFrame.phone(params);
+      return factoryFrame.createControl(params,"phone");
  } 
  const cp = function (i,label) {
             var params = {
@@ -42,7 +42,7 @@ export function FactoryDataControl() {
                 infoBox: true,
                 labelText: label              
             }
-            return factoryFrame.input(params);
+              return factoryFrame.createControl(params,"input");
         };
 API.email = function(){
         const params = {
@@ -58,7 +58,7 @@ API.email = function(){
             title: "10 to 150 characters",
             errorBox : true,
         }
-        return factoryFrame.input(params);
+        return factoryFrame.createControl(params,"input");
     };   
 API.address = function(){
   const  params = {
@@ -73,7 +73,7 @@ API.address = function(){
         title : "2 to 100 characters",
         errorBox : true
    }
-    return factoryFrame.input(params);
+      return factoryFrame.createControl(params,"input");
 }   
 API.birthdate = function(){
     const params = {
@@ -89,7 +89,7 @@ API.birthdate = function(){
             title: "10 to 10 characters",
             errorBox : true
         }
-        return factoryFrame.input(params);
+          return factoryFrame.createControl(params,"input");
 }
   API.firstname = function () {
    const  params = {
@@ -104,7 +104,7 @@ API.birthdate = function(){
         title : "2 to 50 characters",
         errorBox : true
    }
-    return factoryFrame.input(params);
+      return factoryFrame.createControl(params,"input");
   }; 
   API.lastname = function () {
      const  params = {
@@ -119,7 +119,7 @@ API.birthdate = function(){
         title : "2 to 100 characters",
         errorBox : true,
       }
-    return factoryFrame.input(params);   
+     return factoryFrame.createControl(params,"input");
   };  
   API.nif = function () {
       const  params = {
@@ -134,7 +134,7 @@ API.birthdate = function(){
         title : "9 characters",
         errorBox : true,
       } 
-    return factoryFrame.input(params);
+     return factoryFrame.createControl(params,"input");
     };  
   API.phone = function(tipo, num, node){
         let i;
@@ -151,5 +151,6 @@ API.birthdate = function(){
           }          
     return node;
   }
+
   return API;
 }
