@@ -14,7 +14,7 @@ export function FactoryFrame() {
   const factoryBox = new FactoryBox();
   const generalPurposeFunctions = new GeneralPurposeFunctions();
 
-API.input = function(params){
+const input = function(params){
   const myId = params.id;
   const divBoxInput = factoryTag.div(params);
   divBoxInput.id = "divbox_input_" + params.id;
@@ -62,7 +62,7 @@ API.input = function(params){
     }    
     return divBoxInput;
 }
-API.phone = function(params){  
+const phone = function(params){  
       const phone  = factoryTag.div(params);
       phone.id = "div_" + params.id;    
       phone.className = "box-input";
@@ -76,7 +76,7 @@ API.phone = function(params){
         select.setAttribute("data-phoneType", params.phoneType);  
           phone .appendChild(select);
         params.id = myId; 
-       phone.appendChild(API.input(params));
+       phone.appendChild(input(params));
         return phone;    
 };
 API.menuButton = function () {
@@ -123,7 +123,7 @@ let params = {};
   const divDataControl = factoryTag.div(params);
  divDataControl.id = "div_dataControl_" + params.id;
  divDataControl.setAttribute("data-divcontrol", "true");  
- divDataControl.appendChild(eval("API." + control + "(params)"));
+ divDataControl.appendChild(eval( control + "(params)"));
     return divDataControl;
   }
 

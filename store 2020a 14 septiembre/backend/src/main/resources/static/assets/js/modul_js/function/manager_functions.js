@@ -1,7 +1,9 @@
 
 import {COLOR} from "../enum/enum_color.js";
-import {d,$,lS,sS,Qa} from "./global.js";
+import {STRATEGY} from "../enum/enum_stratey.js";
+import {w,d,$,lS,sS,Qa} from "./global.js";
 import {ValidateUtil, Validations} from "../factory/factoryValidation.js";
+
 
 export function ManagerFunctions() {
   const API = {};   
@@ -109,83 +111,11 @@ export function ManagerFunctions() {
   };
 
   API.validations = function () {
-//const $form = d.querySelector(".contact-form"),
-  //    $inputs = d.querySelectorAll(".contact-form [required]");
- //   const factoryBox = FactoryBox();
-    //console.log($inputs);
-    /*
-    $inputs.forEach((input) => {
-      /*
-      const $span = d.createElement("span");
-      $span.id = "span" + input.name;
-      $span.textContent = input.title;
-      $span.classList.add("contact-form-error", "none");
-      */
-    /*
-      const $errorBox = factoryBox.error();
-      $errorBox.id = "span" + input.name;
-      $errorBox.textContent = input.title;
-      // $errorBox.classList.add("none");
-
-      input.insertAdjacentElement("afterend", $errorBox)
-    });;*/
-
     d.addEventListener("keyup", (e) => {
-      if (e.target.matches("[data-validate]")) {
-       // alert(typeof e.target.dataset.validate);
-        //  alert(e.target.dataset.validate);
-        //eval("Validations.lettersWithSpace(e)");
-       /* let characterCode = e.which || e.charCode || e.keyCode;
-        if (characterCode  == 13) {
-          API.showOneToOneStrategy();
-          }
-        else {
-                  eval(e.target.dataset.validate + "(e)");
-        }*/
-        //alert("e.code:" + e.code + "e.key" + e.key);
-        e.code == "Enter" ?  API.showOneToOneStrategy(): eval(e.target.dataset.validate + "(e)");
-        
-      }
-      /*
-      if (e.target.matches(".contact-form [required]")) {
-        let $input = e.target,
-          pattern = $input.pattern || $input.dataset.pattern;
-        //  console.log($input.value, pattern);
-        if (pattern && $input.value !== "") {
-          //console.log("Tiene patrón");
-          let regex = new RegExp(pattern);
-          return !regex.exec($input.value)
-            ? d.getElementById("span" + $input.name).classList.add("is-active")
-            : d
-                .getElementById("span" + $input.name)
-                .classList.remove("is-active");
-        }
-        if (!pattern) {
-          //console.log("Tiene NO patrón");
-          return $input.value === ""
-            ? d.getElementById($input.name).classList.add("is-active")
-            : d.getElementById($input.name).classList.remove("is-active");
-        }
-       
-      } */
+      if (e.target.matches("[data-validate]")) {       
+        e.code == "Enter" ?  eval(sS.getItem("strategy")): eval(e.target.dataset.validate + "(e)");        
+      }     
     });
-/*
-    d.addEventListener("submit", (e) => {
-      //e.preventDefault();
-      //alert("Enviando formulario");
-
-      const $loader = d.querySelector(".contact-form-loader"),
-        $response = d.querySelector(".contact-form-response");
-      $loader.classList.remove("none");
-      setTimeout(() => {
-        $loader.classList.add("none");
-        $response.classList.remove("none");
-        $form.reset();
-        setTimeout(() => {
-          $response.classList.add("none");
-        }, 2000);
-      }, 2000);
-    });*/
   };  
 
  API.phone = function(){
@@ -395,18 +325,14 @@ API.error = function(){
      'use strict';
    
     return {      
-        message : function(params){
-          
+        message : function(params){          
             $("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
         },
         off : function(params){
            $("boxerror_"+params.nodo.id).classList.add("none");   
         },
         on : function(params){
-            // minima sorpresa
-              //params.nodo.style.borderColor = COLOR.ERROR;
-            // params.nodo.style.borderWidth =  COLOR.ERRORBORDER;
-              $("boxerror_"+params.nodo.id).classList.remove("none");   
+            $("boxerror_"+params.nodo.id).classList.remove("none");   
           }
 
     }
@@ -429,10 +355,7 @@ API.error = function(){
            $("boxinfo_"+params.nodo.id).classList.add("none");   
         },
         on : function(params){
-            // principio de la mínima sorpresa
-             // params.nodo.style.borderColor = COLOR.VALID;
-            // params.nodo.style.borderWidth =  COLOR.VALIDBORDER;
-             $("boxinfo_"+params.nodo.id).classList.remove("none");   
+              $("boxinfo_"+params.nodo.id).classList.remove("none");   
           }
 
     }
@@ -465,15 +388,33 @@ API.error = function(){
         }          
        }
     }
-
   API.showIniStrategy = function(strategy){
-    if(strategy == "all"){  API.showItAllStrategy();}
-    if(strategy == "oneToOne"){
+    if(strategy == STRATEGY.ALL){  
+      sS.setItem("strategy","API.showItAllStrategy()");
+      API.showItAllStrategy();}
+    if(strategy == STRATEGY.ONETOONE){
+      sS.setItem("strategy", "API.showOneToOneStrategy()");
      for (let i=1; i< sS.getItem("lenDiv_DataControls");i++){
          $(sS.getItem("div_DataControls"+i)).style.display = "none";              
        }
         $(sS.getItem("div_DataControls0")).style.display = "block";  
-      }
+      }      
     }
+   API.scrollTopButton = function(btn){
+    const $scrollBtn = d.querySelector(btn);  
+    w.addEventListener("scroll",(e)=>{
+        let scrollTop = w.pageYOffset || d.documentElement.scrollTop;
+        (scrollTop > 300) ? $scrollBtn.classList.remove("hidden") :   $scrollBtn.classList.add("hidden");   
+    });
+    d.addEventListener("click",(e)=>{
+        if(e.target.matches(btn)){
+            w.scrollTo({
+                behavior: "smooth",
+                top:0
+            });
+        }
+    });
+
+}
   return API;
 }

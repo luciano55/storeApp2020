@@ -28,6 +28,8 @@ export function FactoryTag() {
     button.id = params.id || "";
     button.className = params.class || "";
     button.title = params.text || "";
+    button.value = params.value || "";
+    button.innerHTML = params.text || "";
     button.type = "button";
     return button;
   };

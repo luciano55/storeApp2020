@@ -4,8 +4,9 @@ export function FactoryButton() {
   const API = {};
  
   const factoryTag = new FactoryTag();
-  let params = {};
+ 
   API.hamburger = function () {
+     let params = {};
     params.class = "hamburger-inner";
     const spanIn = factoryTag.span(params);
     params.class = "hamburger-box";
@@ -19,14 +20,8 @@ export function FactoryButton() {
     return button;
   };
   API.darkLight = function () {
-    /*<div class="body-darkLight">
-            <form class = "form-darkLight">
-              <input id="darkMode" class=" input-darkLight toggle" type="checkbox" name="Dark mode" role="switch" value="light">
-              <label for="dark-mode" class="sr">Dark Mode</label>
-              <div class="curtain"></div>
-            </form>
-     </div>*/
 
+   let params = {};
     params.class = "body-darkLight";
     const button = factoryTag.div(params);
     params.class = "form-darkLight";
@@ -55,7 +50,13 @@ export function FactoryButton() {
     return button;
   };
   API.scrollTop = function () {
-    /*<button class="scroll-top-btn hidden">&#11014;</button>*/
+     let params = {};
+    params.class = "scroll-top-btn hidden";
+    params.text= "&#11014;";
+    const button = factoryTag.button(params);
+    return button;
+
+    //<button class="scroll-top-btn hidden">&#11014;</button>
   };
   API.submit = function (display) {
     const button = document.createElement("input");

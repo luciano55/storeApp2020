@@ -18,6 +18,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
   managerFunctions.weather();
   managerFunctions.CreateBBDDpostalCode();
   managerFunctions.dado();
+  managerFunctions.scrollTopButton(".scroll-top-btn");
 });
   
 /*d.addEventListener("load", (e) => {
@@ -33,5 +34,20 @@ d.addEventListener("click", (e) => {
      managerFunctions.saveDataControls();
      managerFunctions.showIniStrategy(STRATEGY.ONETOONE);
   }
-  
+
+
+
+
+
+
+
+
+
+  if (e.target.id == "submit") {
+     
+      const dataPersonClient = {
+        firstname : $("firstname").value
+      }
+      alert(dataPersonClient.firstname);
+  }
 });
