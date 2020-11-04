@@ -14,23 +14,16 @@ const factoryButton = new FactoryButton();
     const viewRegister = factoryFrame.viewTitle("viewRegister","Register Client"); 
 
        viewRegister.appendChild(factoryDataControl.firstname());  
-       /*    
-       viewRegister.appendChild(factoryDataControl.lastname());
-  
-     viewRegister.appendChild(factoryDataControl.nif());
-   viewRegister.appendChild(factoryDataControl.email());*/
-    //factoryDataControl.resetPhoneInicio();
-    factoryDataControl.phone(PHONE.MOBILE, 3, viewRegister);
-     factoryDataControl.phone(PHONE.LANDLINE, 2, viewRegister);
-     viewRegister.appendChild(factoryDataControl.birthdate());
-     
-  factoryDataControl.postalCode(3, viewRegister,["cp del domicilio habitual","sddsd","ghggghgg"]);
-  viewRegister.appendChild(factoryDataControl.address());
- viewRegister.appendChild(factoryButton.submit("none"));
-   
+       viewRegister.appendChild(factoryDataControl.lastname());  
+      viewRegister.appendChild(factoryDataControl.nif());
+      viewRegister.appendChild(factoryDataControl.email());
+      factoryDataControl.phone(PHONE.MOBILE, 1, viewRegister);     
+      viewRegister.appendChild(factoryDataControl.birthdate());     
+      factoryDataControl.postalCode(1, viewRegister,["cp del domicilio habitual"]);
+      viewRegister.appendChild(factoryDataControl.address());
+      viewRegister.appendChild(factoryButton.submit("none"));
 
     return viewRegister;
-
   };
   return API;
 }

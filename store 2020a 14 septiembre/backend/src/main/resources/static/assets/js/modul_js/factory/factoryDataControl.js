@@ -135,28 +135,13 @@ API.birthdate = function(){
     };  
   API.phone = function(tipo, num, node){
         let   i = parseInt(sessionStorage.getItem("autoIncrementPhone"));
-       alert(i);
-        /*
-      if (sessionStorage.getItem("autoIncrementPhone")) {
-         autoIncrementPhone = sessionStorage.getItem("autoIncrementPhone");
-         autoIncrementPhone = parseInt(autoIncrementPhone);}
-         else {
-                       autoIncrementPhone = 0;
-         }    */
-
-            
-           const end = num + i;
-          for (  i; i<end; i++){              
+        const end = num + i;
+        for (  i; i<end; i++){              
                 node.appendChild(tfno(i,tipo));
-          }
-        
+          }        
          sessionStorage.setItem("autoIncrementPhone",i);        
           return node;
   }  
- /* API.resetPhoneInicio = function(){
-    x=0;
-    //sessionStorage.setItem("phoneInicio",0);
-  }*/
   API.postalCode = function(num,node,label) {
     for (let  i = 0; i< num;  i++){
              node.appendChild(cp(i,label[i]));

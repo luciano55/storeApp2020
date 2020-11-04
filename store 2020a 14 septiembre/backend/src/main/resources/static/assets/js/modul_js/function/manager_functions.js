@@ -394,20 +394,18 @@ API.error = function(){
        }
     }
   API.showOneToOneStrategy = function(){
-       let   father, myInput;
+       let   father = "div_dataControl_";
      for (let i=1; i< sS.getItem("lenDiv_DataControls");i++){
-        if($(sS.getItem("div_DataControls"+i)).style.display == "none")
-        { 
-          father = ($(sS.getItem("div_DataControls"+(i-1))).id).split("_");
-           (father[3])? myInput = father[2] + "_" + father[3] :    myInput = father[2] ; 
-           if($(sS.getItem("div_DataControls"+(i-1))).style.display == "block" && ( $(myInput).style.borderColor == COLOR.VALIDRGB  ||  
-           !$(myInput).required)){       
-                  $(sS.getItem("div_DataControls"+i)).style.display = "block";
-                }
-            break;
-        }          
-       }
-      
+            if($(sS.getItem("div_DataControls"+i)).style.display == "none")
+            { 
+                    let   myInput =    ($(sS.getItem("div_DataControls"+(i-1))).id).slice(father.length);
+                      if($(sS.getItem("div_DataControls"+(i-1))).style.display == "block" && ( $(myInput).style.borderColor == COLOR.VALIDRGB  ||  
+                        !$(myInput).required)){       
+                                $(sS.getItem("div_DataControls"+i)).style.display = "block";
+                              }
+                  break;
+            }          
+       }      
     }
   API.showIniStrategy = function(strategy){
     if(strategy == STRATEGY.ALL){  
