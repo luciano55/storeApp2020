@@ -12,7 +12,7 @@ public class DemoApplication {
 
     SpringApplication.run(DemoApplication.class, args);
 
-    System.out.println("Hola Mundo");
+    System.out.println("Server started");
   }
 
 }

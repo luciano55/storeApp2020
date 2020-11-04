@@ -105,17 +105,15 @@ export const ValidateUtil = {
     return regExp.test(value);
   },
   assessConsequences: function (result, params) {
-    if (result) {           
-      params.nodo.style.borderColor =  COLOR.VALID;
-      params.nodo.style.borderWidth = COLOR.VALIDBORDER;
+    if (result) {         
+      managerFunctions.dataControl().valid(params);      
       if(managerFunctions.info().exist(params)){
                       managerFunctions.info().message(params);
                       managerFunctions.info().on(params);
           }       
            managerFunctions.error().off(params);         
-    } else {      
-        params.nodo.style.borderColor = COLOR.ERROR;
-        params.nodo.style.borderWidth =  COLOR.ERRORBORDER;
+    } else {          
+        managerFunctions.dataControl().error(params);      
         managerFunctions.error().message(params);
         managerFunctions.error().on(params);
         if(managerFunctions.info().exist(params)){   
@@ -475,21 +473,9 @@ export const Validations = {
         params.patron = sS.getItem(pattern);       
         params.maximo = sS.getItem("numberLength"+"_"+ names[1]) || 9;
         params.mensajeError = ("Phone con formato erróneo y/o debe tener: " + params.maximo + " dígitos");       
-        /*
-        if (!$("informationPanel")) {
-            informationPanel = factoryBox.informationPanel();
-        } else {
-            informationPanel = $("informationPanel");
-        }*/
+      
         if (params.nodo.value.length == params.maximo) {
-               params.mensajeInfo =  $("select_phone_"+ names[1]).value + "-" + params.nodo.value;
-          /*
-            informationPanel.innerHTML = $("select_phone_"+ names[1]).value + "-" + params.nodo.value;
-            if (params.nodo.nextSibling) {
-                params.nodo.parentNode.insertBefore(informationPanel, params.nodo.nextSibling);
-            } else {
-                params.nodo.parentNode.appendChild(informationPanel);
-            } */
+               params.mensajeInfo =  $("select_phone_"+ names[1]).value + "-" + params.nodo.value;       
         }
         ValidateUtil.regExpConsequences(params);
     },

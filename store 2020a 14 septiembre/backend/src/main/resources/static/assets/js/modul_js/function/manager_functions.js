@@ -112,8 +112,8 @@ export function ManagerFunctions() {
 
   API.validations = function () {
     d.addEventListener("keyup", (e) => {
-      if (e.target.matches("[data-validate]")) {       
-        e.code == "Enter" ?  eval(sS.getItem("strategy")): eval(e.target.dataset.validate + "(e)");        
+      if (e.target.matches("[data-validate]")) {    
+          ( e.code == "Enter"  || e.code == "Tab") ?  eval(sS.getItem("strategy")): eval(e.target.dataset.validate + "(e)");        
       }     
     });
   };  
@@ -322,8 +322,7 @@ API.submit = function(){
     }
   }
 API.error = function(){
-     'use strict';
-   
+     'use strict';   
     return {      
         message : function(params){          
             $("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
@@ -334,7 +333,6 @@ API.error = function(){
         on : function(params){
             $("boxerror_"+params.nodo.id).classList.remove("none");   
           }
-
     }
   }
   API.info = function(){
@@ -360,6 +358,22 @@ API.error = function(){
 
     }
   }
+  API.dataControl = function(){
+ 'use strict';   
+    return {      
+        get : function(params){          
+          return params.node.value;
+        },
+        error : function(params){
+           params.nodo.style.borderColor = COLOR.ERROR;
+          params.nodo.style.borderWidth =  COLOR.ERRORBORDER;
+        },
+        valid : function(params){
+             params.nodo.style.borderColor =  COLOR.VALID;
+             params.nodo.style.borderWidth = COLOR.VALIDBORDER;
+          }
+    }
+  }
   API. saveDataControls = function(){
           const  dataControlrequired =  Qa("input[data-validate][required]"); 
           sS.setItem("lenDataControls",dataControlrequired.length);
@@ -380,13 +394,20 @@ API.error = function(){
        }
     }
   API.showOneToOneStrategy = function(){
-     for (let i=0; i< sS.getItem("lenDiv_DataControls");i++){
-        if(  $(sS.getItem("div_DataControls"+i)).style.display == "none")
+       let   father, myInput;
+     for (let i=1; i< sS.getItem("lenDiv_DataControls");i++){
+        if($(sS.getItem("div_DataControls"+i)).style.display == "none")
         { 
-            $(sS.getItem("div_DataControls"+i)).style.display = "block" ;   
+          father = ($(sS.getItem("div_DataControls"+(i-1))).id).split("_");
+           (father[3])? myInput = father[2] + "_" + father[3] :    myInput = father[2] ; 
+           if($(sS.getItem("div_DataControls"+(i-1))).style.display == "block" && ( $(myInput).style.borderColor == COLOR.VALIDRGB  ||  
+           !$(myInput).required)){       
+                  $(sS.getItem("div_DataControls"+i)).style.display = "block";
+                }
             break;
         }          
        }
+      
     }
   API.showIniStrategy = function(strategy){
     if(strategy == STRATEGY.ALL){  
