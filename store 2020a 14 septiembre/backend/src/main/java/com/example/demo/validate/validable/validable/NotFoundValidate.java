@@ -1,6 +1,7 @@
-package com.example.demo.validate;
+package com.example.demo.validate.validable.validable;
 
 import com.example.demo.error.ErrorValidate;
+import com.example.demo.validate.validable.ValidableValue;
 
 public class NotFoundValidate implements ValidableValue {
   private static final String COMMAND_NAME = "NOT FOUND";

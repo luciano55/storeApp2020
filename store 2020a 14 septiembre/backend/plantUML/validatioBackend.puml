@@ -1,0 +1,50 @@
+@startuml Validator
+
+package "com.example.demo.error" #999999 {
+enum ErrorValidate {
+   ERROR_name(num, spanish, english),
+}
+}
+package "com.example.demo.validate.validable" #999999 {
+package "regexp" #DDDDDD {
+class RegularExpressionValidation {
+   #Boolean validate(String value, String patron)
+}
+ class AddressValidate{
+   +ErrorValidate validate(String string) 
+   +String getValidateName()
+}
+class BirthdayValidate{
+    +ErrorValidate validate(String string) 
+   +String getValidateName()
+}
+}
+ package "validable" #DDDDDD {
+    class SizeValidate{
+           +ErrorValidate validate(String string, int min, int max) 
+           +String getValidateName()
+}
+ 
+}
+ interface Validable {
+String getValidateName()
+}
+interface ValidableLength {
+ ErrorValidate validate(String string, int min, int max)
+}
+interface ValidableValue{
+ErrorValidate validate(String string)
+}
+
+}
+
+RegularExpressionValidation  <|-- AddressValidate
+RegularExpressionValidation  <|-- BirthdayValidate
+Validable <|-- ValidableValue
+Validable <|-- ValidableLength
+ValidableValue <|-- AddressValidate
+ValidableValue <|-- BirthdayValidate
+ErrorValidate -- ValidableValue : asociacion
+ErrorValidate -- ValidableLength  : asociacion
+ValidableLength <|-- SizeValidate
+@enduml

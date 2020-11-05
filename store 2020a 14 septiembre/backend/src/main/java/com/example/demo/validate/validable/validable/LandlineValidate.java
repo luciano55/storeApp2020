@@ -1,7 +1,10 @@
-package com.example.demo.validate.validators;
+package com.example.demo.validate.validable.validable;
 
 import com.example.demo.error.ErrorValidate;
-import com.example.demo.validate.ValidableValue;
+import com.example.demo.validate.validable.ValidableValue;
+import com.example.demo.validate.validable.regexp.LandlineFranceValidate;
+import com.example.demo.validate.validable.regexp.LandlineSpainValidate;
+import com.example.demo.validate.validable.regexp.LandlineUSAValidate;
 
 import java.util.ArrayList;
 

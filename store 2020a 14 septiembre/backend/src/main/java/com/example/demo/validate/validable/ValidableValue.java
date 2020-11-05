@@ -1,4 +1,4 @@
-package com.example.demo.validate;
+package com.example.demo.validate.validable;
 
 import com.example.demo.error.ErrorValidate;
 

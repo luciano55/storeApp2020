@@ -1,7 +1,7 @@
-package com.example.demo.validate.validators;
+package com.example.demo.validate.validable.validable;
 
 import com.example.demo.error.ErrorValidate;
-import com.example.demo.validate.ValidableLength;
+import com.example.demo.validate.validable.ValidableLength;
 
 public class SizeValidate implements ValidableLength {
   public static final String VALIDATE_NAME = "lengthValidate";
