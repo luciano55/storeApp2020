@@ -2,23 +2,22 @@ package com.example.demo.entity;
 
 public class Client {
   private String nif;
-  private String firstName;
-  private String lastName;
-  private String adress;
-  private String cp;
-  private String birthday;
-  private String mobile;
+  private String firstname;
+  private String lastname;
+  private String address;
+  // private String cp;
+  private String birthdate;
+  // private String mobile;
   private String email;
 
-  public Client(String nif, String firstName, String lastName, String adress, String cp, String birthday, String mobile,
-      String email) {
+  public Client(String nif, String firstName, String lastName, String address, String birthdate, String email) {
     this.nif = nif;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.adress = adress;
-    this.cp = cp;
-    this.birthday = birthday;
-    this.mobile = mobile;
+    this.firstname = firstName;
+    this.lastname = lastName;
+    this.address = address;
+    // this.cp = cp;
+    this.birthdate = birthdate;
+    // this.mobile = mobile;
     this.email = email;
   }
 
@@ -31,53 +30,47 @@ public class Client {
   }
 
   public String getFirstName() {
-    return firstName;
+    return firstname;
   }
 
   public void setFirstName(String firstName) {
-    this.firstName = firstName;
+    this.firstname = firstName;
   }
 
   public String getLastName() {
-    return lastName;
+    return lastname;
   }
 
   public void setLastName(String lastName) {
-    this.lastName = lastName;
+    this.lastname = lastName;
   }
 
-  public String getAdress() {
-    return adress;
+  public String getAddress() {
+    return address;
   }
 
-  public void setAdress(String adress) {
-    this.adress = adress;
+  public void setAddress(String adress) {
+    this.address = adress;
   }
 
-  public String getCp() {
-    return cp;
+  /*
+   * public String getCp() { return cp; }
+   * 
+   * public void setCp(String cp) { this.cp = cp; }
+   */
+  public String getBirthdate() {
+    return birthdate;
   }
 
-  public void setCp(String cp) {
-    this.cp = cp;
+  public void setBirthdate(String birthday) {
+    this.birthdate = birthday;
   }
 
-  public String getBirthday() {
-    return birthday;
-  }
-
-  public void setBirthday(String birthday) {
-    this.birthday = birthday;
-  }
-
-  public String getMobile() {
-    return mobile;
-  }
-
-  public void setMobile(String mobile) {
-    this.mobile = mobile;
-  }
-
+  /*
+   * public String getMobile() { return mobile; }
+   * 
+   * public void setMobile(String mobile) { this.mobile = mobile; }
+   */
   public String getEmail() {
     return email;
   }

@@ -12,7 +12,7 @@ public class DemoApplication {
 
     SpringApplication.run(DemoApplication.class, args);
 
-    System.out.println("Server started");
+    System.out.println("Server started port: 8085");
   }
 
 }

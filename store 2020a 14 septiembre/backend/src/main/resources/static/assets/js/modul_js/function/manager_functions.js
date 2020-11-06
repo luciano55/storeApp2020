@@ -374,7 +374,7 @@ API.error = function(){
           }
     }
   }
-  API. saveDataControls = function(){
+  API.saveDataControls = function(){
           const  dataControlrequired =  Qa("input[data-validate][required]"); 
           sS.setItem("lenDataControls",dataControlrequired.length);
           for (let i=0; i< dataControlrequired.length; i++) {   
@@ -394,16 +394,16 @@ API.error = function(){
        }
     }
   API.showOneToOneStrategy = function(){
-       let   father = "div_dataControl_";
+     let   father = "div_dataControl_";
      for (let i=1; i< sS.getItem("lenDiv_DataControls");i++){
             if($(sS.getItem("div_DataControls"+i)).style.display == "none")
             { 
-                    let   myInput =    ($(sS.getItem("div_DataControls"+(i-1))).id).slice(father.length);
-                      if($(sS.getItem("div_DataControls"+(i-1))).style.display == "block" && ( $(myInput).style.borderColor == COLOR.VALIDRGB  ||  
+              let   myInput =    ($(sS.getItem("div_DataControls"+(i-1))).id).slice(father.length);
+              if($(sS.getItem("div_DataControls"+(i-1))).style.display == "block" && ( $(myInput).style.borderColor == COLOR.VALIDRGB  ||  
                         !$(myInput).required)){       
                                 $(sS.getItem("div_DataControls"+i)).style.display = "block";
                               }
-                  break;
+               break;
             }          
        }      
     }

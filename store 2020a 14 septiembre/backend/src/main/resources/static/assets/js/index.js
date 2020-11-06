@@ -12,6 +12,7 @@ import { GeneralPurposeFunctions } from "./modul_js/function/general_purpose_fun
 let url;
 const managerFunctions = new ManagerFunctions();
 const viewClient = new ViewClient();
+
 d.addEventListener("DOMContentLoaded", (e) => {
   $("myFooter").appendChild(ViewFooter());
   $("myHeader").appendChild(ViewHeader());
@@ -23,9 +24,6 @@ d.addEventListener("DOMContentLoaded", (e) => {
   managerFunctions.scrollTopButton(".scroll-top-btn");
 });
   
-/*d.addEventListener("load", (e) => {
- 
-});*/
 d.addEventListener("click", (e) => {
   if (e.target.id == "linkRegister") {
      url = "/hola";
@@ -41,33 +39,31 @@ d.addEventListener("click", (e) => {
   }
 
   if (e.target.id == "submit") {     
-      const dataPersonClient = {
-        firstname : $("firstname").value
-      }
-     // alert(dataPersonClient.firstname);
-      let father, myInput;
+      const dataPersonClient = {}
+      let   father = "div_dataControl_";
      for (let i=0; i<   sS.getItem("lenDiv_DataControls"); i++) {   
-              father = ($(sS.getItem("div_DataControls"+i)).id).split("_");
-               (father[3])? myInput = father[2] + "_" + father[3] :    myInput = father[2] ; 
-               if(myInput.indexOf("phone") != -1){
-                myInput = "boxinfo_" + myInput;
-                dataPersonClient[$(myInput).id] = $(myInput).innerText;
+                let   myInputId =    ($(sS.getItem("div_DataControls"+i)).id).slice(father.length);
+               if(myInputId.indexOf("phone") != -1){
+                myInputId = "boxinfo_" + myInputId;
+                dataPersonClient[$(myInputId).id] = $(myInputId).innerText;
               }else {
-                      dataPersonClient[$(myInput).id] = $(myInput).value;
-              }
-              
+                      dataPersonClient[$(myInputId).id] = $(myInputId).value;
+              }              
      } 
-     console.log(dataPersonClient);
- fetch(url, {
-  method: 'POST', 
-  body: JSON.stringify(dataPersonClient), 
-  headers:{
-    'Content-Type': 'application/json'
-  }
-}).then(res => res.json())
-.catch(error => console.error('Error:', error))
-.then(response => console.log('Success:', response));
-
-  }
-
+       console.log(dataPersonClient);
+      fetch(url, {
+            method: 'POST', 
+            body:  JSON.stringify(dataPersonClient), 
+            //body: JSON.stringify({username : "pepin"}),
+     headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => {
+        console.log('Success:', response);
+       // location.reload();
+      })
+   }
 });
