@@ -6,13 +6,15 @@ export function FactoryDataControl() {
   const API = {};
   let x = 0;
   const factoryFrame = new FactoryFrame();
- const tfno = function(myId, tipo){
+ const tfno = function(field, myId, tipo){
    const params = {  
              id : "phone_" +myId,
              placeholder : "input your " +tipo,
+             labelText : field,
+             field : field,
              validate : VALIDATOR.PHONE,
              phoneType : tipo,
-             labelOn : false,
+             labelOn : true,
             type : "text",   
             minLength : "9",
             maxLength : "9",
@@ -23,9 +25,10 @@ export function FactoryDataControl() {
      }
       return factoryFrame.createControl(params,"phone");
  } 
- const cp = function (i,label) {
+ const cp = function (field, i) {
             var params = {
                 id: "cp" + i,
+                field : field,
                 validate: VALIDATOR.CP,
                 labelOn : true,
                 type: "text",
@@ -37,13 +40,14 @@ export function FactoryDataControl() {
                 placeholder: "Intro postal code",
                 errorBox:true,
                 infoBox: true,
-                labelText: label              
+                labelText: field              
             }
               return factoryFrame.createControl(params,"input");
         };
-API.email = function(){
+API.email = function(field){
         const params = {
-            id: "email",
+            id: field,
+            field : field,
             validate: VALIDATOR.EMAIL,
             labelOn : true,
             type: "email",
@@ -51,15 +55,16 @@ API.email = function(){
             minLength: "10",
             maxLength: "150",
             required: true,
-            placeholder: "input your Email",
+            placeholder: "input your " + field,
             title: "10 to 150 characters",
             errorBox : true,
         }
         return factoryFrame.createControl(params,"input");
     };   
-API.address = function(){
+API.address = function(field){
   const  params = {
-        id : "address",
+        id : field,
+        field : field,
         validate : VALIDATOR.ADDRESS,
         labelOn : true,
         type : "text",
@@ -72,9 +77,10 @@ API.address = function(){
    }
       return factoryFrame.createControl(params,"input");
 }   
-API.birthdate = function(){
+API.date = function(field){
     const params = {
-            id: "birthdate",
+            id: field,
+            field : field,
             validate: VALIDATOR.DATE,
             labelOn : true,
             type: "date",
@@ -82,30 +88,32 @@ API.birthdate = function(){
             minLength: "10",
             maxLength: "10",
             //required: false,
-            placeholder: "into your birthdate",
+            placeholder: "into your " + field,
             title: "10 to 10 characters",
             errorBox : true
         }
           return factoryFrame.createControl(params,"input");
 }
-  API.firstname = function () {
+API.lettersWithSpace = function (field, min, max) {
    const  params = {
-        id : "firstname",
+        id : field,
+        field: field,
         validate : VALIDATOR.LETTERSWITHSPACE,
         labelOn : true,
         type : "text",
-        placeholder : "input your FirstName",
-        minLength : "2",
-        maxLength : "50",
+        placeholder : "input your " + field,
+        minLength : min,
+        maxLength : max,
         required : true,
         title : "2 to 50 characters",
         errorBox : true
    }
       return factoryFrame.createControl(params,"input");
   }; 
-  API.lastname = function () {
+API.lastname = function ( field) {
      const  params = {
         id : "lastname",
+         field: field,
         validate : VALIDATOR.LETTERSWITHSPACE,
         labelOn : true,
         type : "text",
@@ -118,13 +126,14 @@ API.birthdate = function(){
       }
      return factoryFrame.createControl(params,"input");
   };  
-  API.nif = function () {
+API.dniNieCif = function (field) {
       const  params = {
-        id : "nif",
+        id : field,
+        field: field,
         validate : VALIDATOR.DNI_NIE_CIF,
         labelOn : true,
         type : "text",
-        placeholder : "input your NIF",
+        placeholder : "input your " + field,
         minLength : "9",
         maxLength : "9",
         required : true,
@@ -133,23 +142,37 @@ API.birthdate = function(){
       } 
      return factoryFrame.createControl(params,"input");
     };  
-  API.phone = function(tipo, num, node){
-        let   i = parseInt(sessionStorage.getItem("autoIncrementPhone"));
-        const end = num + i;
-        for (  i; i<end; i++){              
-                node.appendChild(tfno(i,tipo));
-          }        
-         sessionStorage.setItem("autoIncrementPhone",i);        
-          return node;
-  }  
-  API.postalCode = function(num,node,label) {
-    for (let  i = 0; i< num;  i++){
-             node.appendChild(cp(i,label[i]));
-          }          
-    return node;
+API.postalCode = function(field, node) {
+  let i =0;
+  if (sessionStorage.getItem("autoIncrementPostalCode")){
+          i = parseInt(sessionStorage.getItem("autoIncrementPostalCode"));
+  }    
+ if (Array.isArray(field)) {          
+          for (let  j= 0; j<  field.length;  j++, i++){
+                  node.appendChild(cp(field[j], i));
+                }   
+     }  else{            
+           node = cp(field,i);
+           i++;               
+        } 
+   sessionStorage.setItem("autoIncrementPostalCode",i);
+   return node;
   }
-
-
-
+  API.phone = function(field, tipo,node){
+       let i =0;
+  if (sessionStorage.getItem("autoIncrementPhone")){
+          i = parseInt(sessionStorage.getItem("autoIncrementPhone"));
+  } 
+        if (Array.isArray(field)) {           
+            for (  let j=0; j< field.length; j++, i++){   
+                   node.appendChild(tfno(field[j], i, tipo));
+              }
+        }else{            
+           node = tfno(field, i, tipo);
+            i++;
+        }
+        sessionStorage.setItem("autoIncrementPhone",i);        
+        return node;      
+  }  
   return API;
 }

@@ -46,12 +46,12 @@ public class getcp extends HttpServlet {
 
     Gson g = new Gson();
     Client client = g.fromJson(json, Client.class);
-    System.out.println(client.getFirstName());
-    System.out.println(client.getLastName());
+    System.out.println(client.getNameClient());
+    System.out.println(client.getSurnameClient());
 
     JSONObject obj = new JSONObject();
-    obj.put("firstname", client.getFirstName());
-    obj.put("lastname", client.getLastName());
+    obj.put("firstname", client.getNameClient());
+    obj.put("lastname", client.getSurnameClient());
 
     // String json = gson.toJson(user);
     // System.out.println(user.getEmail());

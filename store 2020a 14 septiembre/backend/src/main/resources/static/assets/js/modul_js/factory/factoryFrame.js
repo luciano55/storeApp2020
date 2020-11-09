@@ -42,8 +42,9 @@ const input = function(params){
      params.class = "";
   }
   params.validate = params.validate || VALIDATOR.ACCEPTED;
-  const myInput = factoryTag.input(params);
   
+  const myInput = factoryTag.input(params);
+   myInput.setAttribute("data-field", params.field)
   if (params.phoneType){
        myInput.setAttribute("data-phoneType", params.phoneType);  
      }     
@@ -76,7 +77,7 @@ const phone = function(params){
         select.setAttribute("data-phoneType", params.phoneType);  
           phone .appendChild(select);
         params.id = myId; 
-       phone.appendChild(input(params));
+        phone.appendChild(input(params));
         return phone;    
 };
 API.menuButton = function () {
@@ -119,7 +120,6 @@ let params = {};
     return section;
   }
   API.createControl = function(params, control){
-
   const divDataControl = factoryTag.div(params);
  divDataControl.id = "div_dataControl_" + params.id;
  divDataControl.setAttribute("data-divcontrol", "true");  

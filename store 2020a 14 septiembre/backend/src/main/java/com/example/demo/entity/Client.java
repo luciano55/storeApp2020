@@ -1,82 +1,109 @@
 package com.example.demo.entity;
 
 public class Client {
-  private String nif;
-  private String firstname;
-  private String lastname;
-  private String address;
-  // private String cp;
-  private String birthdate;
-  // private String mobile;
-  private String email;
 
-  public Client(String nif, String firstName, String lastName, String address, String birthdate, String email) {
-    this.nif = nif;
-    this.firstname = firstName;
-    this.lastname = lastName;
-    this.address = address;
-    // this.cp = cp;
-    this.birthdate = birthdate;
-    // this.mobile = mobile;
-    this.email = email;
+  private String nameClient;
+  private String surnameClient;
+  private String nifClient;
+  private String mobileClient;
+  private String mobilePrivateClient;
+  private String emailClient;
+  private String birthdateClient;
+  private String postalCodeClient;
+  private String postalCodeJobClient;
+  private String clientAddress;
+
+  public Client(String nameClient, String surnameClient, String nifClient, String mobileClient,
+      String mobilePrivateClient, String birthdateClient, String postalCodeClient, String postalCodeJobClient,
+      String clientAddress) {
+    this.nameClient = nameClient;
+    this.surnameClient = surnameClient;
+    this.nifClient = nifClient;
+    this.mobileClient = mobileClient;
+    this.mobilePrivateClient = mobilePrivateClient;
+    this.birthdateClient = birthdateClient;
+    this.postalCodeClient = postalCodeClient;
+    this.postalCodeJobClient = postalCodeJobClient;
+    this.clientAddress = clientAddress;
   }
 
-  public String getNif() {
-    return nif;
+  public String getNameClient() {
+    return nameClient;
   }
 
-  public void setNif(String nif) {
-    this.nif = nif;
+  public void setNameClient(String nameClient) {
+    this.nameClient = nameClient;
   }
 
-  public String getFirstName() {
-    return firstname;
+  public String getSurnameClient() {
+    return surnameClient;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstname = firstName;
+  public void setSurnameClient(String surnameClient) {
+    this.surnameClient = surnameClient;
   }
 
-  public String getLastName() {
-    return lastname;
+  public String getNifClient() {
+    return nifClient;
   }
 
-  public void setLastName(String lastName) {
-    this.lastname = lastName;
+  public void setNifClient(String nifClient) {
+    this.nifClient = nifClient;
   }
 
-  public String getAddress() {
-    return address;
+  public String getMobileClient() {
+    return mobileClient;
   }
 
-  public void setAddress(String adress) {
-    this.address = adress;
+  public void setMobileClient(String mobileClient) {
+    this.mobileClient = mobileClient;
   }
 
-  /*
-   * public String getCp() { return cp; }
-   * 
-   * public void setCp(String cp) { this.cp = cp; }
-   */
-  public String getBirthdate() {
-    return birthdate;
+  public String getMobilePrivateClient() {
+    return mobilePrivateClient;
   }
 
-  public void setBirthdate(String birthday) {
-    this.birthdate = birthday;
+  public void setMobilePrivateClient(String mobilePrivateClient) {
+    this.mobilePrivateClient = mobilePrivateClient;
   }
 
-  /*
-   * public String getMobile() { return mobile; }
-   * 
-   * public void setMobile(String mobile) { this.mobile = mobile; }
-   */
-  public String getEmail() {
-    return email;
+  public String getEmailClient() {
+    return emailClient;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setEmailClient(String emailClient) {
+    this.emailClient = emailClient;
   }
 
+  public String getBirthdateClient() {
+    return birthdateClient;
+  }
+
+  public void setBirthdateClient(String birthdateClient) {
+    this.birthdateClient = emailClient;
+  }
+
+  public String getPostalCodeClient() {
+    return postalCodeClient;
+  }
+
+  public void setPostalCodeClient(String postalCodeClient) {
+    this.postalCodeClient = postalCodeClient;
+  }
+
+  public String getPostalCodeJobClient() {
+    return postalCodeJobClient;
+  }
+
+  public void setPostalCodeJobClient(String postalCodeJobClient) {
+    this.postalCodeJobClient = postalCodeJobClient;
+  }
+
+  public String getClientAddress() {
+    return clientAddress;
+  }
+
+  public void setClientAddress(String clientAddress) {
+    this.clientAddress = clientAddress;
+  }
 }

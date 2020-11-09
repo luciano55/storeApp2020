@@ -4,8 +4,10 @@ export function GeneralPurposeFunctions() {
      API.capital  = function(string){        
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();   
      } 
-    API.resetAutoIncrementPhone = function(){
-        sessionStorage.setItem("autoIncrementPhone",0);   
+    API.resetAutoIncrementPhoneCP = function(){
+        sessionStorage.setItem("autoIncrementPhone",0);  
+        sessionStorage.setItem("autoIncrementPostalCode",0);    
     }
+     
     return API;
   }

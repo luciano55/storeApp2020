@@ -28,7 +28,7 @@ d.addEventListener("click", (e) => {
   if (e.target.id == "linkRegister") {
      url = "/hola";
      const globalFunction = new GeneralPurposeFunctions();
-     globalFunction.resetAutoIncrementPhone();
+      globalFunction.resetAutoIncrementPhoneCP();
       let myBody = $("myBody");
       myBody.innerHTML = "";
       myBody.appendChild(viewClient.register());    
@@ -44,10 +44,10 @@ d.addEventListener("click", (e) => {
      for (let i=0; i<   sS.getItem("lenDiv_DataControls"); i++) {   
                 let   myInputId =    ($(sS.getItem("div_DataControls"+i)).id).slice(father.length);
                if(myInputId.indexOf("phone") != -1){
-                myInputId = "boxinfo_" + myInputId;
-                dataPersonClient[$(myInputId).id] = $(myInputId).innerText;
+                let myInputBoxinfoId = "boxinfo_" + myInputId;
+                dataPersonClient[$(myInputId).dataset.field] = $(myInputBoxinfoId).innerText;
               }else {
-                      dataPersonClient[$(myInputId).id] = $(myInputId).value;
+                      dataPersonClient[$(myInputId).dataset.field] = $(myInputId).value;
               }              
      } 
        console.log(dataPersonClient);
