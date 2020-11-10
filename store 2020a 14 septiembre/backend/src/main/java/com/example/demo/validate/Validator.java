@@ -2,8 +2,8 @@ package com.example.demo.validate;
 
 public enum Validator {
   nie("nieValidate"), nif("nifValidate"), cif("cifValidate"), letterWithSpace("lettersWithSpaceValidate"),
-  cifNieNif("cifNieNifValidate"), adress("addressValidate"), size("lengthValidate"), cp("codigoPostalValidate"),
-  email("emailValidate"), birthday("birthdayValidate"), landlineSpain("landlineSpainValidate"),
+  cifNieNif("cifNieNifValidate"), address("addressValidate"), size("lengthValidate"), cp("codigoPostalValidate"),
+  email("emailValidate"), birthdate("birthdayValidate"), landlineSpain("landlineSpainValidate"),
   landlineFrance("landlineFranceValidate"), landlineUSA("landlineUSAValidate"), landline("landlineValidate"),
   mobile("mobileValidate"), user("userValidate"), password("passwordValidate");
 

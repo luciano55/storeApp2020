@@ -6,24 +6,19 @@ public class Client {
   private String surnameClient;
   private String nifClient;
   private String mobileClient;
-  private String mobilePrivateClient;
   private String emailClient;
   private String birthdateClient;
   private String postalCodeClient;
-  private String postalCodeJobClient;
   private String clientAddress;
 
-  public Client(String nameClient, String surnameClient, String nifClient, String mobileClient,
-      String mobilePrivateClient, String birthdateClient, String postalCodeClient, String postalCodeJobClient,
-      String clientAddress) {
+  public Client(String nameClient, String surnameClient, String nifClient, String mobileClient, String birthdateClient,
+      String postalCodeClient, String clientAddress) {
     this.nameClient = nameClient;
     this.surnameClient = surnameClient;
     this.nifClient = nifClient;
     this.mobileClient = mobileClient;
-    this.mobilePrivateClient = mobilePrivateClient;
     this.birthdateClient = birthdateClient;
     this.postalCodeClient = postalCodeClient;
-    this.postalCodeJobClient = postalCodeJobClient;
     this.clientAddress = clientAddress;
   }
 
@@ -59,14 +54,6 @@ public class Client {
     this.mobileClient = mobileClient;
   }
 
-  public String getMobilePrivateClient() {
-    return mobilePrivateClient;
-  }
-
-  public void setMobilePrivateClient(String mobilePrivateClient) {
-    this.mobilePrivateClient = mobilePrivateClient;
-  }
-
   public String getEmailClient() {
     return emailClient;
   }
@@ -89,14 +76,6 @@ public class Client {
 
   public void setPostalCodeClient(String postalCodeClient) {
     this.postalCodeClient = postalCodeClient;
-  }
-
-  public String getPostalCodeJobClient() {
-    return postalCodeJobClient;
-  }
-
-  public void setPostalCodeJobClient(String postalCodeJobClient) {
-    this.postalCodeJobClient = postalCodeJobClient;
   }
 
   public String getClientAddress() {

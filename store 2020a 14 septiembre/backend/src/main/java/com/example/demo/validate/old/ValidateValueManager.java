@@ -1,7 +1,5 @@
-package com.example.demo.validate;
-
+package com.example.demo.validate.old;
 /*
- * 
  * import harnina.validate.validators.*;
  * 
  * import java.util.HashMap;

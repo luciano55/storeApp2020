@@ -1,4 +1,4 @@
-package com.example.demo.validate;
+package com.example.demo.validate.old;
 /*
  * import harnina.entity.Login; import harnina.entity.User; import
  * harnina.errror.ErrorValidate; import harnina.util.AddErrorArrayError;

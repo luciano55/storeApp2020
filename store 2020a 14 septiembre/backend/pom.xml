@@ -98,6 +98,12 @@
     <artifactId>spring-hibernate</artifactId>
     <version>1.2.9</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+<dependency>
+    <groupId>org.reflections</groupId>
+    <artifactId>reflections</artifactId>
+    <version>0.9.10</version>
+</dependency>
 
  </dependencies>
 

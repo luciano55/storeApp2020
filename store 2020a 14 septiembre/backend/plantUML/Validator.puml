@@ -1,0 +1,8 @@
+@startuml validator
+class ValidatorRegistry{
+  -ValidatorRegistry() 
+  +ValidableValue getValidator(String validateName)
+  +void addValidator(String validateName, Class<? extends ValidableValue> validate) 
+  +static synchronized ValidatorRegistry getInstance() 
+}
+@enduml

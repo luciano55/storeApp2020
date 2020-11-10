@@ -13,7 +13,7 @@ public class NotFoundValidate implements ValidableValue {
 
   @Override
   public ErrorValidate validate(String string) {
-    return ErrorValidate.ERROR_VALIDATE_NOT_FOUND;
+    return ErrorValidate.ERROR_VALIDATOR_NOT_FOUND;
 
   }
 }

@@ -4,7 +4,7 @@ public enum ErrorValidate {
 
   ERROR_NULL(0, "No hay ErrorValidate", "Not ErrorValidate"),
   ERROR_MISSING(1, "Error de validación Desconocido", "Validation Error Unknown"),
-  ERROR_VALIDATE_NOT_FOUND(2, "Validador no encontrado", "Validator not found"),
+  ERROR_VALIDATOR_NOT_FOUND(2, "Validador no encontrado", "Validator not found"),
   ERROR_VALIDATE(3, "Error al invokar el validador", "Error invoking validator"),
   ERROR_VALIDATE_PATTERN(4, "No cumple con el patrón", "Does not meet the pattern"),
 
