@@ -1,8 +1,19 @@
-@startuml validator
+@startuml
 class ValidatorRegistry{
+  -static ValidatorRegistry validatorRegistration;
+  -static final HashMap<String, Class<? extends ValidableValue>> VALIDATES 
   -ValidatorRegistry() 
   +ValidableValue getValidator(String validateName)
   +void addValidator(String validateName, Class<? extends ValidableValue> validate) 
   +static synchronized ValidatorRegistry getInstance() 
 }
+class ClientValidatorComposite{
+  -HashMap<String, ArrayList<String>> listValidate
+  -ValidatorRegistry validatorRegistration
+  +HashMap<String, ErrorValidate> validate(Client client)
+  -HashMap<String, ErrorValidate> getError()
+  -void addValidate(String key, String value)  
+}
+
+ClientValidatorComposite *-- ValidatorRegistry
 @enduml

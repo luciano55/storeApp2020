@@ -14,14 +14,15 @@ public class ClientValidatorComposite {
 
   private ValidatorRegistry validatorRegistration = ValidatorRegistry.getInstance();
 
-  public HashMap<String, ErrorValidate> setValidate(Client client) {
+  public HashMap<String, ErrorValidate> validate(Client client) {
 
     addValidate(Validator.letterWithSpace.getName(), client.getNameClient());
     addValidate(Validator.cifNieNif.getName(), client.getNifClient());
     addValidate(Validator.letterWithSpace.getName(), client.getSurnameClient());
     addValidate(Validator.birthdate.getName(), client.getBirthdateClient());
     addValidate(Validator.address.getName(), client.getClientAddress());
-    addValidate(Validator.mobile.getName(), client.getMobileClient());
+    addValidate(Validator.mobileSpain.getName(), client.getMobileClient());
+    // addValidate(Validator.mobile.getName(), client.getMobileClient());
     addValidate(Validator.email.getName(), client.getEmailClient());
     addValidate(Validator.cp.getName(), client.getPostalCodeClient());
     return getError();

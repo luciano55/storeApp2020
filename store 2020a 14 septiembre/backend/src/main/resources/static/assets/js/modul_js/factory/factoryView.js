@@ -58,7 +58,7 @@ export function FactoryView() {
       },  
        
       { 
-       field : ["mobileClient", "mobilePrivateClient"],
+       field : ["mobileClient"],
        factory : "factoryDataControl.phone" ,
        params : ["PHONE.MOBILE"]       
       },      
@@ -71,7 +71,7 @@ export function FactoryView() {
        factory : "factoryDataControl.date"         
       },
        { 
-       field : ["postalCodeClient","postalCodeJobClient"],
+       field : ["postalCodeClient"],
        factory : "factoryDataControl.postalCode"         
       },
       { 

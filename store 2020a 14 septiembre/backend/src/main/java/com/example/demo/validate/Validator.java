@@ -5,7 +5,8 @@ public enum Validator {
   cifNieNif("cifNieNifValidate"), address("addressValidate"), size("lengthValidate"), cp("codigoPostalValidate"),
   email("emailValidate"), birthdate("birthdayValidate"), landlineSpain("landlineSpainValidate"),
   landlineFrance("landlineFranceValidate"), landlineUSA("landlineUSAValidate"), landline("landlineValidate"),
-  mobile("mobileValidate"), user("userValidate"), password("passwordValidate");
+  mobile("mobileValidate"), mobileFrance("mobileFranceValidate"), mobileUSA("mobileUSAValidate"),
+  mobileSpain("mobileSpainValidate"), user("userValidate"), password("passwordValidate");
 
   private String name;
 
