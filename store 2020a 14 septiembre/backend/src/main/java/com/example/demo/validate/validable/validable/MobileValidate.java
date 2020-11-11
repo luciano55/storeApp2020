@@ -28,6 +28,6 @@ public class MobileValidate implements ValidableValue {
         return ErrorValidate.ERROR_NULL;
       }
     }
-    return ErrorValidate.ERROR_PHONE_LANDLINE;
+    return ErrorValidate.ERROR_PHONE_MOBILE;
   }
 }

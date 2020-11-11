@@ -5,8 +5,8 @@ import com.example.demo.validate.validable.ValidableValue;
 
 public class MobileUSAValidate extends RegularExpressionValidation implements ValidableValue {
   public static final String VALIDATE_NAME = "mobileUSAValidate";
-  private final String PATRON = "^(\\+1|001|1)?[0-9]{10}$"; // "^(\\+34|0034|34)?[6789]\\d{8}$" "^\\(?(\\d{3})\\)?[-
-                                                            // ]?(\\d{3})[- ]?(\\d{4})$" ;
+  private final String PATRON = "^(\\+1-|001|1)?[0-9]{10}$"; // "^(\\+34|0034|34)?[6789]\\d{8}$" "^\\(?(\\d{3})\\)?[-
+                                                             // ]?(\\d{3})[- ]?(\\d{4})$" ;
 
   @Override
   public ErrorValidate validate(String string) {

@@ -43,39 +43,39 @@ export function FactoryView() {
   API.clientRegister = function(){
       const data = [           
      { 
-       field : ["nameClient"],
+       field : ["name"],
        factory : "factoryDataControl.lettersWithSpace",
        params : [2,50]        
       },      
      { 
-       field : ["surnameClient"],
+       field : ["surname"],
        factory : "factoryDataControl.lettersWithSpace",
         params : [2,100]        
       },
        { 
-       field : ["nifClient"],
+       field : ["nif"],
        factory : "factoryDataControl.dniNieCif"         
       },  
        
       { 
-       field : ["mobileClient"],
+       field : ["mobile"],
        factory : "factoryDataControl.phone" ,
        params : ["PHONE.MOBILE"]       
       },      
       { 
-       field : ["emailClient"],
+       field : ["email"],
        factory : "factoryDataControl.email"         
       },      
        { 
-       field : ["birthdateClient"],
+       field : ["birthdate"],
        factory : "factoryDataControl.date"         
       },
        { 
-       field : ["postalCodeClient"],
+       field : ["postalCode"],
        factory : "factoryDataControl.postalCode"         
       },
       { 
-       field : ["clientAddress"],
+       field : ["address"],
        factory : "factoryDataControl.address"         
       },
        { 

@@ -16,15 +16,16 @@ public class ClientValidatorComposite {
 
   public HashMap<String, ErrorValidate> validate(Client client) {
 
-    addValidate(Validator.letterWithSpace.getName(), client.getNameClient());
-    addValidate(Validator.cifNieNif.getName(), client.getNifClient());
-    addValidate(Validator.letterWithSpace.getName(), client.getSurnameClient());
-    addValidate(Validator.birthdate.getName(), client.getBirthdateClient());
-    addValidate(Validator.address.getName(), client.getClientAddress());
-    addValidate(Validator.mobileSpain.getName(), client.getMobileClient());
-    // addValidate(Validator.mobile.getName(), client.getMobileClient());
-    addValidate(Validator.email.getName(), client.getEmailClient());
-    addValidate(Validator.cp.getName(), client.getPostalCodeClient());
+    addValidate(Validator.letterWithSpace.getName(), client.getName());
+    addValidate(Validator.cifNieNif.getName(), client.getNif());
+    addValidate(Validator.letterWithSpace.getName(), client.getSurname());
+    addValidate(Validator.birthdate.getName(), client.getBirthdate());
+    addValidate(Validator.address.getName(), client.getAddress());
+    // addValidate(Validator.mobileSpain.getName(), client.getMobile());
+    addValidate(Validator.mobile.getName(), client.getMobile());
+
+    addValidate(Validator.email.getName(), client.getEmail());
+    addValidate(Validator.cp.getName(), client.getPostalCode());
     return getError();
   }
 

@@ -4,21 +4,21 @@ import com.example.demo.entity.Client;
 
 public class InverProperty {
   static public String getPropertyUser(Client client, String value) {
-    if (client.getNifClient().equals(value))
+    if (client.getNif().equals(value))
       return ControlData.CONTROLDATA_NIF.getMsg();
-    if (client.getNameClient().equals(value))
+    if (client.getName().equals(value))
       return ControlData.CONTROLDATA_FIRSTNAME.getMsg();
-    if (client.getSurnameClient().equals(value))
+    if (client.getSurname().equals(value))
       return ControlData.CONTROLDATA_LASTNAME.getMsg();
-    if (client.getClientAddress().equals(value))
+    if (client.getAddress().equals(value))
       return ControlData.CONTROLDATA_ADRESS.getMsg();
-    if (client.getEmailClient().equals(value))
+    if (client.getEmail().equals(value))
       return ControlData.CONTROLDATA_EMAIL.getMsg();
-    if (client.getPostalCodeClient().equals(value))
+    if (client.getPostalCode().equals(value))
       return ControlData.CONTROLDATA_CP.getMsg();
-    if (client.getBirthdateClient().equals(value))
+    if (client.getBirthdate().equals(value))
       return ControlData.CONTROLDATA_BIRTHDATE.getMsg();
-    if (client.getMobileClient().equals(value))
+    if (client.getMobile().equals(value))
       return ControlData.CONTROLDATA_MOBILE.getMsg();
     return "";
   }

@@ -24,7 +24,7 @@ public class ClientValidatorCompositeTests {
   void countValidator() {
     System.out.println("hola");
 
-    System.out.println(client.getNameClient());
+    System.out.println(client.getName());
     // listValidateClient = clientValidatorComposite.validate(client);
     System.out.println(listValidateClient.size());
     assertEquals(6, listValidateClient.size());
