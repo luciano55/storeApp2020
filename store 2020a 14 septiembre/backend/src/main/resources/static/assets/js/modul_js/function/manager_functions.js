@@ -388,6 +388,20 @@ API.error = function(){
             }            
             
       }
+  API.getDataControls = function(){
+      const dataPersonClient = {};
+      let   father = "div_dataControl_";
+      for (let i=0; i<   sS.getItem("lenDiv_DataControls"); i++) {   
+                let   myInputId =    ($(sS.getItem("div_DataControls"+i)).id).slice(father.length);
+               if(myInputId.indexOf("phone") != -1){
+                let myInputBoxinfoId = "boxinfo_" + myInputId;
+                dataPersonClient[$(myInputId).dataset.field] = $(myInputBoxinfoId).innerText;
+              }else {
+                      dataPersonClient[$(myInputId).dataset.field] = $(myInputId).value;
+              }              
+      } 
+      return dataPersonClient;
+  }
   API.showItAllStrategy = function(){
      for (let i=0; i< sS.getItem("lenDiv_DataControls");i++){
           $(sS.getItem("div_DataControls"+i)).style.display = "block" ;   

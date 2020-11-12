@@ -56,7 +56,7 @@ public class ValidatorRegistry {
   public ValidableValue getValidator(String validateName) {
     if (VALIDATES.containsKey(validateName.toUpperCase())) {
       try {
-        // Reflection name.class.getConstructor().newInstance();
+        // Reflection nameclass.getConstructor().newInstance();
         return VALIDATES.get(validateName.toUpperCase()).getConstructor().newInstance();
       } catch (Exception e) {
         e.printStackTrace();

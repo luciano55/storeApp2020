@@ -2,8 +2,8 @@ package com.example.demo.util;
 
 import com.example.demo.entity.Client;
 
-public class InverProperty {
-  static public String getPropertyUser(Client client, String value) {
+public class GetDataControlFromValue {
+  static public String getDataControlClient(Client client, String value) {
     if (client.getNif().equals(value))
       return ControlData.CONTROLDATA_NIF.getMsg();
     if (client.getName().equals(value))

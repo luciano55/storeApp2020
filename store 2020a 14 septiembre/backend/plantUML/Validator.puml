@@ -1,4 +1,4 @@
-@startuml
+@startuml validator
 class ValidatorRegistry{
   -static ValidatorRegistry validatorRegistration;
   -static final HashMap<String, Class<? extends ValidableValue>> VALIDATES 
@@ -7,13 +7,28 @@ class ValidatorRegistry{
   +void addValidator(String validateName, Class<? extends ValidableValue> validate) 
   +static synchronized ValidatorRegistry getInstance() 
 }
-class ClientValidatorComposite{
+class ValidatorValueComposite{
   -HashMap<String, ArrayList<String>> listValidate
   -ValidatorRegistry validatorRegistration
   +HashMap<String, ErrorValidate> validate(Client client)
   -HashMap<String, ErrorValidate> getError()
   -void addValidate(String key, String value)  
 }
+class AddClient {
+  -ValidatorValueComposite clientValidatorComposite
+  -Class Client
+   # doPost()
+   # doGet()
+}
+class  HttpServlet{
+}
+class GetDataControlFromValue{
+  +static String getDataControlClient(Client client, String value) 
+}
 
-ClientValidatorComposite *-- ValidatorRegistry
+
+ValidatorValueComposite *-- ValidatorRegistry
+HttpServlet  <|--  AddClient 
+AddClient  *-- ValidatorValueComposite
+AddClient o-- GetDataControlFromValue
 @enduml

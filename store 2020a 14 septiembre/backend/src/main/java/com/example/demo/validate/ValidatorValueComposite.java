@@ -8,7 +8,7 @@ import com.example.demo.entity.Client;
 import com.example.demo.error.ErrorValidate;
 import com.example.demo.validate.validable.ValidableValue;
 
-public class ClientValidatorComposite {
+public class ValidatorValueComposite {
 
   private HashMap<String, ArrayList<String>> listValidate = new HashMap<String, ArrayList<String>>();
 
@@ -19,10 +19,12 @@ public class ClientValidatorComposite {
     addValidate(Validator.letterWithSpace.getName(), client.getName());
     addValidate(Validator.cifNieNif.getName(), client.getNif());
     addValidate(Validator.letterWithSpace.getName(), client.getSurname());
+    // if (client.getBirthdate().length() > 0l) {
     addValidate(Validator.birthdate.getName(), client.getBirthdate());
+    // }
     addValidate(Validator.address.getName(), client.getAddress());
-    // addValidate(Validator.mobileSpain.getName(), client.getMobile());
-    addValidate(Validator.mobile.getName(), client.getMobile());
+    addValidate(Validator.mobileSpain.getName(), client.getMobile());
+    // addValidate(Validator.mobile.getName(), client.getMobile());
 
     addValidate(Validator.email.getName(), client.getEmail());
     addValidate(Validator.cp.getName(), client.getPostalCode());
