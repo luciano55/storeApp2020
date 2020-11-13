@@ -12,7 +12,7 @@ public class ValidatorValueComposite {
 
   private HashMap<String, ArrayList<String>> listValidate = new HashMap<String, ArrayList<String>>();
 
-  private ValidatorRegistry validatorRegistration = ValidatorRegistry.getInstance();
+  private ValidatorValueRegistry validatorRegistration = ValidatorValueRegistry.getInstance();
 
   public HashMap<String, ErrorValidate> validate(Client client) {
 

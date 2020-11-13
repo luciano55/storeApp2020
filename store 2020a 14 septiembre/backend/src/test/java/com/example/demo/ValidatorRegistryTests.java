@@ -2,7 +2,7 @@ package com.example.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.example.demo.validate.ValidatorRegistry;
+import com.example.demo.validate.ValidatorValueRegistry;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ public class ValidatorRegistryTests {
 
   @Test
   void countValidator2() {
-    ValidatorRegistry validatorRegistry = ValidatorRegistry.getInstance();
+    ValidatorValueRegistry validatorRegistry = ValidatorValueRegistry.getInstance();
     System.out.println("Hola");
     System.out.println(validatorRegistry.getSizeRegistry());
     assertEquals(17, validatorRegistry.getSizeRegistry());

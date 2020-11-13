@@ -25,11 +25,11 @@ import com.example.demo.validate.validable.validable.NieValidate;
 import com.example.demo.validate.validable.validable.NifValidate;
 import com.example.demo.validate.validable.validable.NotFoundValidate;
 
-public class ValidatorRegistry {
-  private static ValidatorRegistry validatorRegistration;
+public class ValidatorValueRegistry {
+  private static ValidatorValueRegistry validatorRegistration;
   private static final HashMap<String, Class<? extends ValidableValue>> VALIDATES = new HashMap<String, Class<? extends ValidableValue>>();
 
-  private ValidatorRegistry() {
+  private ValidatorValueRegistry() {
     addValidator(CifValidate.VALIDATE_NAME, CifValidate.class);
     addValidator(NieValidate.VALIDATE_NAME, NieValidate.class);
     addValidator(NifValidate.VALIDATE_NAME, NifValidate.class);
@@ -73,9 +73,9 @@ public class ValidatorRegistry {
     }
   }
 
-  public static synchronized ValidatorRegistry getInstance() {
+  public static synchronized ValidatorValueRegistry getInstance() {
     if (validatorRegistration == null) {
-      validatorRegistration = new ValidatorRegistry();
+      validatorRegistration = new ValidatorValueRegistry();
     }
     return validatorRegistration;
   }

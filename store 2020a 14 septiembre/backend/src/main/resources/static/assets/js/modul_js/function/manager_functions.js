@@ -1,7 +1,7 @@
 
 import {COLOR} from "../enum/enum_color.js";
 import {STRATEGY} from "../enum/enum_stratey.js";
-import {w,d,$,lS,sS,Qa} from "./global.js";
+import {w,d,$,lS,sS,Q,Qa} from "./global.js";
 import {ValidateUtil, Validations} from "../factory/factoryValidation.js";
 
 
@@ -389,18 +389,31 @@ API.error = function(){
             
       }
   API.getDataControls = function(){
-      const dataPersonClient = {};
+      const dataControl = {};
       let   father = "div_dataControl_";
       for (let i=0; i<   sS.getItem("lenDiv_DataControls"); i++) {   
                 let   myInputId =    ($(sS.getItem("div_DataControls"+i)).id).slice(father.length);
                if(myInputId.indexOf("phone") != -1){
                 let myInputBoxinfoId = "boxinfo_" + myInputId;
-                dataPersonClient[$(myInputId).dataset.field] = $(myInputBoxinfoId).innerText;
+                dataControl[$(myInputId).dataset.field] = $(myInputBoxinfoId).innerText;
               }else {
-                      dataPersonClient[$(myInputId).dataset.field] = $(myInputId).value;
+                      dataControl[$(myInputId).dataset.field] = $(myInputId).value;
               }              
       } 
-      return dataPersonClient;
+      return dataControl;
+  }
+  API.resetDataControl = function(dataControl){  
+     if(!dataControl) {dataControl =   API.getDataControls();}        
+     for (var key in dataControl) {
+           let dataField = Q("input[data-field='" +key +"']");
+           let control = dataField.id;
+           $(control).style.backgroundColor = "";
+           $("boxerror_"+control).style.display = "none";
+           if($("boxinfo_"+control)){
+                          $("boxinfo_"+control).style.display = "block";
+            }       
+          //console.log(' name=' + key + ' value=' + dataControl[key]);
+      }   
   }
   API.showItAllStrategy = function(){
      for (let i=0; i< sS.getItem("lenDiv_DataControls");i++){
@@ -448,6 +461,25 @@ API.error = function(){
         }
     });
 
+}
+   API.serverResponse = function(state){
+     if(Array.isArray(state)){
+                for (let i=0; i<state.length;i++){
+                     let field = state[i].messageNameControl;
+                     let dataField = Q("input[data-field='" +field +"']");
+                     let control = dataField.id;
+                     $(control).style.backgroundColor = COLOR.ERRORBACKEND;
+                     $("boxerror_"+control).innerHTML = state[i].messageErrorControl;
+                     $("boxerror_"+control).style.display = "block";
+                     if($("boxinfo_"+control)){
+                          $("boxinfo_"+control).style.display = "none";
+                     }                   
+                 }     
+              }else {
+                if(typeof state === 'object' && state !== null){
+                   console.log("object", state.validation);
+                }
+              }   
 }
   return API;
 }
