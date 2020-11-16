@@ -316,12 +316,12 @@ API.submit = function(){
                         break; 
                     }             
               }
-              aviso?$("submit").style.display = "block" :  $("submit").style.display = "none"; 
+              aviso?$("div_submit").style.display = "block" :  $("div_submit").style.display = "none"; 
         }
 
     }
   }
-API.error = function(){
+API.error= function(){
      'use strict';   
     return {      
         message : function(params){          
@@ -411,8 +411,7 @@ API.error = function(){
            $("boxerror_"+control).style.display = "none";
            if($("boxinfo_"+control)){
                           $("boxinfo_"+control).style.display = "block";
-            }       
-          //console.log(' name=' + key + ' value=' + dataControl[key]);
+            }             
       }   
   }
   API.showItAllStrategy = function(){
@@ -462,10 +461,17 @@ API.error = function(){
     });
 
 }
-   API.serverResponse = function(state){
-     if(Array.isArray(state)){
-                for (let i=0; i<state.length;i++){
-                     let field = state[i].messageNameControl;
+   API.serverResponse = function(response){
+     console.log("response",response);
+        if(response.status == 404){              
+               $("errorBox").innerHTML = "Error 404 " + response.message|| "Ocurrió un error al acceder al BackEnd";
+             $("errorBox").style.display ="block";   
+      }
+        
+
+     if(Array.isArray(response)){
+                for (let i=0; i<response.length;i++){
+                     let field = response[i].messageNameControl;
                      let dataField = Q("input[data-field='" +field +"']");
                      let control = dataField.id;
                      $(control).style.backgroundColor = COLOR.ERRORBACKEND;
@@ -476,10 +482,46 @@ API.error = function(){
                      }                   
                  }     
               }else {
-                if(typeof state === 'object' && state !== null){
-                   console.log("object", state.validation);
+                if(typeof response === 'object' && response !== null){
+                   console.log("object", response.validation);
                 }
               }   
+}
+API.ajaxForm = function(props){
+     let {url, dataControl} = props;
+     //console.log("dataControl",dataControl);
+      fetch(url, {
+            method: 'POST', 
+            body:  JSON.stringify(dataControl),          
+            headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                  }
+       }).catch(error=> {
+            console.log("error2",error);
+             $("errorBox").innerHTML = error.statusText || "Ocurrió un error al acceder al BackEnd";
+             $("errorBox").style.display ="block";      })
+       .then(res => res.json())
+       /*
+         .catch(error => {
+           console.log("error1",error);
+             $("errorBox").innerHTML = error.statusText || "Ocurrió un error al acceder al BackEnd";
+             $("errorBox").style.display ="block";
+             /*
+           let message = err.statusText || "Ocurrió un error al acceder al BackEnd";
+           $("footer").innerHTML = `<div class="error">
+             <p>Error ${err.status}:${message}</p>
+             </div>`;
+           console.error('Error:', error)
+          })
+       */
+        .then(response => {
+            // $("loader").style.display = "none";         !important
+             API.resetDataControl(dataControl); 
+             API.serverResponse(response);               
+            // location.reload();
+         });
+     
 }
   return API;
 }

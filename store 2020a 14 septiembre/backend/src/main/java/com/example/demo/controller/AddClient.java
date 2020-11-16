@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.example.demo.entity.Client;
 import com.example.demo.error.ErrorValidate;
 import com.example.demo.util.GetDataControlFromValue;
-import com.example.demo.validate.ValidatorValueComposite;
+import com.example.demo.validate.ValidatorComposite;
+//import com.example.demo.validate.ValidatorLengthComposite;
+//import com.example.demo.validate.ValidatorValueComposite;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -31,7 +35,12 @@ public class AddClient extends HttpServlet {
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html;charset=UTF-8");
 
-    ValidatorValueComposite clientValidatorComposite = new ValidatorValueComposite();
+    // ValidatorValueComposite clientValidatorValueComposite = new
+    // ValidatorValueComposite();
+    // ValidatorLengthComposite clientValidatorLengthComposite = new
+    // ValidatorLengthComposite();
+    // ValidatorComposite clientValidatorComposite = new ValidatorComposite();
+
     StringBuilder sb = new StringBuilder();
     BufferedReader br = request.getReader();
     String str = null;
@@ -44,8 +53,14 @@ public class AddClient extends HttpServlet {
     Gson g = new Gson();
     Client client = g.fromJson(json, Client.class);
 
-    HashMap<String, ErrorValidate> errorsAll = new HashMap<>();
-    errorsAll = clientValidatorComposite.validate(client);
+    // HashMap<String, ErrorValidate> errorsAll = new HashMap<>();
+    HashMap<String, ArrayList<ErrorValidate>> errorsAll = new HashMap<String, ArrayList<ErrorValidate>>();
+    // errorsAll = clientValidatorValueComposite.validate(client);
+    // errorsAll = clientValidatorLengthComposite.validate(client);
+    // errorsAll = ValidatorComposite.getErrorsLength(client);
+    // errorsAll = ValidatorComposite.getErrorsValue(client);
+    errorsAll = ValidatorComposite.getErrorsAll(client);
+
     JSONObject obj = new JSONObject();
     if (errorsAll.isEmpty()) {
       System.out.println("Validación sin errores");
@@ -56,13 +71,25 @@ public class AddClient extends HttpServlet {
     } else {
       System.out.println("Tenemos Errores:");
       JSONArray arrayJson = new JSONArray();
-      for (HashMap.Entry<String, ErrorValidate> entry : errorsAll.entrySet()) {
-        JSONObject oneJson = new JSONObject();
-
-        oneJson.put("messageErrorControl", entry.getValue().getMsgEs());
-        oneJson.put("messageValueControl", entry.getKey());
-        oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(client, entry.getKey()));
-        arrayJson.put(oneJson);
+      /*
+       * for (HashMap.Entry<String, ErrorValidate> entry : errorsAll.entrySet ()) {
+       * JSONObject oneJson = new JSONObject();
+       * 
+       * oneJson.put("messageErrorControl", entry.getValue().getMsgEs());
+       * oneJson.put("messageValueControl", entry.getKey());
+       * oneJson.put("messageNameControl",
+       * GetDataControlFromValue.getDataControlClient(client, entry.getKey()));
+       * arrayJson.put(oneJson); }
+       */
+      for (Entry<String, ArrayList<ErrorValidate>> entry : errorsAll.entrySet()) {
+        ArrayList<ErrorValidate> myerror = entry.getValue();
+        myerror.forEach((n) -> {
+          JSONObject oneJson = new JSONObject();
+          oneJson.put("messageErrorControl", n.getMsgEs());
+          oneJson.put("messageValueControl", entry.getKey());
+          oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(client, entry.getKey()));
+          arrayJson.put(oneJson);
+        });
       }
       response.getWriter().write((arrayJson).toString());
     }

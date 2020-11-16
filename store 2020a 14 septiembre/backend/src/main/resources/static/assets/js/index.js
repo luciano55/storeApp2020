@@ -8,11 +8,11 @@ import {STRATEGY} from "./modul_js/enum/enum_stratey.js";
 import{FactoryDataControl} from "./modul_js/factory/factoryDataControl.js";
 import { GeneralPurposeFunctions } from "./modul_js/function/general_purpose_functions.js";
 
-
-
+import {FactoryImg} from "./modul_js/factory/factoryImg.js"
 let url;
 const managerFunctions = new ManagerFunctions();
 const viewClient = new ViewClient();
+const factoryImg = new FactoryImg();
 
 d.addEventListener("DOMContentLoaded", (e) => {
   $("myFooter").appendChild(ViewFooter());
@@ -27,7 +27,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
   
 d.addEventListener("click", (e) => {
   if (e.target.id == "linkRegister") {
-     url = "/addClient";
+     url = "/addClient88";
      const globalFunction = new GeneralPurposeFunctions();
       globalFunction.resetAutoIncrementPhoneCP();
       let myBody = $("myBody");
@@ -38,23 +38,12 @@ d.addEventListener("click", (e) => {
      managerFunctions.saveDataControls();
      managerFunctions.showIniStrategy(STRATEGY.ONETOONE);
   }
-
   if (e.target.id == "submit") {     
       const dataControl =  managerFunctions.getDataControls();     
-       console.log(dataControl);
-       fetch(url, {
-            method: 'POST', 
-            body:  JSON.stringify(dataControl),          
-            headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                  }
-       }).then(res => res.json())
-         .catch(error => console.error('Error:', error))
-        .then(response => {
-             managerFunctions.resetDataControl(dataControl); 
-             managerFunctions.serverResponse(response);               
-       // location.reload();
-         })
+       $("loader").style.display = "block";
+       managerFunctions.ajaxForm({
+         url,
+         dataControl
+       });       
    }
 });

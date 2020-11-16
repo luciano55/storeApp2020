@@ -7,8 +7,8 @@ import java.util.Map;
 import com.example.demo.error.ErrorValidate;
 
 public class AddErrorArrayError {
-  HashMap<String, ErrorValidate> errors = new HashMap<>();
-  HashMap<String, ArrayList<ErrorValidate>> errorsAll = new HashMap<String, ArrayList<ErrorValidate>>();
+  private HashMap<String, ErrorValidate> errors = new HashMap<>();
+  private HashMap<String, ArrayList<ErrorValidate>> errorsAll = new HashMap<String, ArrayList<ErrorValidate>>();
 
   public AddErrorArrayError(HashMap<String, ErrorValidate> errors,
       HashMap<String, ArrayList<ErrorValidate>> errorsAll) {

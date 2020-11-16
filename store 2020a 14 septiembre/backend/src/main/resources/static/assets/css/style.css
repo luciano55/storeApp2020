@@ -387,6 +387,21 @@ select:-webkit-autofill:active {
   width: 15px;
   margin-right: 10px; }
 
+.loaderjm {
+  margin: 1rem auto;
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  background-color: #dc3545; }
+
+.errorjm {
+  padding: 1rem;
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #dc3545; }
+
 /* ----------- Media query ---------*/
 @media screen and (min-width: 600px) {
   .humburger-btn {

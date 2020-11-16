@@ -80,8 +80,7 @@ export function FactoryView() {
       },
        { 
        field : [],
-       factory : "factoryButton.submit" ,
-       params : ["none"]            
+       factory : "factoryFrame.divSubmit"                 
       }
           ];     
       return createView(data, "Register Customer");   

@@ -63,9 +63,10 @@ export function FactoryButton() {
     button.id = "submit";
     button.type = "submit";
     button.value = "Send";
-    button.style.display= display;
+    button.style.display= display || "block";
     return button;
   };
+  
 
   return API;
 }

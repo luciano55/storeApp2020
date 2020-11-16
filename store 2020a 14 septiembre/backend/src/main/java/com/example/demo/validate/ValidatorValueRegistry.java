@@ -80,7 +80,7 @@ public class ValidatorValueRegistry {
     return validatorRegistration;
   }
 
-  public int getSizeRegistry() {
+  public int getSizeRegistry() { // para test
     return VALIDATES.size();
   }
 

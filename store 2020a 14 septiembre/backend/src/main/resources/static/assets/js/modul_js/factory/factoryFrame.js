@@ -4,6 +4,8 @@ import { FactoryMenu } from "./factoryMenu.js";
 import { FactoryButton } from "./factoryButton.js";
 import { GeneralPurposeFunctions } from "../function/general_purpose_functions.js";
 import {VALIDATOR} from "../enum/enum_validator.js";
+import {FactoryImg} from "../factory/factoryImg.js";
+import {LOADER} from "../enum/enum_loader.js";
 
 
 export function FactoryFrame() {
@@ -13,6 +15,7 @@ export function FactoryFrame() {
   const factoryButton = new FactoryButton();
   const factoryBox = new FactoryBox();
   const generalPurposeFunctions = new GeneralPurposeFunctions();
+  const factoryImg = new  FactoryImg();
 
 const input = function(params){
   const myId = params.id;
@@ -126,6 +129,20 @@ let params = {};
  divDataControl.appendChild(eval( control + "(params)"));
     return divDataControl;
   }
+API.divSubmit = function(params){
+  params = {};
+  params.id = "div_submit";
+  const divSubmit = factoryTag.div(params);
+  divSubmit.style.display = "none";
+  divSubmit.appendChild(factoryButton.submit());
+  const loader = factoryImg.loader(LOADER.OVAL);
+  loader.style.display = "none";
+  divSubmit.appendChild(loader);
+  const error = factoryBox.error();
+   error.style.display = "none";
+  divSubmit.appendChild(error);
+  return divSubmit;
 
+}
   return API;
 }
