@@ -50,6 +50,8 @@ public class ValidatorLengthComposite {
         ErrorValidate error = validable.validate(value.getString(), value.getMin(), value.getMax());
         if (error.getId() != 0) {
           errors.put(value.getString(), error);
+
+          //
         }
       });
     }

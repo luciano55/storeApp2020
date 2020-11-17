@@ -27,7 +27,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
   
 d.addEventListener("click", (e) => {
   if (e.target.id == "linkRegister") {
-     url = "/addClient88";
+     url = "/addClient";
      const globalFunction = new GeneralPurposeFunctions();
       globalFunction.resetAutoIncrementPhoneCP();
       let myBody = $("myBody");

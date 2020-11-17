@@ -462,30 +462,29 @@ API.error= function(){
 
 }
    API.serverResponse = function(response){
-     console.log("response",response);
-        if(response.status == 404){              
+       console.log("response",response);
+      if(response.status == 404){              
                $("errorBox").innerHTML = "Error 404 " + response.message|| "Ocurrió un error al acceder al BackEnd";
              $("errorBox").style.display ="block";   
       }
-        
-
      if(Array.isArray(response)){
-                for (let i=0; i<response.length;i++){
-                     let field = response[i].messageNameControl;
-                     let dataField = Q("input[data-field='" +field +"']");
-                     let control = dataField.id;
-                     $(control).style.backgroundColor = COLOR.ERRORBACKEND;
-                     $("boxerror_"+control).innerHTML = state[i].messageErrorControl;
-                     $("boxerror_"+control).style.display = "block";
-                     if($("boxinfo_"+control)){
-                          $("boxinfo_"+control).style.display = "none";
-                     }                   
-                 }     
-              }else {
-                if(typeof response === 'object' && response !== null){
-                   console.log("object", response.validation);
-                }
-              }   
+          if(response[0].error == 0){
+                console.log("object", response[0].validation);
+          }
+          else{
+                  for (let i=0; i<response.length;i++){
+                        let field = response[i].messageNameControl;
+                        let dataField = Q("input[data-field='" +field +"']");
+                        let control = dataField.id;
+                        $(control).style.backgroundColor = COLOR.ERRORBACKEND;
+                        $("boxerror_"+control).innerHTML = response[i].messageErrorControl;
+                        $("boxerror_"+control).style.display = "block";
+                        if($("boxinfo_"+control)){
+                              $("boxinfo_"+control).style.display = "none";
+                        }                   
+                    }  
+          }                 
+       }
 }
 API.ajaxForm = function(props){
      let {url, dataControl} = props;
