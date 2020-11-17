@@ -135,7 +135,7 @@ API.divSubmit = function(params){
   const divSubmit = factoryTag.div(params);
   divSubmit.style.display = "none";
   divSubmit.appendChild(factoryButton.submit());
-  const loader = factoryImg.loader(LOADER.OVAL);
+  const loader = factoryImg.loader(LOADER.BALL_TRIANGLE);
   loader.style.display = "none";
   divSubmit.appendChild(loader);
   const error = factoryBox.error();

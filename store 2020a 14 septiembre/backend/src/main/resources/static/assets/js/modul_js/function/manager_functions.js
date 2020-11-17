@@ -321,17 +321,20 @@ API.submit = function(){
 
     }
   }
-API.error= function(){
+API.error = function(params){
      'use strict';   
+        let id ="";
+      if(params) id = params.nodo.id;
     return {      
-        message : function(params){          
-            $("boxerror_"+params.nodo.id).innerHTML = params.mensajeError;
+        message : function(params){         
+          $("boxerror_"+id).innerHTML = params.mensajeError || params;
         },
-        off : function(params){
-           $("boxerror_"+params.nodo.id).classList.add("none");   
+        off : function(){         
+           $("boxerror_"+id).classList.add("none");   
         },
-        on : function(params){
-            $("boxerror_"+params.nodo.id).classList.remove("none");   
+        on : function(){            
+            $("boxerror_"+id).classList.remove("none");   
+            $("boxerror_"+id).style.display = "block";
           }
     }
   }
@@ -463,13 +466,16 @@ API.error= function(){
 }
    API.serverResponse = function(response){
        console.log("response",response);
-      if(response.status == 404){              
-               $("errorBox").innerHTML = "Error 404 " + response.message|| "Ocurrió un error al acceder al BackEnd";
-             $("errorBox").style.display ="block";   
+      if(response.status == 404){  
+            this.error().message( "Error 404 ");//+ response.message|| "Ocurrió un error al acceder al BackEnd");            
+              // $("errorBox").innerHTML = "Error 404 " + response.message|| "Ocurrió un error al acceder al BackEnd";
+            // $("errorBox").style.display ="block";  
+           this.error().on(); 
       }
      if(Array.isArray(response)){
           if(response[0].error == 0){
                 console.log("object", response[0].validation);
+                  // location.reload();
           }
           else{
                   for (let i=0; i<response.length;i++){
@@ -498,8 +504,13 @@ API.ajaxForm = function(props){
                   }
        }).catch(error=> {
             console.log("error2",error);
-             $("errorBox").innerHTML = error.statusText || "Ocurrió un error al acceder al BackEnd";
-             $("errorBox").style.display ="block";      })
+            this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
+             //$("errorBox").innerHTML = error.statusText || "Ocurrió un error al acceder al BackEnd";
+            // $("errorBox").style.display ="block";    
+              this.error.on(); 
+             }
+             
+             )
        .then(res => res.json())
        /*
          .catch(error => {
@@ -518,7 +529,7 @@ API.ajaxForm = function(props){
             // $("loader").style.display = "none";         !important
              API.resetDataControl(dataControl); 
              API.serverResponse(response);               
-            // location.reload();
+          
          });
      
 }
