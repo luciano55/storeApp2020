@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import java.sql.SQLException;
 
-import com.example.demo.model.business.CallerPage;
+import com.example.demo.DAO.procedure.CallerPage;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

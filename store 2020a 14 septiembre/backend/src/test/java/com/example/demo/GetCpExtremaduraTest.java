@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.SQLException;
 
-import com.example.demo.model.business.CallerPostalCode;
+import com.example.demo.DAO.procedure.CallerPostalCode;
 
 import org.junit.jupiter.api.Test;
 

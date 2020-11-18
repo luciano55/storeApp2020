@@ -1,4 +1,4 @@
-package com.example.demo.model.business;
+package com.example.demo.DAO.procedure;
 
 import java.sql.SQLException;
 import java.sql.CallableStatement;

@@ -16,10 +16,12 @@ public class ValidatorLengthComposite {
 
   public HashMap<String, ErrorValidate> validate(Client client) {
     addValidate(Validator.size.getName(), client.getName(), 2, 50);
-    addValidate(Validator.size.getName(), client.getSurname(), 12, 100);
+    addValidate(Validator.size.getName(), client.getSurname(), 2, 100);
     addValidate(Validator.size.getName(), client.getEmail(), 5, 150);
     addValidate(Validator.size.getName(), client.getPostalCode(), 5, 5);
-    addValidate(Validator.size.getName(), client.getBirthdate(), 10, 10);
+    if (client.getBirthdate().length() > 0l) {
+      addValidate(Validator.size.getName(), client.getBirthdate(), 10, 10);
+    }
     addValidate(Validator.size.getName(), client.getMobile(), 12, 14);
     return generateError();
   }

@@ -40,8 +40,8 @@ d.addEventListener("click", (e) => {
   }
   if (e.target.id == "submit") {     
       const dataControl =  managerFunctions.getDataControls();     
-       $("loader").style.display = "block";
-       managerFunctions.ajaxForm({
+      managerFunctions.loader().on();
+      managerFunctions.ajaxForm({
          url,
          dataControl
        });       

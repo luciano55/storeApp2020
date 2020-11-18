@@ -8,7 +8,7 @@ import {ValidateUtil, Validations} from "../factory/factoryValidation.js";
 export function ManagerFunctions() {
   const API = {};   
 
-  API.darkLight = function (classDark) {
+API.darkLight = function (classDark) {
     const $selectors = Qa("[data-dark]");
     const $btn = $("darkMode");
 
@@ -40,7 +40,7 @@ export function ManagerFunctions() {
     setThemeInitial();
   };
 
-  API.weather = function () {
+API.weather = function () {
     const key = "00c14c9fa75c8b84d8f1492058ac4369";
     if (key == "")
       $("temp").innerHTML = "Remember to add your api key!";
@@ -88,7 +88,7 @@ export function ManagerFunctions() {
     //weatherBallon(6167865);
   };
 
-  API.scrollTop = function (btn) {
+API.scrollTop = function (btn) {
     const $scrollBtn = d.querySelector(btn);
 
     w.addEventListener("scroll", (e) => {
@@ -110,7 +110,7 @@ export function ManagerFunctions() {
     });
   };
 
-  API.validations = function () {
+API.validations = function () {
     d.addEventListener("keyup", (e) => {
       if (e.target.matches("[data-validate]")) {    
           ( e.code == "Enter"  || e.code == "Tab") ?  eval(sS.getItem("strategy")): eval(e.target.dataset.validate + "(e)");        
@@ -227,7 +227,6 @@ for (let i = 0; i < dados.length; i++) {
 }
 
  }
-
  // IndexedDB
  const browserCompatibility = function(){
                               let myIndexdDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
@@ -330,7 +329,8 @@ API.error = function(params){
           $("boxerror_"+id).innerHTML = params.mensajeError || params;
         },
         off : function(){         
-           $("boxerror_"+id).classList.add("none");   
+           $("boxerror_"+id).classList.add("none");  
+             $("boxerror_"+id).style.display = "none"; 
         },
         on : function(){            
             $("boxerror_"+id).classList.remove("none");   
@@ -338,7 +338,7 @@ API.error = function(params){
           }
     }
   }
-  API.info = function(){
+API.info = function(){
      'use strict';
    
     return {    
@@ -361,7 +361,7 @@ API.error = function(params){
 
     }
   }
-  API.dataControl = function(){
+API.dataControl = function(){
  'use strict';   
     return {      
         get : function(params){          
@@ -377,7 +377,7 @@ API.error = function(params){
           }
     }
   }
-  API.saveDataControls = function(){
+API.saveDataControls = function(){
           const  dataControlrequired =  Qa("input[data-validate][required]"); 
           sS.setItem("lenDataControls",dataControlrequired.length);
           for (let i=0; i< dataControlrequired.length; i++) {   
@@ -391,7 +391,7 @@ API.error = function(params){
             }            
             
       }
-  API.getDataControls = function(){
+API.getDataControls = function(){
       const dataControl = {};
       let   father = "div_dataControl_";
       for (let i=0; i<   sS.getItem("lenDiv_DataControls"); i++) {   
@@ -405,7 +405,7 @@ API.error = function(params){
       } 
       return dataControl;
   }
-  API.resetDataControl = function(dataControl){  
+API.resetDataControl = function(dataControl){  
      if(!dataControl) {dataControl =   API.getDataControls();}        
      for (var key in dataControl) {
            let dataField = Q("input[data-field='" +key +"']");
@@ -422,7 +422,7 @@ API.error = function(params){
           $(sS.getItem("div_DataControls"+i)).style.display = "block" ;   
        }
     }
-  API.showOneToOneStrategy = function(){
+API.showOneToOneStrategy = function(){
      let   father = "div_dataControl_";
      for (let i=1; i< sS.getItem("lenDiv_DataControls");i++){
             if($(sS.getItem("div_DataControls"+i)).style.display == "none")
@@ -436,7 +436,7 @@ API.error = function(params){
             }          
        }      
     }
-  API.showIniStrategy = function(strategy){
+API.showIniStrategy = function(strategy){
     if(strategy == STRATEGY.ALL){  
       sS.setItem("strategy","API.showItAllStrategy()");
       API.showItAllStrategy();}
@@ -448,7 +448,7 @@ API.error = function(params){
         $(sS.getItem("div_DataControls0")).style.display = "block";  
       }      
     }
-   API.scrollTopButton = function(btn){
+API.scrollTopButton = function(btn){
     const $scrollBtn = d.querySelector(btn);  
     w.addEventListener("scroll",(e)=>{
         let scrollTop = w.pageYOffset || d.documentElement.scrollTop;
@@ -464,7 +464,7 @@ API.error = function(params){
     });
 
 }
-   API.serverResponse = function(response){
+API.serverResponse = function(response){
        console.log("response",response);
       if(response.status == 404){  
             this.error().message( "Error 404 ");//+ response.message|| "Ocurrió un error al acceder al BackEnd");            
@@ -494,8 +494,7 @@ API.error = function(params){
 }
 API.ajaxForm = function(props){
      let {url, dataControl} = props;
-     //console.log("dataControl",dataControl);
-      fetch(url, {
+     fetch(url, {
             method: 'POST', 
             body:  JSON.stringify(dataControl),          
             headers: {
@@ -503,35 +502,40 @@ API.ajaxForm = function(props){
                         'Content-Type': 'application/json'
                   }
        }).catch(error=> {
-            console.log("error2",error);
-            this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
-             //$("errorBox").innerHTML = error.statusText || "Ocurrió un error al acceder al BackEnd";
-            // $("errorBox").style.display ="block";    
-              this.error.on(); 
-             }
-             
-             )
-       .then(res => res.json())
-       /*
-         .catch(error => {
-           console.log("error1",error);
-             $("errorBox").innerHTML = error.statusText || "Ocurrió un error al acceder al BackEnd";
-             $("errorBox").style.display ="block";
-             /*
-           let message = err.statusText || "Ocurrió un error al acceder al BackEnd";
-           $("footer").innerHTML = `<div class="error">
-             <p>Error ${err.status}:${message}</p>
-             </div>`;
-           console.error('Error:', error)
-          })
-       */
-        .then(response => {
-            // $("loader").style.display = "none";         !important
+           this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
+             this.error.on(); 
+     })
+       .then(res => res.json())      
+       .then(response => {
+             this.loader().off();
              API.resetDataControl(dataControl); 
-             API.serverResponse(response);               
-          
+             API.serverResponse(response);          
          });
      
+}
+API.loader = function(){
+   'use strict';
+   
+    return {    
+      exist : function(){
+        if($("loader")){
+              return true;
+        } else{
+                return false;
+        }
+      },
+        message : function(message){          
+            $("loader").innerHTML = message;
+        },
+        off : function(){
+           $("loader").classList.add("none");   
+           $("loader").style.display = "none";
+        },
+        on : function(){
+              $("loader").classList.remove("none");   
+              $("loader").style.display = "block";
+          }
+        }
 }
   return API;
 }

@@ -1,6 +1,6 @@
-package com.example.demo.verify;
+package com.example.demo.error;
 
-public enum STATE_VERIFY {
+public enum ErrorVerify {
 
   EMAILEXITS(5, "Ya existe el EMAIL", "The EMAIL already exists"),
   NIFEXITS(6, "Ya existe el NIF", "The NIF already exists"),
@@ -11,7 +11,7 @@ public enum STATE_VERIFY {
   private final String msgEs;
   private final String msgEn;
 
-  STATE_VERIFY(int id, String msgEs, String msgEn) {
+  ErrorVerify(int id, String msgEs, String msgEn) {
     this.id = id;
     this.msgEs = msgEs;
     this.msgEn = msgEn;

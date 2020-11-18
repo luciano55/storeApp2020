@@ -111,7 +111,7 @@ export const ValidateUtil = {
                       managerFunctions.info().message(params);
                       managerFunctions.info().on(params);
           }       
-           managerFunctions.error(params).off();         
+     managerFunctions.error(params).off();         
     } else {          
         managerFunctions.dataControl().error(params);      
         managerFunctions.error(params).message(params);

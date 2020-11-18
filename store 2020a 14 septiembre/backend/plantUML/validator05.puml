@@ -1,0 +1,76 @@
+@startuml validator05
+class ValidatorVerificator{
+  +JSONArray getErrors(Client client)
+  -HashMap<String, ArrayList<ErrorValidate>> getErrorsValue(Client client)
+  -HashMap<String, ArrayList<ErrorValidate>> getErrorsLength(Client client)
+  -HashMap<String, ErrorVerify> getErrorsVerify(Client client) 
+}
+class ValidatorValueRegistry{
+  -static ValidatorRegistry validatorRegistration;
+  -static final HashMap<String, Class<? extends ValidableValue>> VALIDATES 
+  -ValidatorValueRegistry() 
+  +ValidableValue getValidator(String validateName)
+  +void addValidator(String validateName, Class<? extends ValidableValue> validate) 
+  +static synchronized ValidatorRegistry getInstance() 
+}
+class ValidatorLengthRegistry{
+  -static ValidatorRegistry validatorRegistration;
+  -static final HashMap<String, Class<? extends ValidableLength>> VALIDATES 
+  -ValidatorLengthRegistry() 
+  +ValidableLength getValidator(String validateName)
+  +void addValidator(String validateName, Class<? extends ValidableLength> validate) 
+  +static synchronized ValidatorRegistry getInstance() 
+}
+class ValidatorValueComposite{
+  -HashMap<String, ArrayList<String>> listValidate
+  -ValidatorValueRegistry validatorRegistration
+  +HashMap<String, ErrorValidate> validate(Client client)
+  -HashMap<String, ErrorValidate> getError()
+  -void addValidate(String key, String value)  
+}
+class ValidatorLengthComposite{
+  - private Map<String, ArrayList<StringLimit>> listValidate
+  -ValidatorLengthRegistry validatorRegistration
+  +HashMap<String, ErrorValidate> validate(Client client)
+  -HashMap<String, ErrorValidate> getError()
+  -void addValidate(String key, String value)  
+}
+class AddErrorArrayError {
+   -HashMap<String, ErrorValidate> errors
+   -HashMap<String, ArrayList<ErrorValidate>> errorsAll 
+   +AddErrorArrayError(HashMap<String, ErrorValidate> errors,
+      HashMap<String, ArrayList<ErrorValidate>> errorsAll) 
+   +HashMap<String, ArrayList<ErrorValidate>> getErrorsAll()
+   -void addError(String key, ErrorValidate value)
+
+}
+class AddClient {
+  -ValidatorValueComposite clientValidatorComposite
+  -Class Client
+   # doPost()
+   # doGet()
+}
+class  HttpServlet{
+}
+class GetDataControlFromValue{
+  +static String getDataControlClient(Client client, String value) 
+}
+class  VerifyClient{
+ +VerifyClient(Client client) 
+ +HashMap<String, ErrorVerify> verify() 
+}
+ class CallerClient {
+  +Boolean existEmail(String email) 
+}
+
+ValidatorValueComposite *-- ValidatorValueRegistry
+ValidatorLengthComposite *-- ValidatorLengthRegistry
+HttpServlet  <|--  AddClient 
+ValidatorVerificator  *-- ValidatorValueComposite
+ValidatorVerificator  *-- ValidatorLengthComposite
+AddClient *-- ValidatorVerificator
+ValidatorVerificator o-- AddErrorArrayError
+ValidatorVerificator o-- GetDataControlFromValue
+ValidatorVerificator  *-- VerifyClient
+VerifyClient *-- CallerClient
+@enduml
