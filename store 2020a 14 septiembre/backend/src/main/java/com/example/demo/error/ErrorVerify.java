@@ -5,7 +5,9 @@ public enum ErrorVerify {
   EMAILEXITS(5, "Ya existe el EMAIL", "The EMAIL already exists"),
   NIFEXITS(6, "Ya existe el NIF", "The NIF already exists"),
   USEREXITS(7, "Ya existe el USER", "The USER already exists"),
-  PASSWORDEXITS(8, "Ya existe la Password", "The PASSWORD already exists");
+  PASSWORDEXITS(8, "Ya existe la Password", "The PASSWORD already exists"),
+  POSTALCODENOTEXIST(9, "NO existe el código postal", "The postalcode not exist"),
+  MOBILEEXIST(10, "Ya existe ese móvil", "The mobile not exist");
 
   private final int id;
   private final String msgEs;

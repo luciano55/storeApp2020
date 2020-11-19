@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.JSONArray;
 import net.minidev.json.JSONObject;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
+import com.example.demo.DAO.procedure.CallerClient;
 import com.example.demo.entity.Client;
 
 import com.example.demo.util.AddErrorArrayError;
@@ -14,14 +17,15 @@ import com.example.demo.validate.ValidatorLengthComposite;
 import com.example.demo.validate.ValidatorValueComposite;
 import com.example.demo.verify.VerifyClient;
 
-public class ValidatorVerificator {
+public class CRUD {
 
-  public JSONArray getErrors(Client client) {
+  public JSONArray addClient(Client client) {
     HashMap<String, ArrayList<ErrorValidate>> errorsValidation = new HashMap<String, ArrayList<ErrorValidate>>();
     HashMap<String, ErrorVerify> errorsVerification = new HashMap<String, ErrorVerify>();
     final JSONArray arrayJson = new JSONArray();
     errorsValidation = getErrorsLength(client);
     Boolean error = false;
+    CallerClient callerClient;
     if (errorsValidation.isEmpty()) {
       errorsValidation = getErrorsValue(client);
       if (errorsValidation.isEmpty()) {
@@ -31,11 +35,31 @@ public class ValidatorVerificator {
           e.printStackTrace();
         }
         if (errorsVerification.isEmpty()) {
-          JSONObject oneJson = new JSONObject();
-          oneJson.put("error", 0);
-          oneJson.put("validation", "ok");
-          oneJson.put("verification", "ok");
-          arrayJson.put(oneJson);
+          try {
+            callerClient = new CallerClient();
+
+            if (callerClient.addClient(client)) {
+              RequestContextHolder.currentRequestAttributes().setAttribute("activePage", "client",
+                  RequestAttributes.SCOPE_SESSION);
+              JSONObject oneJson = new JSONObject();
+              oneJson.put("error", 0);
+              oneJson.put("validation", "ok");
+              oneJson.put("verification", "ok");
+              oneJson.put("addClient", "ok");
+              arrayJson.put(oneJson);
+            } else {
+              JSONObject oneJson = new JSONObject();
+              oneJson.put("error", 1);
+              oneJson.put("validation", "ok");
+              oneJson.put("verification", "ok");
+              oneJson.put("addClient", "error");
+              arrayJson.put(oneJson);
+            }
+          } catch (ClassNotFoundException | SQLException e) {
+
+            e.printStackTrace();
+          }
+
         } else {
           for (java.util.Map.Entry<String, ErrorVerify> entry : errorsVerification.entrySet()) {
             JSONObject oneJson = new JSONObject();

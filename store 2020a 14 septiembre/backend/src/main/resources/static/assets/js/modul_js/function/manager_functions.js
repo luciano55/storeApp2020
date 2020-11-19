@@ -467,15 +467,13 @@ API.scrollTopButton = function(btn){
 API.serverResponse = function(response){
        console.log("response",response);
       if(response.status == 404){  
-            this.error().message( "Error 404 ");//+ response.message|| "Ocurrió un error al acceder al BackEnd");            
-              // $("errorBox").innerHTML = "Error 404 " + response.message|| "Ocurrió un error al acceder al BackEnd";
-            // $("errorBox").style.display ="block";  
+            this.error().message( "Error 404 ");
            this.error().on(); 
       }
      if(Array.isArray(response)){
           if(response[0].error == 0){
-                console.log("object", response[0].validation);
-                  // location.reload();
+                console.log("resultado:", response[0].addClient);
+                location.reload();
           }
           else{
                   for (let i=0; i<response.length;i++){

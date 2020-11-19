@@ -53,7 +53,7 @@ public class IndexController {
        * callerpage.getCountVisit(myActivePage) + " visitas y " + myRecharge +
        * " recargas con id de session: " + myIdSession;
        */
-
+      System.out.println("myActivePage:" + myActivePage);
       return callerpage.getPage(myActivePage);
 
     }

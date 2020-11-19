@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.example.demo.entity.Client;
 
-import com.example.demo.error.ValidatorVerificator;
+import com.example.demo.error.CRUD;
 
 import com.google.gson.Gson;
 
@@ -38,9 +38,9 @@ public class AddClient extends HttpServlet {
     Gson g = new Gson();
     Client client = g.fromJson(json, Client.class);
 
-    ValidatorVerificator validatorComposite = new ValidatorVerificator();
+    CRUD crud = new CRUD();
     JSONArray arrayJson = new JSONArray();
-    arrayJson = validatorComposite.getErrors(client);
+    arrayJson = crud.addClient(client);
 
     response.getWriter().write((arrayJson).toString());
   }

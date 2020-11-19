@@ -22,6 +22,15 @@ public class VerifyClient {
     if (callerClient.existEmail(client.getEmail())) {
       errors.put(client.getEmail(), ErrorVerify.EMAILEXITS);
     }
+    if (callerClient.existNif(client.getNif())) {
+      errors.put(client.getNif(), ErrorVerify.NIFEXITS);
+    }
+    if (!callerClient.existCP(client.getPostalCode())) {
+      errors.put(client.getPostalCode(), ErrorVerify.POSTALCODENOTEXIST);
+    }
+    if (callerClient.existMobile(client.getMobile())) {
+      errors.put(client.getMobile(), ErrorVerify.MOBILEEXIST);
+    }
 
     return errors;
 
