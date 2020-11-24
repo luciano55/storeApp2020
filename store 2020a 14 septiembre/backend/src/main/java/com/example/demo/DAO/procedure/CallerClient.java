@@ -6,6 +6,7 @@ import java.sql.Types;
 
 import com.example.demo.DAO.GetConnectionMySql;
 import com.example.demo.entity.Client;
+import com.example.demo.entity.Login;
 
 public class CallerClient extends GetConnectionMySql {
 
@@ -60,4 +61,25 @@ public class CallerClient extends GetConnectionMySql {
     return cstmt.getBoolean(9);
   }
 
+  public Login getLoginInit(String email) throws SQLException {
+    Login login = new Login();
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call 	GetLoginInit(?, ?, ?)}");
+    cstmt.setString(1, email);
+    cstmt.registerOutParameter(2, Types.VARCHAR);
+    cstmt.registerOutParameter(3, Types.VARCHAR);
+    cstmt.execute();
+    login.setUser(cstmt.getString(2));
+    login.setPassword(cstmt.getString(3));
+    return login;
+  }
+
+  public Boolean checkingLoginClient(Login login) throws SQLException {
+
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call CheckingLoginClient(?, ?, ?)}");
+    cstmt.setString(1, login.getUser());
+    cstmt.setString(2, login.getPassword());
+    cstmt.registerOutParameter(3, Types.BOOLEAN);
+    cstmt.execute();
+    return cstmt.execute();
+  }
 }

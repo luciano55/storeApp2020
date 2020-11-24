@@ -104,6 +104,17 @@
     <artifactId>reflections</artifactId>
     <version>0.9.10</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+<!-- https://mvnrepository.com/artifact/javax.servlet/com.springsource.javax.servlet -->
+<!-- https://mvnrepository.com/artifact/javax.mail/com.springsource.javax.mail -->
+<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail -->
+<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.6.2</version>
+</dependency>
+
 
  </dependencies>
 

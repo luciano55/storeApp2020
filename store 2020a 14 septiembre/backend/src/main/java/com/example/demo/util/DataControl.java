@@ -4,7 +4,8 @@ public enum DataControl {
 
   DATACONTROL_FIRSTNAME(1, "name"), DATACONTROL_LASTNAME(2, "surname"), DATACONTROL_NIF(3, "nif"),
   DATACONTROL_MOBILE(4, "mobile"), DATACONTROL_EMAIL(5, "email"), DATACONTROL_BIRTHDATE(6, "birthdate"),
-  DATACONTROL_CP(7, "postalCode"), DATACONTROL_ADRESS(8, "address");
+  DATACONTROL_CP(7, "postalCode"), DATACONTROL_ADRESS(8, "address"), DATACONTROL_USER(9, "user"),
+  DATACONTROL_PASSWORD(10, "password");
 
   private int id;
   private String msg;

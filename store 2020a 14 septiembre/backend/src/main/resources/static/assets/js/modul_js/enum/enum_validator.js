@@ -7,7 +7,9 @@ export const VALIDATOR = {
   LETTERSWITHSPACE : "Validations.lettersWithSpace" ,
   PHONE: "Validations.phone" ,
   DATE : "Validations.date" ,
-  ADDRESS : "Validations.address"
+  ADDRESS : "Validations.address",
+  USER: "Validations.user",
+  PASSWORD: "Validations.password"
   
 } 
 Object.freeze(VALIDATOR)

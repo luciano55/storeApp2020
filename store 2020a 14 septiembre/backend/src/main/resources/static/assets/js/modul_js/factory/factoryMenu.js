@@ -7,15 +7,12 @@ export function FactoryMenu() {
   API.index = function () {
     const href = [
       "assets/subpage/home.html",
-      "assets/subpage/login.html",
+      "#",
       "#",
       "assets/subpage/contacto.html",
     ];
     const text = ["home", "Login", "Register", "Contacto"];
     const id = ["linkHome", "linkLogin", "linkRegister", "linkContacto"];
-    /*
-    params.class = "header-content container";
-    const section = factoryTag.section(params); */
     params.class = "menu";
     const nav = factoryTag.nav(params);
     params = {};
@@ -26,19 +23,7 @@ export function FactoryMenu() {
       const a = factoryTag.a(params);
       nav.appendChild(a);
     }
-    /*
-    params = {};
-    params.href = "assets/subpage/home.html";
-    params.text = "Home";
-    const home = factoryTag.a(params);
-    nav.appendChild(home);*/
-
-    //section.appendChild(nav);
-
-    //**************Botón claro oscuro */
-
     return nav;
   };
-
   return API;
 }

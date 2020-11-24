@@ -142,6 +142,7 @@ API.dniNieCif = function (field) {
       } 
      return factoryFrame.createControl(params,"input");
     };  
+
 API.postalCode = function(field, node) {
   let i =0;
   if (sessionStorage.getItem("autoIncrementPostalCode")){
@@ -173,6 +174,38 @@ API.postalCode = function(field, node) {
         }
         sessionStorage.setItem("autoIncrementPhone",i);        
         return node;      
-  }  
+  } 
+  API.user = function(field, min, max) {
+    const  params = {
+        id : field,
+        field : field,
+        validate : VALIDATOR.USER,
+        labelOn : true,
+        type : "text",
+        placeholder : "input your user:",
+        minLength : min,
+        maxLength : max,
+        required : true,
+        title : "7: 1 letra nif,  2 y 3 los dos primeros; 4, 5 minuto actual;  6 y 7 segundo actual",
+        errorBox : true
+   }
+      return factoryFrame.createControl(params,"input");
+  }
+  API.password = function(field,min,max) {
+    const  params = {
+        id : field,
+        field : field,
+        validate : VALIDATOR.PASSWORD,
+        labelOn : true,
+        type : "password",
+        placeholder : "input your password:",
+        minLength : min,
+        maxLength : max,
+        required : true,
+        title : "8-15: POR DEFECTO: última letra nif en mayuscula,  última letra nif en minúscula, '_' guión bajo, los dos siguiente 4º y 5º del nif y los dos últimos 2º y 3º del nifl",
+        errorBox : true
+   }
+      return factoryFrame.createControl(params,"input");
+  }
   return API;
 }

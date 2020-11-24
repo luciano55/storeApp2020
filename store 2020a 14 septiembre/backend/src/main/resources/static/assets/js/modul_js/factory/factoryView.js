@@ -10,7 +10,7 @@ export function FactoryView() {
 
   const createView = function(data,title){
       let nodeView  = "node";
-     const node = factoryFrame.viewTitle("viewRegister",title); 
+     const node = factoryFrame.viewTitle("div_view_crud",title); 
      for (let i in data){       
         let k = 0;
         for (k in data[i].field){ 
@@ -84,6 +84,26 @@ export function FactoryView() {
       }
           ];     
       return createView(data, "Register Customer");   
+  }
+   API.clientLogin = function(){
+      const data = [           
+     { 
+       field : ["user"],
+       factory : "factoryDataControl.user",
+       params : [7,7]        
+      },  
+        
+     { 
+       field : ["password"],
+       factory : "factoryDataControl.password",
+        params : [9,15]        
+      },   
+       { 
+       field : [],
+       factory : "factoryFrame.divSubmit"                 
+      }
+          ];     
+      return createView(data, "Login Customer");   
   }
   return API;
 }  

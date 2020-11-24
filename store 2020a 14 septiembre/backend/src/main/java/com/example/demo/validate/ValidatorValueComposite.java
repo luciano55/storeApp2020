@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.demo.entity.Client;
+import com.example.demo.entity.Login;
 import com.example.demo.error.ErrorValidate;
 import com.example.demo.validate.validable.ValidableValue;
 
@@ -28,6 +29,13 @@ public class ValidatorValueComposite {
 
     addValidate(Validator.email.getName(), client.getEmail());
     addValidate(Validator.cp.getName(), client.getPostalCode());
+    return getError();
+  }
+
+  public HashMap<String, ErrorValidate> validate(Login login) {
+
+    addValidate(Validator.user.getName(), login.getUser());
+    addValidate(Validator.password.getName(), login.getPassword());
     return getError();
   }
 

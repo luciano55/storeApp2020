@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-public class Client {
+public class Client implements SuperClient {
 
   private String name;
   private String surname;

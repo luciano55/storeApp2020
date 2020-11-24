@@ -451,11 +451,17 @@ export const Validations = {
         const params = {};
         params.nodo = evt.target;
         
-        // Minimo 8 caracteres y Maximo 15
-            // Al menos una letra mayúscula y Al menos una letra minucula
+        // Minimo 9 caracteres y Maximo 15
+            // Al menos una letra mayúscula y Al menos una letra minuscula
             // Al menos un dígito y Al menos 1 caracter especial
             //  No espacios en blanco
-        
+          //  POR DEFECTO
+        //1 mayuscula la ultima del nif- Z
+        //2 minuscula la ultima del nif- z
+        //3 _
+        // 4-5 4º y 5º caracter del nif
+        // 6-7 2º y 3º caracter del nif
+        // 8-9 33
         params.patron =  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!-_%*?&])[A-Za-z\\d$@$!-_%*?&]{8,15}[\\S]$";
 
         params.mensajeError = "Password no válida";
@@ -523,6 +529,13 @@ export const Validations = {
         //El primer dígito es una letra.
         //Los dígitos 2 y 3 pueden ser letras o números.
         //Los 4 últimos son números.
+
+       // POR DEFECTO
+        //Z76añoactual
+        // 1 letra nif
+        // 2 y 3 los dos primeros
+        // 4, 5 minuto actual
+        // ,6 y 7 segundo actual
 
         params.patron = "^[A-Za-z]{1}([A-Za-z]{2}|[0-9]{2}|[A-Za-z][0-9]{2})([0-9]{4})$";
 

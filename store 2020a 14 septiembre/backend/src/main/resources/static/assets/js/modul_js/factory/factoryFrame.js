@@ -39,7 +39,7 @@ const input = function(params){
     params.text = "*";
    params.id = "span_" + params.id;
    params.class = "asterisco";
-   params.title = "required";
+   params.title = params.title;
    divInput.appendChild(factoryTag.span(params));
     params.id = myId;
      params.class = "";

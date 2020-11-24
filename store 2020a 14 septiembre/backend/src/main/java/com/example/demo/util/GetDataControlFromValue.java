@@ -1,9 +1,12 @@
 package com.example.demo.util;
 
 import com.example.demo.entity.Client;
+import com.example.demo.entity.Login;
 
 public class GetDataControlFromValue {
-  static public String getDataControlClient(Client client, String value) {
+
+  public static String getDataControlClient(Client client, String value) {
+
     if (client.getNif().equals(value))
       return DataControl.DATACONTROL_NIF.getMsg();
     if (client.getName().equals(value))
@@ -23,4 +26,12 @@ public class GetDataControlFromValue {
     return "";
   }
 
+  public static String getDataControlClient(Login login, String value) {
+    if (login.getUser().equals(value))
+      return DataControl.DATACONTROL_USER.getMsg();
+    if (login.getPassword().equals(value))
+      return DataControl.DATACONTROL_PASSWORD.getMsg();
+
+    return "";
+  }
 }

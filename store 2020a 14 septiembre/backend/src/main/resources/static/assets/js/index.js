@@ -24,13 +24,13 @@ d.addEventListener("DOMContentLoaded", (e) => {
   managerFunctions.dado();
   managerFunctions.scrollTopButton(".scroll-top-btn");
 });
-  
+ 
 d.addEventListener("click", (e) => {
+   let myBody = $("myBody");
   if (e.target.id == "linkRegister") {
      url = "/addClient";
      const globalFunction = new GeneralPurposeFunctions();
-      globalFunction.resetAutoIncrementPhoneCP();
-      let myBody = $("myBody");
+      globalFunction.resetAutoIncrementPhoneCP();      
       myBody.innerHTML = "";
       myBody.appendChild(viewClient.register());    
       managerFunctions.validations();     
@@ -38,6 +38,14 @@ d.addEventListener("click", (e) => {
      managerFunctions.saveDataControls();
      managerFunctions.showIniStrategy(STRATEGY.ONETOONE);
   }
+   if (e.target.id == "linkLogin") {
+         url = "/loginClient";
+         myBody.innerHTML = "";
+         myBody.appendChild(viewClient.login());    
+         managerFunctions.validations();     
+         managerFunctions.saveDataControls();
+         managerFunctions.showIniStrategy(STRATEGY.ALL);
+   }
   if (e.target.id == "submit") {     
       const dataControl =  managerFunctions.getDataControls();     
       managerFunctions.loader().on();
