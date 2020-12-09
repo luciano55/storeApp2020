@@ -30,9 +30,9 @@ public class SendEmail {
     // Es necesario mencionar el ID de correo electrónico del destinatario.
     String to = "luciano@bme.es";// this.myEmail;
     // Se debe mencionar el ID de correo electrónico del remitente
-    String from = "lucianoluqui55@gmail.com";
+    String from = "*********";
     // Se debe mencionar el key de correo electrónico del remitente
-    String key = "luqui600";
+    String key = "****";
     // Suponiendo que está enviando un correo electrónico a través de gmails smtp
     String host = "smtp.gmail.com";
     // Obtener propiedades del sistema
@@ -92,9 +92,9 @@ public class SendEmail {
     // Es necesario mencionar el ID de correo electrónico del destinatario.
     String to = "luciano@bme.es";// this.myEmail;
     // Se debe mencionar el ID de correo electrónico del remitente
-    String from = "lucianoluqui55@gmail.com";
+    String from = "**";
     // Se debe mencionar el key de correo electrónico del remitente
-    String key = "luqui600";
+    String key = "**";
     // Suponiendo que está enviando un correo electrónico a través de gmails smtp
     String host = "smtp.gmail.com";
     // Obtener propiedades del sistema
