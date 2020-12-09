@@ -4,9 +4,9 @@ import { FactoryFrame } from "../factory/factoryFrame.js";
 const factoryBranding = new FactoryBranding();
 const factoryFrame = new FactoryFrame();
 
-export function ViewHeader() {
+export function ViewHeaderClient() {
   const div = document.createElement("div");
   div.appendChild(factoryBranding.dices());
-  div.appendChild(factoryFrame.menuIndexButtonDarkLight());
+  div.appendChild(factoryFrame.menuClientButtonDarkLight());
   return div;
 }

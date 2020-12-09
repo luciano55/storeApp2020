@@ -46,6 +46,15 @@ d.addEventListener("click", (e) => {
          managerFunctions.saveDataControls();
          managerFunctions.showIniStrategy(STRATEGY.ALL);
    }
+   if(e.target.id == "forgetPassword"){
+          url = "/forgetPassword";
+         myBody.innerHTML = "";
+         myBody.appendChild(viewClient.forgetPassword());    
+         managerFunctions.validations();     
+         managerFunctions.saveDataControls();
+         managerFunctions.showIniStrategy(STRATEGY.ALL);
+          $("informationPanel").innerHTML  = "Para que te hagamos llegar nuevas credenciales de acceso, introduce a continuación tu Nif y Email. Pulsa despues sobre el botón Get Credentials.";
+   }
   if (e.target.id == "submit") {     
       const dataControl =  managerFunctions.getDataControls();     
       managerFunctions.loader().on();

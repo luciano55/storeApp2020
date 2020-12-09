@@ -6,7 +6,7 @@ export function FactoryBox() {
   const API = {};
   let params = {};
 
-  API.error = function () {
+API.error = function () {
     params.id = "boxerror_";
     params.class = "box-error none";
     return factoryTag.span(params);

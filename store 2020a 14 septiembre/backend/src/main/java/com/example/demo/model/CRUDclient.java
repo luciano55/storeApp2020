@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.JSONArray;
@@ -27,42 +28,38 @@ public class CRUDclient {
   HashMap<String, ArrayList<ErrorValidate>> errorsValidation;
   HashMap<String, ErrorVerify> errorsVerification;
 
+  Boolean error = false;
+
+  private int myIdClient;
+
   public CRUDclient() {
     arrayJson = new JSONArray();
     errorsValidation = new HashMap<String, ArrayList<ErrorValidate>>();
     errorsVerification = new HashMap<String, ErrorVerify>();
   }
 
-  public JSONArray addClient(Client client) {
-
+  public JSONArray addData(Client client) throws SQLException {
     errorsValidation = getErrorsLength(client);
-    Boolean error = false;
     CallerClient callerClient;
     SendEmail sendemail;
     if (errorsValidation.isEmpty()) {
       errorsValidation = getErrorsValue(client);
       if (errorsValidation.isEmpty()) {
-        try {
-          errorsVerification = getErrorsVerify(client);
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
+        errorsVerification = getErrorsVerify(client);
         if (errorsVerification.isEmpty()) {
           try {
             callerClient = new CallerClient();
-
             if (callerClient.addClient(client)) {
-              successfulAction("addClient");
+              myIdClient = callerClient.getIdClient(client.getNif());
+              successfulAction("addClient", "ok");
               sendemail = new SendEmail();
-              sendemail.sendNewClient(client.getEmail());
+              sendemail.sendClient(client.getEmail(), "new");
             } else {
               failedAction("addClient");
             }
           } catch (ClassNotFoundException | SQLException e) {
-
             e.printStackTrace();
           }
-
         } else {
           for (java.util.Map.Entry<String, ErrorVerify> entry : errorsVerification.entrySet()) {
             JSONObject oneJson = new JSONObject();
@@ -71,9 +68,8 @@ public class CRUDclient {
             oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(client, entry.getKey()));
             arrayJson.put(oneJson);
           }
-          return arrayJson;
+          // return arrayJson;
         }
-
       } else {
         error = true;
       }
@@ -95,17 +91,56 @@ public class CRUDclient {
     return arrayJson;
   }
 
-  public JSONArray checkLoginClient(Login login) {
+  public JSONArray checkLogin(Login login) throws ClassNotFoundException, SQLException {
+
+    int tryNumber = (Integer) RequestContextHolder.currentRequestAttributes().getAttribute("tryNumber",
+        RequestAttributes.SCOPE_SESSION);
+    int totalAttempt = (Integer) RequestContextHolder.currentRequestAttributes().getAttribute("totalAttempt",
+        RequestAttributes.SCOPE_SESSION);
+    CallerClient callerClient = null;
+    // int idClient = 0;
+    SendEmail sendemail;
+    callerClient = new CallerClient();
+
     errorsValidation = getErrorsLength(login);
-    Boolean error = false;
     if (errorsValidation.isEmpty()) {
       errorsValidation = getErrorsValue(login);
       if (errorsValidation.isEmpty()) {
-        try {
+        myIdClient = callerClient.getIdClientFromUser(login.getUser());
+        if (!callerClient.isBlocked(myIdClient)) {
           errorsVerification = getErrorsVerify(login);
           if (errorsVerification.isEmpty()) {
-            successfulAction("loginClient");
+
+            successfulAction("loginClient", "ok");
           } else {
+            tryNumber++;
+            if (tryNumber > totalAttempt) {
+              String email = callerClient.getEmailFromUser(login.getUser());
+              if (!email.equals("0")) { // Si existe el cliente
+                if (callerClient.blockUser(myIdClient)) {
+                  sendemail = new SendEmail();
+                  sendemail.sendBlockClient(email);
+                  JSONObject oneJson = new JSONObject();
+                  oneJson.put("error", 1);
+                  oneJson.put("emailblocked", "ok");
+                  arrayJson.put(oneJson);
+                } else {
+                  System.out.println("Usuario NO Bloqueado");
+                }
+              } else {
+                RequestContextHolder.currentRequestAttributes().setAttribute("instantLock", LocalDateTime.now(),
+                    RequestAttributes.SCOPE_SESSION);
+                JSONObject oneJson = new JSONObject();
+                oneJson.put("error", 1);
+                oneJson.put("lockDuration", RequestContextHolder.currentRequestAttributes().getAttribute("lockDuration",
+                    RequestAttributes.SCOPE_SESSION));
+                oneJson.put("agotado", "ok");
+                arrayJson.put(oneJson);
+              }
+            }
+            System.out.println("tryNumber:" + tryNumber);
+            RequestContextHolder.currentRequestAttributes().setAttribute("tryNumber", tryNumber,
+                RequestAttributes.SCOPE_SESSION);
             for (java.util.Map.Entry<String, ErrorVerify> entry : errorsVerification.entrySet()) {
               JSONObject oneJson = new JSONObject();
               oneJson.put("messageErrorControl", entry.getValue().getMsgEs());
@@ -113,32 +148,20 @@ public class CRUDclient {
               oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(login, entry.getKey()));
               arrayJson.put(oneJson);
             }
-            return arrayJson;
           }
-        } catch (SQLException e) {
-          e.printStackTrace();
+        } else {
+          JSONObject oneJson = new JSONObject();
+          oneJson.put("error", 1);
+          oneJson.put("blocked", "ok");
+          arrayJson.put(oneJson);
         }
       } else {
-        error = true;
+        errorValidateLogin(login);
       }
     } else {
-      error = true;
+      errorValidateLogin(login);
     }
-    if (error) {
-      for (java.util.Map.Entry<String, ArrayList<ErrorValidate>> entry : errorsValidation.entrySet()) {
-        ArrayList<ErrorValidate> myerror = entry.getValue();
-        myerror.forEach((n) -> {
-          JSONObject oneJson = new JSONObject();
-          oneJson.put("messageErrorControl", n.getMsgEs());
-          oneJson.put("messageValueControl", entry.getKey());
-          oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(login, entry.getKey()));
-          arrayJson.put(oneJson);
-        });
-      }
-    }
-
     return arrayJson;
-
   }
 
   private HashMap<String, ArrayList<ErrorValidate>> getErrorsValue(Client client) {
@@ -193,14 +216,18 @@ public class CRUDclient {
     return verifyClient.verify();
   }
 
-  private void successfulAction(String operation) {
+  private void successfulAction(String operation, String reload) {
     RequestContextHolder.currentRequestAttributes().setAttribute("activePage", "client",
+        RequestAttributes.SCOPE_SESSION);
+    RequestContextHolder.currentRequestAttributes().setAttribute("idClient", myIdClient,
         RequestAttributes.SCOPE_SESSION);
     JSONObject oneJson = new JSONObject();
     oneJson.put("error", 0);
     oneJson.put("validation", "ok");
     oneJson.put("verification", "ok");
     oneJson.put(operation, "ok");
+    oneJson.put("reload", reload);
+    oneJson.put("idClient", myIdClient);
     arrayJson.put(oneJson);
   }
 
@@ -211,6 +238,7 @@ public class CRUDclient {
     oneJson.put("verification", "ok");
     oneJson.put(operation, "error");
     arrayJson.put(oneJson);
+
   }
 
   /*
@@ -226,4 +254,16 @@ public class CRUDclient {
    * 
    * }
    */
+  private void errorValidateLogin(Login login) {
+    for (java.util.Map.Entry<String, ArrayList<ErrorValidate>> entry : errorsValidation.entrySet()) {
+      ArrayList<ErrorValidate> myerror = entry.getValue();
+      myerror.forEach((n) -> {
+        JSONObject oneJson = new JSONObject();
+        oneJson.put("messageErrorControl", n.getMsgEs());
+        oneJson.put("messageValueControl", entry.getKey());
+        oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(login, entry.getKey()));
+        arrayJson.put(oneJson);
+      });
+    }
+  }
 }

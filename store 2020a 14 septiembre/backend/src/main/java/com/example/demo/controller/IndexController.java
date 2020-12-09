@@ -27,6 +27,10 @@ public class IndexController {
       RequestContextHolder.currentRequestAttributes().setAttribute("idSession",
           RequestContextHolder.currentRequestAttributes().getSessionId(), RequestAttributes.SCOPE_SESSION);
       RequestContextHolder.currentRequestAttributes().setAttribute("recharge", 0, RequestAttributes.SCOPE_SESSION);
+      RequestContextHolder.currentRequestAttributes().setAttribute("tryNumber", 0, RequestAttributes.SCOPE_SESSION);
+      RequestContextHolder.currentRequestAttributes().setAttribute("totalAttempt", 3, RequestAttributes.SCOPE_SESSION);
+      RequestContextHolder.currentRequestAttributes().setAttribute("lockDuration", 10, RequestAttributes.SCOPE_SESSION);
+
       myActivePage = (String) RequestContextHolder.currentRequestAttributes().getAttribute("activePage",
           RequestAttributes.SCOPE_SESSION);
       callerpage.addVisit(myActivePage);
@@ -34,7 +38,9 @@ public class IndexController {
           RequestAttributes.SCOPE_SESSION);
       myRecharge = (int) RequestContextHolder.currentRequestAttributes().getAttribute("recharge",
           RequestAttributes.SCOPE_SESSION);
+
       html = "listo Hola Mundo primera vez myActivePage: " + myActivePage + " myIdSession: " + myIdSession;
+
     }
     if (RequestContextHolder.currentRequestAttributes().getAttribute("idSession",
         RequestAttributes.SCOPE_SESSION) == RequestContextHolder.currentRequestAttributes().getSessionId()) {

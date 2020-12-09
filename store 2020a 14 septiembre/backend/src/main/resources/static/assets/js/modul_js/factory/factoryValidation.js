@@ -120,7 +120,7 @@ export const ValidateUtil = {
                managerFunctions.info().off(params);
         }
     }
-     managerFunctions.submit().on();
+     managerFunctions.submit().onoff();
     
   },
   regExpConsequences: function (params) {    

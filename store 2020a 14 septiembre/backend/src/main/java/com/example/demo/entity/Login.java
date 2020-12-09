@@ -12,7 +12,6 @@ public class Login implements SuperClient {
   public Login(String user, String password) {
     this.user = user;
     this.password = password;
-
   }
 
   public void setUser(String user) {

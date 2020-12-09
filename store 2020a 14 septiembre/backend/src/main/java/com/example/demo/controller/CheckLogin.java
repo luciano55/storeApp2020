@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,8 +39,13 @@ public class CheckLogin extends HttpServlet {
 
     CRUDclient crud = new CRUDclient();
     JSONArray arrayJson = new JSONArray();
-    arrayJson = crud.checkLoginClient(login);
-
+    try {
+      arrayJson = crud.checkLogin(login);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
     response.getWriter().write((arrayJson).toString());
   }
 

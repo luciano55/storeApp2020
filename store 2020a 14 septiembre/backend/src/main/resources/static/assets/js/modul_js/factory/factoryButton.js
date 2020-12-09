@@ -1,4 +1,6 @@
 import { FactoryTag } from "./factoryTag.js";
+import { ViewClient } from "../view/viewClient.js";
+import {d,$,Q,Qa,sS} from "../function/global.js";
 
 export function FactoryButton() {
   const API = {};
@@ -66,8 +68,27 @@ export function FactoryButton() {
     button.style.display= display || "block";
     return button;
   };
-  
-
+  API.forgetPassword = function(display){
+    let params = {};
+      params.id = "forgetPassword";
+      params.text = "Forget Password";
+    const button = factoryTag.button(params);  
+    button.style.display= display || "block";  
+    button.style.color = "lightblue";
+    return button;
+  };
+  API.cancel = function(display){
+    let params = {};
+      params.id = "cancel";
+      params.text = "Cancel";
+    const button = factoryTag.button(params);
+    button.addEventListener("click", (event)=>{
+          location.reload();
+    }); 
+    button.style.display= display || "block";  
+    button.style.color = "red";
+    return button;
+  };
   return API;
 }
 

@@ -6,7 +6,7 @@ public class AccessMysql {
   private static AccessMysql accessMysql;
   private static Connection connection = null;
 
-  private final String DRIVER = "com.mysql.jdbc.Driver";
+  private final String DRIVER = "com.mysql.cj.jdbc.Driver";
   private String URL = "jdbc:mysql://localhost:3306/model?useInformationSchema=true&serverTimezone=EST5EDT";
 
   private static String bbdd = null;

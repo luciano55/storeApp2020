@@ -11,5 +11,9 @@ export function ViewClient() {
   API.login = function () {           
            return factoryView.clientLogin();    
   };
+  API.forgetPassword = function(){
+           return factoryView.clientForgetPassword();
+  };
+ 
   return API;
 }

@@ -83,7 +83,7 @@ const phone = function(params){
         phone.appendChild(input(params));
         return phone;    
 };
-API.menuButton = function () {
+API.menuIndexButtonDarkLight = function () {
     let params = {};
     params.class = "header-content container";
     const section = factoryTag.section(params);
@@ -92,6 +92,8 @@ API.menuButton = function () {
     section.appendChild(factoryButton.darkLight());
     return section;
   };
+
+
 API.weatherLocation = function () {
     
 let params = {};
@@ -144,5 +146,22 @@ API.divSubmit = function(params){
   return divSubmit;
 
 }
+API.divForgetPassword = function(params){
+  params = {};
+  params.id = "div_lostpassword";
+  const divLostPassword = factoryTag.div(params);
+  divLostPassword.style.display = "block";
+  divLostPassword.appendChild(factoryButton.forgetPassword());  
+  return divLostPassword;
+}
+API.menuClientButtonDarkLight = function () {
+    let params = {};
+    params.class =   "container mx-auto mt-5 text-center";   //"header-content container";
+    const section = factoryTag.section(params);
+
+    section.appendChild(factoryMenu.client());
+    section.appendChild(factoryButton.darkLight());
+    return section;
+  };
   return API;
 }

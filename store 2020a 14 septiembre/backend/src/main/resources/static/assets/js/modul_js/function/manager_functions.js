@@ -307,7 +307,7 @@ API.submit = function(){
         off  : function(){
             submit.style.display="none";
         },
-        on  : function(){
+        onoff  : function(){
              let aviso = true;     
               for (let i=0; i< sS.getItem("lenDataControls");i++){
                    if($(sS.getItem("dataControls"+i)).style.borderColor != COLOR.VALIDRGB){               
@@ -316,8 +316,11 @@ API.submit = function(){
                     }             
               }
               aviso?$("div_submit").style.display = "block" :  $("div_submit").style.display = "none"; 
-        }
-
+        },
+         on  : function(){
+            submit.style.display="block";
+            submit.classList.remove("none");   
+        },
     }
   }
 API.error = function(params){
@@ -466,29 +469,89 @@ API.scrollTopButton = function(btn){
 }
 API.serverResponse = function(response){
        console.log("response",response);
+
       if(response.status == 404){  
             this.error().message( "Error 404 ");
            this.error().on(); 
       }
      if(Array.isArray(response)){
-          if(response[0].error == 0){
-                console.log("resultado:", response[0].addClient);
-                location.reload();
-          }
-          else{
-                  for (let i=0; i<response.length;i++){
-                        let field = response[i].messageNameControl;
-                        let dataField = Q("input[data-field='" +field +"']");
-                        let control = dataField.id;
-                        $(control).style.backgroundColor = COLOR.ERRORBACKEND;
-                        $("boxerror_"+control).innerHTML = response[i].messageErrorControl;
-                        $("boxerror_"+control).style.display = "block";
-                        if($("boxinfo_"+control)){
-                              $("boxinfo_"+control).style.display = "none";
-                        }                   
-                    }  
-          }                 
-       }
+          if(response[0].error == 0 && response[0].reload == "ok" ){
+              if(response[0].loginClient == "ok" || response[0].addClient == "ok" ){
+                     const dataControl = {};
+                     fetch("http://www.geoplugin.net/json.gp")
+                      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+                      .then((json) => {
+                        //console.log(json);
+                        dataControl.idClient = response[0].idClient;
+                        dataControl.ip =  json.geoplugin_request;
+                        dataControl.city = json.geoplugin_city;
+                        dataControl.country = json.geoplugin_countryName;
+                        const url = "/addIp";
+                        this.ajaxForm({url,dataControl});
+                        alert("Preguntar por la opción del cliente");
+                        location.reload();
+                        
+                      })
+                      .catch((err) => {
+                          console.log(err);
+                      });
+              }
+             
+          }else{
+              if(response[0].error == 1 && response[0].blocked == "ok" ){
+                              this.submit().off();
+                              this.error().message("Estás Bloqueado. Mira tu correo");
+                              this.error().on();   
+                              this.loginDataControlDisable(true);
+              }else {
+                        if(response[0].error == 1 && response[0].emailblocked == "ok" ){
+                              this.submit().off();
+                              this.error().message("Acabas de ser Bloqueado. Mira tu correo");
+                              this.error().on();   
+                              this.loginDataControlDisable(true);
+                      }else {
+                              if(response[0].error == 1 && response[0].agotado == "ok" ){      
+                                            this.submit().off();
+                                            this.error().message("Intentos agotados");
+                                            this.error().on();   
+                                            this.loginDataControlDisable(true);
+                                            // INFORMAR AL BACKEND                                        
+                                            this.ajaxForm({
+                                                    url:"/resetTried",
+                                                    dataControl: ""
+                                          });       
+                                          let timeLocked = response[0].lockDuration;
+                                          let seconds = 0;
+                                          let intervalId = setInterval(()=>{
+                                            if (seconds >= timeLocked) {
+                                                      this.submit().on();
+                                                      this.error().off();  
+                                                      this.loginDataControlDisable(false); 
+                                                      clearInterval(intervalId);
+                                              }else {
+                                                        seconds = seconds + 1;
+                                                        this.error().message("Estas Bloqueado. Te quedan " + (timeLocked - seconds) + " seconds");
+                                                    }                        
+                                          }, 1000);               
+                                        
+                               }else{
+                                            for (let i=0; i<response.length;i++){
+                                                  let field = response[i].messageNameControl;
+                                                  let dataField = Q("input[data-field='" +field +"']");
+                                                  let control = dataField.id;
+                                                  $(control).style.backgroundColor = COLOR.ERRORBACKEND;
+                                                  $("boxerror_"+control).innerHTML = response[i].messageErrorControl;
+                                                  $("boxerror_"+control).style.display = "block";
+                                                  if($("boxinfo_"+control)){
+                                                        $("boxinfo_"+control).style.display = "none";
+                                                  }                   
+                                              }  
+                                       }  
+                              }
+             
+                      }
+                }
+     }
 }
 API.ajaxForm = function(props){
      let {url, dataControl} = props;
@@ -535,5 +598,17 @@ API.loader = function(){
           }
         }
 }
+API.loginDataControlDisable= function(state){
+  if(state) {
+    $("user").disabled = true;
+   $("password").disabled = true;
+  }else { 
+  $("user").disabled = false;
+  $("password").disabled = false;
+  }
+
+}
   return API;
 }
+ 
+          
