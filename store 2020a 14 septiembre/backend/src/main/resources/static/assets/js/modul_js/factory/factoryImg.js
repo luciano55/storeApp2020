@@ -13,53 +13,14 @@ export function FactoryImg() {
     params.src = "../../../assets/img/SVG_loader/" + type + ".svg"; 
     return factoryTag.img(params);
   };
-/*
-  API.loaderAudio = function(){
+ API.avatar = function(){
     params = {};
-    params.id = "loaderAudio";   
-    params.src = "../../../assets/img/SVG_loader/audio.svg"; 
-   return  loader();  
-  };
-  API.loaderCircles = function(){
-    params = {};
-    params.id = "loaderCircle";   
-    params.src = "../../../assets/img/SVG_loader/circles.svg"; 
-   return  loader();  
-  };
-    API.loaderBars = function(){
-    params = {};
-    params.id = "loaderBars";   
-    params.src = "../../../assets/img/SVG_loader/Bars.svg"; 
-   return  loader();  
-  };
- API.loaderBallTriangle = function(){
-    params = {};
-    params.id = "loaderBallTriangle";   
-    params.src = "../../../assets/img/SVG_loader/ball-triangle.svg"; 
-   return  loader();  
-  };
-API.loaderGrid = function(){
-    params = {};
-    params.id = "loaderBallTriangle";   
-    params.src = "../../../assets/img/SVG_loader/grid.svg"; 
-   return  loader();  
-  };
- API.loaderHearts = function(){
-    params = {};
-    params.id = "loaderHearts";   
-    params.src = "../../../assets/img/SVG_loader/hearts.svg"; 
-   return  loader();  
-  };
-   API.loaderOval = function(){
-    params = {};
-    params.id = "loaderOval";   
-    params.src = "../../../assets/img/SVG_loader/oval.svg"; 
-   return  loader();  
-  };
-*/
-
-
-
-
+    params.id ="avatar";
+    params.class = "object-fill h-32 w-32 w-full box-border   p-4 border-1 ";   
+     params.alt = "Cargando Avatar...";
+     params.src = "../../../assets/img/client/"+ sessionStorage.getItem("idClient") + ".png?" + Math.random();
+     return factoryTag.img(params);
+ };
   return API;
 }
+/*<img src= \"../img/fotoClient/" + sessionStorage.getItem("idClient") + ".png?" + Math.random() + " alt=\"\" height=\"200px\" width=\"300px\">\n" +*/

@@ -53,6 +53,7 @@ export function FactoryTag() {
     form.className = params.class || "";
     form.name = params.name || "";
     form.action = params.action || "";
+    form.enctype = params.enctype || "text/plain";
     form.autocomplete = params.autocomplete || "on";
     //form.enctype = params.enctype || "text/plain";
     form.method = params.method || "POST";
@@ -118,6 +119,7 @@ export function FactoryTag() {
     label.id = params.id;
     label.className = params.class || "";
     label.htmlFor = params.for || "";
+    label.for = params.for || "";
     label.innerHTML = params.text || "";
     label.dataset.change = params.change || "";
     return label;

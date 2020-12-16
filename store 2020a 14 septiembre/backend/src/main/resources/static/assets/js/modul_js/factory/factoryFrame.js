@@ -92,8 +92,6 @@ API.menuIndexButtonDarkLight = function () {
     section.appendChild(factoryButton.darkLight());
     return section;
   };
-
-
 API.weatherLocation = function () {
     
 let params = {};
@@ -113,7 +111,7 @@ let params = {};
     divExt.appendChild(divSecond);
     return divExt;
   };
-  API.viewTitle = function(id,title){
+API.viewTitle = function(id,title){
    let params = {};
     params.id = id;
     params.class = "section-formJM harni-form";     
@@ -163,5 +161,97 @@ API.menuClientButtonDarkLight = function () {
     section.appendChild(factoryButton.darkLight());
     return section;
   };
+API.avatar = function(){
+    const node = this.viewTitle("div_view_avatar", "Avatar"); 
+     node.className = "bg-pink-800 container mx-auto px-4 h-48 w-48 border-dotted border-2 border-yellow-800";
+     node.appendChild(factoryImg.avatar());
+     return node;
+  }
+
+API.formUpImage = function(){
+    const nodeView = this.viewTitle("div_view_crud", "Update Avatar"); 
+    let params = {};
+   // params.id = "divUpImage"; 
+   // let divUpImage = factoryTag.div(params);  
+    nodeView.appendChild(API.avatar());    
+    
+    
+
+    params.class =  "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col";
+    params.id = "divFormUpImage";
+    let divExt = factoryTag.div(params); 
+// Crear formulario
+    params.id  = "formUpImage";
+    params.enctype="multipart/form-data";
+    const form = factoryTag.form(params); 
+
+
+    params.id = "formUpImageOne";
+    params.class ="mb-4";
+    let divOne = factoryTag.div(params);
+    params.id = "formUpImageOneLabel";
+    params.class ="block text-grey-darker text-sm font-bold mb-2";
+    params.for = "avatar";
+    params.text = "Elige Avatar";
+    let labelOne = factoryTag.label(params);
+     params.id = "formUpImageOneInput";
+    params.class ="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker";
+    params.name = "avatar";
+    params.type = "file";
+    params.placeholder  ="New image";
+    let inputOne = factoryTag.input(params);
+   divOne.appendChild(labelOne);
+   divOne.appendChild(inputOne);
+   divExt.appendChild(divOne);
+   nodeView.appendChild(divExt);
+   
+   return nodeView;
+  }
   return API;
 }
+/*
+formImgUser: "<div class=\"contenido01\">\n" +
+        "    <img src= \"../img/fotoClient/" + sessionStorage.getItem("idClient") + ".png?" + Math.random() + " alt=\"\" height=\"200px\" width=\"300px\">\n" +
+        "    <form enctype=\"multipart/form-data\" id=\"client_register\" method=\"POST\" action=\"/upImage\">\n" +
+        "        <div class=\"menu s3 caja03\">\n" +
+        "            <h4>New Image</h4>\n" +
+        "            <div class=\"fileinputs etiqueta s2\" id=\"div_clientImage\">\n" +
+        "                <input class=\"etiqueta s5 file\" id=\"clientImage\" type=\"file\" name=\"image\" data-functioncallback=\"ValidarFicheroName.validarImagenName\" required accept=\"image/png, image/jpeg\" placeholder=\"input your Avatar\" title=\"3 to 120 characters\">\n" +
+        "                <div class=\"fakefile\">\n" +
+        "                    <label class=\"labelInput\" for=\"idFile\">Elije tu foto</label>\n" +
+        "                    <input id=\"idFile\" name=\"myFile\">\n" +
+        "                </div>\n" +
+        "            </div>\n" +
+      //  "            <div class=\"etiqueta errorColor\" id=\"alertaError\">Error:</div>\n" +
+        "            <button id=\"submit\" type=\"submit\">Enviar</button>\n" +
+        "        </div>\n" +
+        "    </form>\n" +
+        "</div>\n"
+        
+        
+        
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+    <div class="mb-4">
+      <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
+        Username
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="username" type="text" placeholder="Username">
+    </div>
+    <div class="mb-6">
+      <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="password" type="password" placeholder="******************">
+      <p class="text-red text-xs italic">Please choose a password.</p>
+    </div>
+    <div class="flex items-center justify-between">
+      <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" type="button">
+        Sign In
+      </button>
+      <a class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="#">
+        Forgot Password?
+      </a>
+    </div>
+</div>
+        
+        */

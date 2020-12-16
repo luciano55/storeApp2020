@@ -14,6 +14,9 @@ export function ViewClient() {
   API.forgetPassword = function(){
            return factoryView.clientForgetPassword();
   };
+  API.updateAvatar = function(){
+     return factoryView.clientUpdateAvatar();
+  }
  
   return API;
 }

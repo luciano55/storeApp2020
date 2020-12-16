@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.demo.DAO.procedure.CallerClient;
 import com.example.demo.entity.Credential;
-import com.example.demo.util.SendEmail;
+
+import com.example.demo.model.CRUDclient;
+
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
-import net.minidev.json.JSONArray;
+import org.json.JSONArray;
 
 @WebServlet("/forgetPassword")
 public class ForgetPassword extends HttpServlet {
@@ -39,27 +38,14 @@ public class ForgetPassword extends HttpServlet {
 
     Gson g = new Gson();
     Credential credential = g.fromJson(json, Credential.class);
+    CRUDclient crudClient = new CRUDclient();
     JSONArray arrayJson = new JSONArray();
-    CallerClient callerClient;
+
     try {
-      callerClient = new CallerClient();
-      if (callerClient.checkingCredential(credential)) {
-        if (callerClient.updateCredential(credential.getNif())) {
-          SendEmail sendEmail = new SendEmail();
-          sendEmail.sendClient(credential.getEmail(), "forget");
-          JSONObject oneJson = new JSONObject();
-          oneJson.put("error", 0);
-          oneJson.put("reload", "ok");
-          oneJson.put("sendForget", "ok");
-          arrayJson.add(oneJson);
-        } else {
-          System.out.println("email forget fallido");
-        }
-      } else {
-        System.out.println("checkingCredential fallido");
-      }
-    } catch (ClassNotFoundException | SQLException e1) {
-      e1.printStackTrace();
+      arrayJson = crudClient.checkCredential(credential);
+    } catch (ClassNotFoundException | SQLException e) {
+
+      e.printStackTrace();
     }
 
     response.getWriter().write((arrayJson).toString());

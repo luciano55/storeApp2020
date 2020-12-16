@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.demo.entity.Client;
+import com.example.demo.entity.Credential;
 import com.example.demo.entity.Login;
 import com.example.demo.entity.StringLimit;
 import com.example.demo.error.ErrorValidate;
@@ -30,6 +31,12 @@ public class ValidatorLengthComposite {
   public HashMap<String, ErrorValidate> validate(Login login) {
     addValidate(Validator.size.getName(), login.getUser(), 7, 7);
     addValidate(Validator.size.getName(), login.getPassword(), 7, 15);
+    return generateError();
+  }
+
+  public HashMap<String, ErrorValidate> validate(Credential credential) {
+    addValidate(Validator.size.getName(), credential.getNif(), 9, 9);
+    addValidate(Validator.size.getName(), credential.getEmail(), 5, 150);
     return generateError();
   }
 

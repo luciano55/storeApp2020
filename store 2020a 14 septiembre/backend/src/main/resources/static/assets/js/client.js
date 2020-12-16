@@ -22,6 +22,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
 d.addEventListener("click", (e) => {
    let myBody = $("myBody");
     if (e.target.id == "linkUpAvatar" || e.target.id == "linkUpData"  || e.target.id == "linkUpLogin") {
+       sS.setItem("opcionClient",e.target.id);
          url = "/loginClient";
          myBody.innerHTML = "";
          myBody.appendChild(viewClient.login());    

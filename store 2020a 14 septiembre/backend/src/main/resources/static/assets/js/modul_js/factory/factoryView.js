@@ -2,12 +2,15 @@ import {FactoryFrame} from "./factoryFrame.js";
 import {FactoryDataControl} from "./factoryDataControl.js";
 import {FactoryButton} from "./factoryButton.js";
 import {FactoryBox} from "./factoryBox.js";
-import {PHONE} from "../enum/enum_phone.js"
+import {PHONE} from "../enum/enum_phone.js";
+import {FactoryImg} from "./factoryImg.js"
 export function FactoryView() {
   const factoryFrame = FactoryFrame();
   const factoryDataControl = FactoryDataControl();
   const factoryButton = FactoryButton();
-   const factoryBox = FactoryBox();
+  const factoryBox = FactoryBox();
+  const factoryImg = FactoryImg();
+
   const API = {};
 
   const createView = function(data,title){
@@ -134,6 +137,9 @@ export function FactoryView() {
       }     
           ];     
       return createView(data, "Forget Password");  
+  }
+  API.clientUpdateAvatar = function(){
+     return factoryFrame.formUpImage();
   }
   return API;
 }  

@@ -167,7 +167,7 @@ public class CallerClient extends GetConnectionMySql {
   }
 
   public int getIdClient(String nif) throws SQLException {
-    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call UpdateCredential(?, ?)}");
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call GetIdClient(?, ?)}");
     cstmt.setString(1, nif);
     cstmt.registerOutParameter(2, Types.INTEGER);
     cstmt.execute();

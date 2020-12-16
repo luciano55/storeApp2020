@@ -30,9 +30,9 @@ public class SendEmail {
     // Es necesario mencionar el ID de correo electrónico del destinatario.
     String to = "luciano@bme.es";// this.myEmail;
     // Se debe mencionar el ID de correo electrónico del remitente
-    String from = "*********";
+    String from = "lucianoluqui55@gmail.com";
     // Se debe mencionar el key de correo electrónico del remitente
-    String key = "****";
+    String key = "luqui600";
     // Suponiendo que está enviando un correo electrónico a través de gmails smtp
     String host = "smtp.gmail.com";
     // Obtener propiedades del sistema
@@ -65,17 +65,19 @@ public class SendEmail {
       message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
       // Establecer Asunto: campo de encabezado
-      message.setSubject("Registro en Harnina20!");
+      message.setSubject("¡Aviso de Harnina20!");
 
       // Ahora configura el mensaje real
-      if (state.equals("new")) {
-        message.setText("Te has registrado correctamente tu usuario es " + usery + " y tu password es " + password
-            + ".  Cambia tu contraseña y destruye el email");
-      }
-      if (state.equals("forget")) {
-        message.setText("Has recuperado tus credenciales. Ahora tu usuario es " + usery + " y tu password es "
-            + password + ".  Cambia tu contraseña y destruye el email");
-      }
+      message.setText(state + ",  tu usuario es " + usery + " y tu password es " + password);
+      /*
+       * if (state.equals("new")) {
+       * message.setText("Te has registrado correctamente tu usuario es " + usery +
+       * " y tu password es " + password +
+       * ".  Cambia tu contraseña y destruye el email"); } if (state.equals("forget"))
+       * { message.setText("Has recuperado tus credenciales. Ahora tu usuario es " +
+       * usery + " y tu password es " + password +
+       * ".  Cambia tu contraseña y destruye el email"); }
+       */
       System.out.println("Enviando...");
       // Enviar mensaje
       Transport.send(message);
@@ -92,9 +94,9 @@ public class SendEmail {
     // Es necesario mencionar el ID de correo electrónico del destinatario.
     String to = "luciano@bme.es";// this.myEmail;
     // Se debe mencionar el ID de correo electrónico del remitente
-    String from = "**";
+    String from = "lucianoluqui55@gmail.com";
     // Se debe mencionar el key de correo electrónico del remitente
-    String key = "**";
+    String key = "luqui600";
     // Suponiendo que está enviando un correo electrónico a través de gmails smtp
     String host = "smtp.gmail.com";
     // Obtener propiedades del sistema
