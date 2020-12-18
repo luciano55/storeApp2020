@@ -171,39 +171,35 @@ API.avatar = function(){
 API.formUpImage = function(){
     const nodeView = this.viewTitle("div_view_crud", "Update Avatar"); 
     let params = {};
-   // params.id = "divUpImage"; 
-   // let divUpImage = factoryTag.div(params);  
-    nodeView.appendChild(API.avatar());    
-    
-    
-
-    params.class =  "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col";
-    params.id = "divFormUpImage";
-    let divExt = factoryTag.div(params); 
-// Crear formulario
+    nodeView.appendChild(API.avatar()); 
     params.id  = "formUpImage";
     params.enctype="multipart/form-data";
+    params.action = "/uploadAvatar";    
     const form = factoryTag.form(params); 
-
-
-    params.id = "formUpImageOne";
+    params.id = "divFormUpImage";
     params.class ="mb-4";
-    let divOne = factoryTag.div(params);
-    params.id = "formUpImageOneLabel";
+    let divControl = factoryTag.div(params);
+    params.id = "formControlLabel";
     params.class ="block text-grey-darker text-sm font-bold mb-2";
     params.for = "avatar";
     params.text = "Elige Avatar";
-    let labelOne = factoryTag.label(params);
-     params.id = "formUpImageOneInput";
+    let labelControl = factoryTag.label(params);
+     params.id = "formControlInput";
     params.class ="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker";
     params.name = "avatar";
     params.type = "file";
     params.placeholder  ="New image";
-    let inputOne = factoryTag.input(params);
-   divOne.appendChild(labelOne);
-   divOne.appendChild(inputOne);
-   divExt.appendChild(divOne);
-   nodeView.appendChild(divExt);
+    params.accept="image/png, image/jpeg" ;
+    let inputControl = factoryTag.input(params);    
+    let mySubmit = factoryButton.submit();
+    mySubmit.id = "submitAvatar";
+    mySubmit.value = "Upload Image";
+//alert(mySubmit.id);
+   divControl.appendChild(labelControl);
+   divControl.appendChild(inputControl);   
+   form.appendChild(divControl);
+   form.appendChild(mySubmit);
+   nodeView.appendChild(form);
    
    return nodeView;
   }

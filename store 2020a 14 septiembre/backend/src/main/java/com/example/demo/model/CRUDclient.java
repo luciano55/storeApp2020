@@ -16,6 +16,7 @@ import com.example.demo.entity.Login;
 import com.example.demo.entity.Credential;
 import com.example.demo.error.ErrorValidate;
 import com.example.demo.error.ErrorVerify;
+import com.example.demo.error.ErrorResponse;
 import com.example.demo.util.AddErrorArrayError;
 import com.example.demo.util.GetDataControlFromValue;
 import com.example.demo.util.HiloSendEmailAdd;
@@ -68,6 +69,7 @@ public class CRUDclient {
         } else {
           for (java.util.Map.Entry<String, ErrorVerify> entry : errorsVerification.entrySet()) {
             JSONObject oneJson = new JSONObject();
+            oneJson.put("error", ErrorResponse.ERRORVALIDATION);
             oneJson.put("messageErrorControl", entry.getValue().getMsgEs());
             oneJson.put("messageValueControl", entry.getKey());
             oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(client, entry.getKey()));
@@ -113,7 +115,7 @@ public class CRUDclient {
                   HiloSendEmailLogin hiloSendEmailLogin = new HiloSendEmailLogin(email);
 
                   JSONObject oneJson = new JSONObject();
-                  oneJson.put("error", 30);
+                  oneJson.put("error", ErrorResponse.ERRORUSERBLOCK);
                   oneJson.put("emailblocked", "ok");
                   arrayJson.put(oneJson);
                 } else {
@@ -124,7 +126,7 @@ public class CRUDclient {
                 RequestContextHolder.currentRequestAttributes().setAttribute("instantLock", LocalDateTime.now(),
                     RequestAttributes.SCOPE_SESSION);
                 JSONObject oneJson = new JSONObject();
-                oneJson.put("error", 40);
+                oneJson.put("error", ErrorResponse.ERRORUSERNOTFOUND);
                 oneJson.put("lockDuration", RequestContextHolder.currentRequestAttributes().getAttribute("lockDuration",
                     RequestAttributes.SCOPE_SESSION));
                 oneJson.put("agotado", "ok");
@@ -136,6 +138,7 @@ public class CRUDclient {
                 RequestAttributes.SCOPE_SESSION);
             for (java.util.Map.Entry<String, ErrorVerify> entry : errorsVerification.entrySet()) {
               JSONObject oneJson = new JSONObject();
+              oneJson.put("error", ErrorResponse.ERRORVALIDATION);
               oneJson.put("messageErrorControl", entry.getValue().getMsgEs());
               oneJson.put("messageValueControl", entry.getKey());
               oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(login, entry.getKey()));
@@ -144,7 +147,7 @@ public class CRUDclient {
           }
         } else {
           JSONObject oneJson = new JSONObject();
-          oneJson.put("error", 20);
+          oneJson.put("error", ErrorResponse.ERRORUSERBLOCK);
           oneJson.put("blocked", "ok");
           arrayJson.put(oneJson);
         }
@@ -279,7 +282,7 @@ public class CRUDclient {
     RequestContextHolder.currentRequestAttributes().setAttribute("idClient", myIdClient,
         RequestAttributes.SCOPE_SESSION);
     JSONObject oneJson = new JSONObject();
-    oneJson.put("error", 0);
+    oneJson.put("error", ErrorResponse.NOERROR);
     oneJson.put("validation", "ok");
     oneJson.put("verification", "ok");
     oneJson.put(operation, "ok");
@@ -290,7 +293,7 @@ public class CRUDclient {
 
   private void failedAction(String operation) {
     JSONObject oneJson = new JSONObject();
-    oneJson.put("error", 10);
+    oneJson.put("error", ErrorResponse.ERRORINTERNO);
     oneJson.put("validation", "ok");
     oneJson.put("verification", "ok");
     oneJson.put("errorOperation", operation);
@@ -316,6 +319,7 @@ public class CRUDclient {
       ArrayList<ErrorValidate> myerror = entry.getValue();
       myerror.forEach((n) -> {
         JSONObject oneJson = new JSONObject();
+        oneJson.put("error", ErrorResponse.ERRORVALIDATION);
         oneJson.put("messageErrorControl", n.getMsgEs());
         oneJson.put("messageValueControl", entry.getKey());
         oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(login, entry.getKey()));
@@ -329,6 +333,7 @@ public class CRUDclient {
       ArrayList<ErrorValidate> myerror = entry.getValue();
       myerror.forEach((n) -> {
         JSONObject oneJson = new JSONObject();
+        oneJson.put("error", ErrorResponse.ERRORVALIDATION);
         oneJson.put("messageErrorControl", n.getMsgEs());
         oneJson.put("messageValueControl", entry.getKey());
         oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(client, entry.getKey()));
@@ -342,6 +347,7 @@ public class CRUDclient {
       ArrayList<ErrorValidate> myerror = entry.getValue();
       myerror.forEach((n) -> {
         JSONObject oneJson = new JSONObject();
+        oneJson.put("error", ErrorResponse.ERRORVALIDATION);
         oneJson.put("messageErrorControl", n.getMsgEs());
         oneJson.put("messageValueControl", entry.getKey());
         oneJson.put("messageNameControl", GetDataControlFromValue.getDataControlClient(credential, entry.getKey()));

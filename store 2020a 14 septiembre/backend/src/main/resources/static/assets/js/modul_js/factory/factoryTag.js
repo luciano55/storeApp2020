@@ -54,8 +54,7 @@ export function FactoryTag() {
     form.name = params.name || "";
     form.action = params.action || "";
     form.enctype = params.enctype || "text/plain";
-    form.autocomplete = params.autocomplete || "on";
-    //form.enctype = params.enctype || "text/plain";
+    form.autocomplete = params.autocomplete || "on";    
     form.method = params.method || "POST";
     form.target = params.target || "_blank";
     //form.submit();
@@ -111,7 +110,7 @@ export function FactoryTag() {
    input.placeholder = params.placeholder || "";
     input.title = params.title || "";
     input.pattern = params.pattern || "";
-
+    input.accept = params.accept || "";
     return input;
   };
   API.label = function (params) {
