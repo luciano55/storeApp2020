@@ -4,7 +4,7 @@ import {STRATEGY} from "../enum/enum_stratey.js";
 import {w,d,$,lS,sS,Q,Qa} from "./global.js";
 import {ValidateUtil, Validations} from "../factory/factoryValidation.js";
 import {ViewClient}from "../view/viewClient.js";
-import {CLIENTERROR} from "../enum/enum_clientError.js";
+import {ERRORRESPONSE} from "../enum/enum_errorResponse.js";
 
 
 export function ManagerFunctions() {
@@ -470,96 +470,21 @@ API.scrollTopButton = function(btn){
 
 }
 API.serverResponse = function(response){
-       console.log("response",response);
+      console.log("response", response); 
 
-      if(response.status == 404){  
-            this.error().message( "Error 404 ");
-           this.error().on(); 
-      }
-     if(Array.isArray(response)){
-       if(typeof  response[0].messageErrorControl  != "undefined"){
-          for (let i=0; i<response.length;i++){
-              let field = response[i].messageNameControl;
-              let dataField = Q("input[data-field='" +field +"']");
-              let control = dataField.id;
-              $(control).style.backgroundColor = COLOR.ERRORBACKEND;
-              $("boxerror_"+control).innerHTML = response[i].messageErrorControl;
-              $("boxerror_"+control).style.display = "block";
-              if($("boxinfo_"+control)){
-                   $("boxinfo_"+control).style.display = "none";
-               }  
-          } 
-         }else{
-           if(response[0].error == CLIENTERROR.ERRORNULL){ 
-             const dataControl = {};
-             fetch("http://www.geoplugin.net/json.gp")
-              .then((res) => (res.ok ? res.json() : Promise.reject(res)))
-              .then((json) => {
-                        console.log(json);
-                        dataControl.idClient = response[0].idClient;
-                         sS.setItem("idClient",response[0].idClient);
-                        dataControl.ip =  json.geoplugin_request;
-                        dataControl.city = json.geoplugin_city;
-                        dataControl.country = json.geoplugin_countryName;
-                        const url = "/addIp";
-                        this.ajaxForm({url,dataControl});
-                        if(sS.getItem("opcionClient") == "linkUpAvatar" ) {
-                            alert("opcion update avatar");
-                            let myBody = $("myBody");
-                            myBody.innerHTML = "";
-                            myBody.appendChild(viewClient.updateAvatar());    
-                        }else {
-                            location.reload();
-                        } 
-                     }).catch((err) => {
-                          console.log(err);
-                      });
-              }else{
-                    if(response[0].error == CLIENTERROR.ERRORLOKED ){ // Estás bloqueado
-                                  this.submit().off();
-                                  this.error().message("Estás Bloqueado. Mira tu correo");
-                                  this.error().on();   
-                                  this.loginDataControlDisable(true);
-                  }else {
-                        if(response[0].error == CLIENTERROR.ERRORLOCKING){ // Bloqueamos
-                                  this.submit().off();
-                                  this.error().message("Acabas de ser Bloqueado. Mira tu correo");
-                                  this.error().on();   
-                                  this.loginDataControlDisable(true);
-                            }else {
-                                if(response[0].error == CLIENTERROR.ERRORLOCKTIME){    // No tiene email block time  
-                                        this.submit().off();
-                                        this.error().message("Intentos agotados");
-                                        this.error().on();   
-                                        this.loginDataControlDisable(true);
-                                        // INFORMAR AL BACKEND                                        
-                                        this.ajaxForm({
-                                              url:"/resetTried",
-                                              dataControl: ""
-                                        });       
-                                        let timeLocked = response[0].lockDuration;
-                                        let seconds = 0;
-                                        let intervalId = setInterval(()=>{
-                                                if (seconds >= timeLocked) {
-                                                    this.submit().on();
-                                                    this.error().off();  
-                                                    this.loginDataControlDisable(false); 
-                                                    clearInterval(intervalId);
-                                                }else {
-                                                          seconds = seconds + 1;
-                                                        this.error().message("Estas Bloqueado. Te quedan " + (timeLocked - seconds) + " seconds");
-                                                }                        
-                                      }, 1000);              
-                                  }else{
-                                     if(response[0].error == CLIENTERROR.ERRORCLIENT){  
-                                       alert("Ha habido un error con las operaciones " +  response[0].errorOperation   +"  del cliente en la BBDD");
-                                     }
-                                  }
-                          }
-                        }  
-              }
-          }
-       }
+    if (response.status == 404) { 
+
+      this.error().message("Error 404 "); 
+
+      this.error().on(); 
+
+    } else { 
+
+      eval(eval(`ERRORRESPONSE.${response[0].error}`)); 
+
+    } 
+    
+       
 }
 API.ajaxForm = function(props){
      let {url, dataControl} = props;
@@ -616,6 +541,120 @@ API.loginDataControlDisable= function(state){
   }
 
 }
+API.diceAvatar = function(){
+
+let image = new Image();
+let avatar = "assets/img/client/" +sS.getItem("idClient") + ".png";
+
+image.onload = function() {
+   $("cara1-0-0").src = avatar ;
+  $("cara1-0-1").src = avatar;
+  $("cara1-0-2").src = avatar;
+  $("cara1-0-3").src = avatar;
+  $("cara1-0-4").src = avatar;
+  $("cara1-0-5").src = avatar; 
+    
+}
+image.onerror = function() {
+    avatar = "assets/img/client/fotoSin.png";
+    $("cara1-0-0").src = avatar ;
+    $("cara1-0-1").src = avatar;
+    $("cara1-0-2").src = avatar;
+    $("cara1-0-3").src = avatar;
+    $("cara1-0-4").src = avatar;
+    $("cara1-0-5").src = avatar;   
+}
+
+image.src = avatar;  
+}
+
+const errorUserBloqueado = () => { 
+
+       API.submit().off();
+       API.error().message("Acabas de ser Bloqueado. Mira tu correo");
+       API.error().on();   
+       API.loginDataControlDisable(true);
+
+  }; 
+ const errorUserDesconocido = (response) => { 
+
+     API.submit().off();
+     API.error().message("Intentos agotados");
+     API.error().on();   
+     API.loginDataControlDisable(true);
+      // INFORMAR AL BACKEND                                        
+      API.ajaxForm({
+          url:"/resetTried",
+          dataControl: ""
+       });       
+      let timeLocked = response[0].lockDuration;
+      let seconds = 0;
+      let intervalId = setInterval(()=>{
+           if (seconds >= timeLocked) {
+                    API.submit().on();
+                    API.error().off();  
+                    API.loginDataControlDisable(false); 
+                    clearInterval(intervalId);
+           }else {
+                     seconds = seconds + 1;
+                     API.error().message("Estas Bloqueado. Te quedan " + (timeLocked - seconds) + " seconds");
+            }                        
+        }, 1000);              
+ }
+const errorValidationData = (response) => { 
+      for (let i=0; i<response.length;i++){
+              let field = response[i].messageNameControl;
+              let dataField = Q("input[data-field='" +field +"']");
+              let control = dataField.id;
+              $(control).style.backgroundColor = COLOR.ERRORBACKEND;
+              $("boxerror_"+control).innerHTML = response[i].messageErrorControl;
+              $("boxerror_"+control).style.display = "block";
+              if($("boxinfo_"+control)){
+                   $("boxinfo_"+control).style.display = "none";
+               }  
+          } 
+
+  }; 
+const errorInterno = () => { 
+
+    API.error().message("Hemos tenido un problema intentelo en unos minutos"); 
+
+  }; 
+
+  const errorTodoBien = (response) => { 
+
+     const dataControl = {};
+     fetch("http://www.geoplugin.net/json.gp")
+     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+     .then((json) => {
+          console.log(json);
+          dataControl.idClient = response[0].idClient;
+          sS.setItem("idClient",response[0].idClient);
+          dataControl.ip =  json.geoplugin_request;
+          dataControl.city = json.geoplugin_city;
+          dataControl.country = json.geoplugin_countryName;
+          const url = "/addIp";
+          API.ajaxForm({url,dataControl});
+                if(sS.getItem("opcionClient") == "linkUpAvatar" ) {
+                            alert("opcion update avatar");
+                            let myBody = $("myBody");
+                            myBody.innerHTML = "";
+                            myBody.appendChild(viewClient.updateAvatar());    
+                        }else {
+                            location.reload();
+                        } 
+      }).catch((err) => {
+             console.log(err);
+      });
+  }; 
+const checkImage =(imageSrc, good, bad) =>{
+    var img = new Image();
+    img.onload = good; 
+    img.onerror = bad;
+    img.src = imageSrc;
+}
+ 
+
   return API;
 }
  

@@ -18,6 +18,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
   //managerFunctions.CreateBBDDpostalCode();
   managerFunctions.dado();
   managerFunctions.scrollTopButton(".scroll-top-btn");
+  managerFunctions.diceAvatar();
 });
 d.addEventListener("click", (e) => {
    let myBody = $("myBody");

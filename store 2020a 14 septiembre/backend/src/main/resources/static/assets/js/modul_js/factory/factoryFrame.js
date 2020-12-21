@@ -174,7 +174,7 @@ API.formUpImage = function(){
     nodeView.appendChild(API.avatar()); 
     params.id  = "formUpImage";
     params.enctype="multipart/form-data";
-    params.action = "/uploadAvatar";    
+    params.action = "/uploadFile";    
     const form = factoryTag.form(params); 
     params.id = "divFormUpImage";
     params.class ="mb-4";

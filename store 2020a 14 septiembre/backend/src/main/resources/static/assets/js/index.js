@@ -37,6 +37,7 @@ d.addEventListener("click", (e) => {
       managerFunctions.phone();   
      managerFunctions.saveDataControls();
      managerFunctions.showIniStrategy(STRATEGY.ONETOONE);
+     manager.Function.diceAvatar();
   }
    if (e.target.id == "linkLogin") {
          url = "/loginClient";
