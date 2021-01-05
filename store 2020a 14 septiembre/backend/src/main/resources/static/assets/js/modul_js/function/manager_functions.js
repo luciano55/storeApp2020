@@ -5,11 +5,14 @@ import {w,d,$,lS,sS,Q,Qa} from "./global.js";
 import {ValidateUtil, Validations} from "../factory/factoryValidation.js";
 import {ViewClient}from "../view/viewClient.js";
 import {ERRORRESPONSE} from "../enum/enum_errorResponse.js";
+import {FactoryBox} from "../factory/factoryBox.js";
+import {GeneralPurposeFunctions} from "./general_purpose_functions.js";
 
 
 export function ManagerFunctions() {
   const API = {};   
 const viewClient = new ViewClient();
+const factoryBox = new FactoryBox();
 API.darkLight = function (classDark) {
     const $selectors = Qa("[data-dark]");
     const $btn = $("darkMode");
@@ -379,6 +382,10 @@ API.dataControl = function(){
         valid : function(params){
              params.nodo.style.borderColor =  COLOR.VALID;
              params.nodo.style.borderWidth = COLOR.VALIDBORDER;
+          },
+        validData : function(params){
+             params.style.borderColor =  COLOR.VALID;
+             params.style.borderWidth = COLOR.VALIDBORDER;
           }
     }
   }
@@ -469,44 +476,6 @@ API.scrollTopButton = function(btn){
     });
 
 }
-API.serverResponse = function(response){
-      console.log("response", response); 
-
-    if (response.status == 404) { 
-
-      this.error().message("Error 404 "); 
-
-      this.error().on(); 
-
-    } else { 
-
-      eval(eval(`ERRORRESPONSE.${response[0].error}`)); 
-
-    } 
-    
-       
-}
-API.ajaxForm = function(props){
-     let {url, dataControl} = props;
-     fetch(url, {
-            method: 'POST', 
-            body:  JSON.stringify(dataControl),          
-            headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                  }
-       }).catch(error=> {
-           this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
-             this.error.on(); 
-     })
-       .then(res => res.json())      
-       .then(response => {
-             this.loader().off();
-             API.resetDataControl(dataControl); 
-             API.serverResponse(response);          
-         });
-     
-}
 API.loader = function(){
    'use strict';
    
@@ -564,19 +533,133 @@ image.onerror = function() {
     $("cara1-0-4").src = avatar;
     $("cara1-0-5").src = avatar;   
 }
-
 image.src = avatar;  
 }
+API.serverResponse = function(response){
+      console.log("serverResponse from ajax", response); 
 
-const errorUserBloqueado = () => { 
+    if (response.status == 404) { 
+      this.error().message("Error 404 "); 
+      this.error().on(); 
+    } else { 
+      eval(eval(`ERRORRESPONSE.${response[0].error}`)); 
+    } 
+    
+       
+}
+API.ajaxForm = function(props){
+     let {url, dataControl} = props;
+     fetch(url, {
+            method: 'POST', 
+            body:  JSON.stringify(dataControl),          
+            headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                  }
+       }).catch(error=> {
+           this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
+             this.error.on(); 
+     })
+       .then(res => res.json())      
+       .then(response => {
+             this.loader().off();
+             API.resetDataControl(dataControl); 
+             API.serverResponse(response);          
+         });
+     
+}
+API.ajaxSingle = function(props){
+     let {url, dataControl} = props;
+     fetch(url, {
+            method: 'POST', 
+            body:  JSON.stringify(dataControl),          
+            headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                  }
+       }).catch(error=> {
+           this.error.message( error.statusText || "Ocurrió un error al acceder al BackEnd");
+             this.error.on(); 
+     })
+       .then(res => res.json())      
+       .then(response => {
+             this.loader().off();
+             //API.resetDataControl(dataControl); 
+             API.serverResponse(response);          
+         });
+     
+}
 
-       API.submit().off();
-       API.error().message("Acabas de ser Bloqueado. Mira tu correo");
-       API.error().on();   
-       API.loginDataControlDisable(true);
+
+
+const addLoginExit = (response)=>{
+      const dataControl = {};
+     fetch("http://www.geoplugin.net/json.gp")
+     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+     .then((json) => {
+          console.log(json);
+          dataControl.idClient = response[0].idClient;          
+          sS.setItem("idClient",response[0].idClient);
+          dataControl.ip =  json.geoplugin_request;
+          dataControl.city = json.geoplugin_city;
+          dataControl.country = json.geoplugin_countryName;
+          dataControl.action = response[0].action;
+          const url = "/addIp";
+          API.ajaxForm({url,dataControl});
+           if(sS.getItem("opcionClient")==null){
+                 location.reload();
+             } else {
+                 generateOptionClient();
+               }
+      }).catch((err) => {
+             console.log(err);
+      });
+}
+const errorVerificationData = (response) => { 
+       for (let i=0; i<response.length;i++){
+              let field = response[i].messageNameControl;
+              let dataField = Q("input[data-field='" +field +"']");
+              let control = dataField.id;
+              $(control).style.backgroundColor = COLOR.ERRORBACKEND;
+              $("boxerror_"+control).innerHTML = response[i].messageErrorControl;
+              $("boxerror_"+control).style.display = "block";
+              if($("boxinfo_"+control)){
+                   $("boxinfo_"+control).style.display = "none";
+               }  
+          } 
 
   }; 
- const errorUserDesconocido = (response) => { 
+const errorValidationData = (response) => { 
+      for (let i=0; i<response.length;i++){
+              let field = response[i].messageNameControl;
+              let dataField = Q("input[data-field='" +field +"']");
+              let control = dataField.id;
+              $(control).style.backgroundColor = COLOR.ERRORBACKEND;
+              $("boxerror_"+control).innerHTML = response[i].messageErrorControl;
+              $("boxerror_"+control).style.display = "block";
+              if($("boxinfo_"+control)){
+                   $("boxinfo_"+control).style.display = "none";
+               }  
+          } 
+
+  }; 
+const errorOperation = () => { 
+
+    API.error().message("Hemos tenido un problema con la operación, inténtelo en unos minutos"); 
+
+  }; 
+
+const errorUserBloqueado = () => { 
+    let myBody = $("myBody");
+    myBody.innerHTML = "";
+    myBody.appendChild(viewClient.uuid());    
+  /*
+       API.submit().off();
+       API.error().message("Estas Bloqueado. Mira tu correo");
+       API.error().on();   
+       API.loginDataControlDisable(true); */
+  }; 
+const errorUserDesconocido = (response) => { 
 
      API.submit().off();
      API.error().message("Intentos agotados");
@@ -601,48 +684,26 @@ const errorUserBloqueado = () => {
             }                        
         }, 1000);              
  }
-const errorValidationData = (response) => { 
-      for (let i=0; i<response.length;i++){
-              let field = response[i].messageNameControl;
-              let dataField = Q("input[data-field='" +field +"']");
-              let control = dataField.id;
-              $(control).style.backgroundColor = COLOR.ERRORBACKEND;
-              $("boxerror_"+control).innerHTML = response[i].messageErrorControl;
-              $("boxerror_"+control).style.display = "block";
-              if($("boxinfo_"+control)){
-                   $("boxinfo_"+control).style.display = "none";
-               }  
-          } 
 
-  }; 
-const errorInterno = () => { 
-
-    API.error().message("Hemos tenido un problema intentelo en unos minutos"); 
-
-  }; 
-
-  const errorTodoBien = (response) => { 
-
+const errorTodoBien = (response) => { 
      const dataControl = {};
      fetch("http://www.geoplugin.net/json.gp")
      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
      .then((json) => {
           console.log(json);
           dataControl.idClient = response[0].idClient;
+          dataControl.action = response[0].action;
           sS.setItem("idClient",response[0].idClient);
           dataControl.ip =  json.geoplugin_request;
           dataControl.city = json.geoplugin_city;
           dataControl.country = json.geoplugin_countryName;
           const url = "/addIp";
           API.ajaxForm({url,dataControl});
-                if(sS.getItem("opcionClient") == "linkUpAvatar" ) {
-                            alert("opcion update avatar");
-                            let myBody = $("myBody");
-                            myBody.innerHTML = "";
-                            myBody.appendChild(viewClient.updateAvatar());    
-                        }else {
+           if(sS.getItem("opcionClient")==null){
                             location.reload();
-                        } 
+           } else {
+               generateOptionClient();
+           }
       }).catch((err) => {
              console.log(err);
       });
@@ -653,9 +714,113 @@ const checkImage =(imageSrc, good, bad) =>{
     img.onerror = bad;
     img.src = imageSrc;
 }
- 
+const generateOptionClient = () => { 
+    const viewClient = new ViewClient(); 
+    let myBody = $("myBody");
+    myBody.innerHTML = ""; 
+    if (sS.getItem("opcionClient") == "linkUpData") { 
+          sS.setItem("url", "/updatePerson"); 
+          const globalFunction = new GeneralPurposeFunctions();
+          globalFunction.resetAutoIncrementPhoneCP(); 
+          myBody.appendChild(viewClient.register()); 
+          API.validations(); 
+          API.phone();
+          API.saveDataControls(); 
+          API.ajaxForm({
+              url: "/getDataControlPerson", 
+              dataControl: "", 
+          });
+          API.showIniStrategy(STRATEGY.ALL); 
+
+    } else if (sS.getItem("opcionClient") == "linkUpLogin") { 
+      //  alert("linkUpLogin");
+          sS.setItem("url", "/updateLogin"); 
+          myBody.appendChild(viewClient.updateLogin()); 
+          API.validations(); 
+          API.saveDataControls();
+          API.ajaxForm({ 
+            url: "/getDataControlLogin", 
+            dataControl: "", 
+          }); 
+          API.showIniStrategy(STRATEGY.ONETOONE); 
+          } else if (sS.getItem("opcionClient") == "linkUpAvatar") {
+                      myBody.appendChild(viewClient.updateAvatar()); 
+                    } else if(sS.getItem("opcionClient") == "linkExit") {
+                        location.reload();
+                    }
+  }; 
+const fillDatas = (response) => { 
+    const datas = API.getDataControls(); 
+    let i = 0;
+    if (response[0].data == "data") { 
+      for (const data in datas) {
+        if (data == "mobile") {
+         const  myPhone = Q("input[data-field='" + data + "']").id;
+         $(myPhone).value = response[0].datos[i].split('-').pop();          
+         let idCountry = response[0].datos[i].split('-').shift();
+         $("select_"+myPhone).value = idCountry;         
+         let country ="";
+         if(idCountry == "+34"){country="es";}
+         if(idCountry == "+33"){country="fr";}
+         if(idCountry == "+1"){
+            country="us";
+            sS.setItem("numberLength_0","10");
+            sS.setItem("pattern_0","^[0-9]{10}$");
+            $(myPhone).maxLength= 10;
+            $(myPhone).minLength = 10;
+           
+        }          
+         $("litleImg_" + myPhone).src="../assets/img/flags/"+country +".png";
+         $("boxinfo_" + myPhone).innerHTML= response[0].datos[i];
+         $("boxinfo_" + myPhone).style.display = "block";          
+        } else { 
+          Q("input[data-field='" + data + "']").value = response[0].datos[i]; 
+        } 
+        i++;
+        API.dataControl().validData(Q("input[data-field='" + data + "']")); 
+      } 
+
+    } else { 
+              if (response[0].data == "login"){                
+                    for (const data in datas) { 
+                        Q("input[data-field='" + data + "']").value = response[0].datos[i]; 
+                     break; 
+                    }
+                  }               
+      } 
+
+    } 
+const errorPasswordRepeat= (response)=>{
+ // alert("errorPasswordRepeat(response)");
+$("boxerror_passwordrepeat").style.display = "block";
+$("boxerror_passwordrepeat").innerHTML = "No coinciden las passwords";
+}
+const errorUpdateLogin = (response)=>{
+  myBody.innerHTML = "";
+  myBody.appendChild(factoryBox.error());   
+  $("boxerror_").id = "boxerror_updatelogin";
+  $("boxerror_updatelogin").style.display = "block";
+  $("boxerror_updatelogin").innerHTML = response[0].message;
+}
+const exitActionClient = (response)=>{     
+  myBody.innerHTML = "";
+  myBody.appendChild(factoryBox.info());   
+  $("infoBox").id = "infoBox_updatelogin";
+  $("infoBox_updatelogin").style.display = "block";
+  $("infoBox_updatelogin").innerHTML = "Login ha sido actualizado. Puedes continuar.";
+}
+
+
+const errorInterno = () => { 
+
+    API.error().message("Hemos tenido un problema intentelo en unos minutos"); 
+
+  }; 
+
+
+
 
   return API;
-}
+} 
  
           

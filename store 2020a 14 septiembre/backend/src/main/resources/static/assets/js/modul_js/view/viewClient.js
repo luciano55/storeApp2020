@@ -17,6 +17,15 @@ export function ViewClient() {
   API.updateAvatar = function(){
      return factoryView.clientUpdateAvatar();
   }
+  API.updateLogin = function(){
+     return factoryView.clientUpdateLogin();
+  }
+    API.updateLogin = function(){
+     return factoryView.clientUpdateLogin();
+  }
+ API.uuid = function(){
+     return factoryView.uuid();
+  }
  
   return API;
 }

@@ -37,7 +37,7 @@ d.addEventListener("click", (e) => {
       managerFunctions.phone();   
      managerFunctions.saveDataControls();
      managerFunctions.showIniStrategy(STRATEGY.ONETOONE);
-     manager.Function.diceAvatar();
+     //manager.Function.diceAvatar();
   }
    if (e.target.id == "linkLogin") {
          url = "/loginClient";
@@ -63,5 +63,15 @@ d.addEventListener("click", (e) => {
          url,
          dataControl
        });       
+   } else{ if (e.target.id == "uuidButton") {     
+      const uuid =  $("uuid").value;
+      managerFunctions.loader().on();
+      const url = "/unlockUUID";
+      const dataControl = {"uuid": uuid}; 
+      managerFunctions.ajaxSingle({
+                    url,
+                    dataControl
+                  });         
+   }
    }
 });

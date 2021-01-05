@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.demo.DAO.procedure.CallerClient;
-import com.example.demo.entity.IpLocation;
-
+import com.example.demo.entity.Client;
+import com.example.demo.model.CRUDclient;
 import com.google.gson.Gson;
 
-@WebServlet("/addIp")
-public class AddIp extends HttpServlet {
+import org.json.JSONArray;
+
+@WebServlet("/updatePerson")
+public class UpdatePerson extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -31,28 +32,21 @@ public class AddIp extends HttpServlet {
       sb.append(str);
     }
     String json = sb.toString();
-    System.out.println("AddIp recibe" + json);
+    System.out.println(json);
 
     Gson g = new Gson();
-    IpLocation ip = g.fromJson(json, IpLocation.class);
+    Client client = g.fromJson(json, Client.class);
 
-    System.out.println("Action:" + ip.getAction());
-
-    CallerClient callerClient;
-
+    CRUDclient crud = new CRUDclient();
+    JSONArray arrayJson = new JSONArray();
     try {
-      callerClient = new CallerClient();
-      if (callerClient.addIpLocation(ip)) {
-        System.out.println("addIpLocation ok");
-      } else {
-        System.out.println("addIpLocation Error");
-      }
-    } catch (ClassNotFoundException | SQLException e1) {
-
-      e1.printStackTrace();
+      arrayJson = crud.updatePerson(client);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
-
-    // response.getWriter().write((arrayJson).toString());
+    response.getWriter().write((arrayJson).toString());
   }
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

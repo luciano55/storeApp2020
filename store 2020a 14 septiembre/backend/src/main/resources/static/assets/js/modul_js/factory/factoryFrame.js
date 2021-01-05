@@ -6,7 +6,8 @@ import { GeneralPurposeFunctions } from "../function/general_purpose_functions.j
 import {VALIDATOR} from "../enum/enum_validator.js";
 import {FactoryImg} from "../factory/factoryImg.js";
 import {LOADER} from "../enum/enum_loader.js";
-
+import {w,d,$,lS,sS,Q,Qa} from "../function/global.js";
+//import {ManagerFunctions} from "../function/manager_functions.js";
 
 export function FactoryFrame() {
   const API = {};
@@ -16,6 +17,7 @@ export function FactoryFrame() {
   const factoryBox = new FactoryBox();
   const generalPurposeFunctions = new GeneralPurposeFunctions();
   const factoryImg = new  FactoryImg();
+  //const managerFunctions = new ManagerFunctions();
 
 const input = function(params){
   const myId = params.id;
@@ -203,51 +205,71 @@ API.formUpImage = function(){
    
    return nodeView;
   }
+API.confirm = function(message,onCancel, onContinue){
+    const params = {};
+    params.id = "confirmBox";
+    params.class = "bg-pink-100 inline-flex p-8";
+    var divBox = factoryTag.div(params);
+     params.id = "";
+    params.class = "mx-4";
+    var span = factoryTag.span(params);
+    span.innerHTML = message;
+    divBox.appendChild(span);
+  let myButton = {
+      id : "yesButton",
+    class : "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l",
+    text:"SI",
+      task: onCancel
+    }
+   const  cancelButton = factoryTag.button(myButton);
+    cancelButton.onclick = myButton.task;
+  divBox.appendChild(cancelButton);
+    myButton = {
+      id : "noButton",
+    class : "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r",
+   text:"NO",
+      task: onContinue
+    }
+   const  continueButton = factoryTag.button(myButton);
+    continueButton.onclick = myButton.task;
+  divBox.appendChild(continueButton);
+   const loader = factoryImg.loader(LOADER.BALL_TRIANGLE);
+      loader.style.display = "none";
+
+      divBox.appendChild(loader);
+   return divBox;
+}
+
+API.uuid = function(unlockUser){
+   const params = {};
+    params.id = "uuidBox";
+    params.class = "bg-pink-100 block p-8";
+    const divBox = factoryTag.div(params);
+    params.id = "";
+    params.class = "text-red-700";
+    params.text = "Estas Bloqueado. Mira tu correo.";
+    const correoBox = factoryTag.span(params);
+    params.id = "uuid";
+    params.type = "text";
+    params.class = "form-input mt-1 block w-full";
+    params.placeholder  ="uuid del correo";
+    const inputBox = factoryTag.input(params);
+   let myButton = {
+      id : "uuidButton",
+    class : "bg-blue-200 hover:bg-blue-400 text-gray-800 font-bold py-2 px-4 m-8 rounded-l",
+    text:"Desbloqueo via UUID",
+      task: unlockUser
+    }
+   const  uuidButton = factoryTag.button(myButton);
+    uuidButton.onclick = myButton.task;
+    const loader = factoryImg.loader(LOADER.BALL_TRIANGLE);
+  loader.style.display = "none";
+    divBox.appendChild(correoBox);
+    divBox.appendChild(inputBox);
+    divBox.appendChild(uuidButton);
+    divBox.appendChild(loader);
+    return divBox;
+}
+
   return API;
 }
-/*
-formImgUser: "<div class=\"contenido01\">\n" +
-        "    <img src= \"../img/fotoClient/" + sessionStorage.getItem("idClient") + ".png?" + Math.random() + " alt=\"\" height=\"200px\" width=\"300px\">\n" +
-        "    <form enctype=\"multipart/form-data\" id=\"client_register\" method=\"POST\" action=\"/upImage\">\n" +
-        "        <div class=\"menu s3 caja03\">\n" +
-        "            <h4>New Image</h4>\n" +
-        "            <div class=\"fileinputs etiqueta s2\" id=\"div_clientImage\">\n" +
-        "                <input class=\"etiqueta s5 file\" id=\"clientImage\" type=\"file\" name=\"image\" data-functioncallback=\"ValidarFicheroName.validarImagenName\" required accept=\"image/png, image/jpeg\" placeholder=\"input your Avatar\" title=\"3 to 120 characters\">\n" +
-        "                <div class=\"fakefile\">\n" +
-        "                    <label class=\"labelInput\" for=\"idFile\">Elije tu foto</label>\n" +
-        "                    <input id=\"idFile\" name=\"myFile\">\n" +
-        "                </div>\n" +
-        "            </div>\n" +
-      //  "            <div class=\"etiqueta errorColor\" id=\"alertaError\">Error:</div>\n" +
-        "            <button id=\"submit\" type=\"submit\">Enviar</button>\n" +
-        "        </div>\n" +
-        "    </form>\n" +
-        "</div>\n"
-        
-        
-        
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-    <div class="mb-4">
-      <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
-        Username
-      </label>
-      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="username" type="text" placeholder="Username">
-    </div>
-    <div class="mb-6">
-      <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
-        Password
-      </label>
-      <input class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="password" type="password" placeholder="******************">
-      <p class="text-red text-xs italic">Please choose a password.</p>
-    </div>
-    <div class="flex items-center justify-between">
-      <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" type="button">
-        Sign In
-      </button>
-      <a class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="#">
-        Forgot Password?
-      </a>
-    </div>
-</div>
-        
-        */

@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
+
+import com.example.demo.DAO.procedure.CallerClient;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,6 +77,18 @@ public class FileUploadController {
     attributes.addFlashAttribute("message",
         "Archivo cargado correctamente [" + builder2.toString() + "]" + "Cierra y recarga");
 
+    // Add client historic
+    try {
+      CallerClient callerClient = new CallerClient();
+      if (callerClient.addClientHistoric((int) RequestContextHolder.currentRequestAttributes().getAttribute("idClient",
+          RequestAttributes.SCOPE_SESSION), "UpdateAvatar")) {
+        System.out.println("UpdateAvatar registrado en histórico ");
+      }
+
+    } catch (ClassNotFoundException | SQLException e) {
+
+      e.printStackTrace();
+    }
     return "redirect:/status";
 
   }

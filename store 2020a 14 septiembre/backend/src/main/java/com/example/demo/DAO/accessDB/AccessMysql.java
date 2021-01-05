@@ -16,7 +16,7 @@ public class AccessMysql {
   public static AccessMysql instance(String bbdd, String user, String password)
       throws SQLException, ClassNotFoundException {
     if (accessMysql != null) {
-      System.out.println(user);
+      // System.out.println(user);
       if (!AccessMysql.bbdd.equals(bbdd) || !AccessMysql.user.equals(user) || !AccessMysql.password.equals(password)) {
         connection.close();
         createInstance(bbdd, user, password);

@@ -5,6 +5,7 @@ public class IpLocation {
   String ip;
   String city;
   String country;
+  String action;
 
   public String getIp() {
     return this.ip;
@@ -30,11 +31,12 @@ public class IpLocation {
     this.country = Country;
   }
 
-  public IpLocation(String idClient, String ip, String city, String country) {
+  public IpLocation(String idClient, String ip, String city, String country, String action) {
     this.idClient = idClient;
     this.ip = ip;
     this.city = city;
     this.country = country;
+    this.action = action;
   }
 
   public IpLocation() {
@@ -48,4 +50,11 @@ public class IpLocation {
     this.idClient = idClient;
   }
 
+  public String getAction() {
+    return this.action;
+  }
+
+  public void setAction(String action) {
+    this.action = action;
+  }
 }

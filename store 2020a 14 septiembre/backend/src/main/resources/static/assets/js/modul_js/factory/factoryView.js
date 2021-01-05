@@ -4,12 +4,14 @@ import {FactoryButton} from "./factoryButton.js";
 import {FactoryBox} from "./factoryBox.js";
 import {PHONE} from "../enum/enum_phone.js";
 import {FactoryImg} from "./factoryImg.js"
+
 export function FactoryView() {
   const factoryFrame = FactoryFrame();
   const factoryDataControl = FactoryDataControl();
   const factoryButton = FactoryButton();
   const factoryBox = FactoryBox();
   const factoryImg = FactoryImg();
+
 
   const API = {};
 
@@ -141,5 +143,35 @@ export function FactoryView() {
   API.clientUpdateAvatar = function(){
      return factoryFrame.formUpImage();
   }
+    API.clientUpdateLogin = function(){
+    const data = [           
+     { 
+       field : ["user"],
+       factory : "factoryDataControl.user",
+       params : [7,7]        
+      },         
+     { 
+       field : ["password"],
+       factory : "factoryDataControl.password",
+        params : [9,15]        
+      },  
+      { 
+       field : ["passwordrepeat"],
+       factory : "factoryDataControl.password",
+        params : [9,15]        
+      },  
+      
+       { 
+       field : [],
+       factory : "factoryFrame.divSubmit"                 
+      }
+      
+          ];     
+      return createView(data, "Update Login Customer");   
+  }
+    API.uuid = function(){
+     return factoryFrame.uuid();
+  }
+ 
   return API;
 }  

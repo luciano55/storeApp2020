@@ -32,7 +32,7 @@ public class SendEmail {
     // Se debe mencionar el ID de correo electrónico del remitente
     String from = "lucianoluqui55@gmail.com";
     // Se debe mencionar el key de correo electrónico del remitente
-    String key = "luqui600";
+    String key = "luqui6000";
     // Suponiendo que está enviando un correo electrónico a través de gmails smtp
     String host = "smtp.gmail.com";
     // Obtener propiedades del sistema
@@ -96,7 +96,7 @@ public class SendEmail {
     // Se debe mencionar el ID de correo electrónico del remitente
     String from = "lucianoluqui55@gmail.com";
     // Se debe mencionar el key de correo electrónico del remitente
-    String key = "luqui600";
+    String key = "luqui6000";
     // Suponiendo que está enviando un correo electrónico a través de gmails smtp
     String host = "smtp.gmail.com";
     // Obtener propiedades del sistema
@@ -135,7 +135,9 @@ public class SendEmail {
 
         // Ahora configura el mensaje real
         message.setText(
-            "Has sido bloqueado por la Aplicación. Si has sido tú  pulsa el siguiente enlace para desbloquearte:  http://localhost:8085/unlockUser?email="
+            "Has sido bloqueado por la Aplicación. Si has sido tú  tienes dos opciones para desbloquearte por Tu UUID que es:"
+                + uuid
+                + " o pulsando el siguiente enlace y pasar a una nueva pestaña:  http://localhost:8085/unlockUser?email="
                 + myEmail + "&uuid=" + uuid);
 
         System.out.println("Enviando...");

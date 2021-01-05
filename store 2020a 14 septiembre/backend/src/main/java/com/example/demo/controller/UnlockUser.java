@@ -30,6 +30,7 @@ public class UnlockUser extends HttpServlet {
       CallerClient callerClient = new CallerClient();
       if (callerClient.unlockUser(email, uuid)) {
         System.out.println("email: " + email + " desbloqueado");
+
       } else {
         System.out.println("email: " + email + " NO desbloqueado");
       }

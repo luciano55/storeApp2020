@@ -3,6 +3,7 @@ package com.example.demo.DAO.procedure;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import com.example.demo.DAO.GetConnectionMySql;
@@ -25,12 +26,30 @@ public class CallerClient extends GetConnectionMySql {
     return cstmt.getBoolean(2);
   }
 
+  public Boolean existAnotherEmail(int idClient, String email) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call ExistAnotherEmail(?, ?, ?)}");
+    cstmt.setInt(1, idClient);
+    cstmt.setString(2, email);
+    cstmt.registerOutParameter(3, Types.BOOLEAN);
+    cstmt.execute();
+    return cstmt.getBoolean(3);
+  }
+
   public Boolean existNif(String nif) throws SQLException {
     CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call 	NifExist_client(?, ?)}");
     cstmt.setString(1, nif);
     cstmt.registerOutParameter(2, Types.BOOLEAN);
     cstmt.execute();
     return cstmt.getBoolean(2);
+  }
+
+  public Boolean existAnotherNif(int idClient, String nif) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call ExistAnotherNif(?, ?, ?)}");
+    cstmt.setInt(1, idClient);
+    cstmt.setString(2, nif);
+    cstmt.registerOutParameter(3, Types.BOOLEAN);
+    cstmt.execute();
+    return cstmt.getBoolean(3);
   }
 
   public Boolean existCP(String cp) throws SQLException {
@@ -47,6 +66,15 @@ public class CallerClient extends GetConnectionMySql {
     cstmt.registerOutParameter(2, Types.BOOLEAN);
     cstmt.execute();
     return cstmt.getBoolean(2);
+  }
+
+  public Boolean existAnotherMobile(int idClient, String mobile) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call ExistAnotherMobile(?, ?, ?)}");
+    cstmt.setInt(1, idClient);
+    cstmt.setString(2, mobile);
+    cstmt.registerOutParameter(3, Types.BOOLEAN);
+    cstmt.execute();
+    return cstmt.getBoolean(3);
   }
 
   public Boolean addClient(Client client) throws SQLException {
@@ -156,14 +184,15 @@ public class CallerClient extends GetConnectionMySql {
   }
 
   public Boolean addIpLocation(IpLocation ipLocation) throws SQLException {
-    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call AddIpLocation(?, ?, ?, ?, ?)}");
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call AddIpLocation(?, ?, ?, ?, ?, ?)}");
     cstmt.setString(1, ipLocation.getIdClient());
     cstmt.setString(2, ipLocation.getIp());
     cstmt.setString(3, ipLocation.getCity());
     cstmt.setString(4, ipLocation.getCountry());
-    cstmt.registerOutParameter(5, Types.BOOLEAN);
+    cstmt.setString(5, ipLocation.getAction());
+    cstmt.registerOutParameter(6, Types.BOOLEAN);
     cstmt.execute();
-    return cstmt.getBoolean(5);
+    return cstmt.getBoolean(6);
   }
 
   public int getIdClient(String nif) throws SQLException {
@@ -174,4 +203,98 @@ public class CallerClient extends GetConnectionMySql {
     return cstmt.getInt(2);
   }
 
+  public ArrayList<String> getUserLogin(int attribute) throws SQLException {
+    ArrayList<String> resp = new ArrayList<String>();
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call GetUserFromIdClient(?,?)}");
+    cstmt.setInt(1, attribute);
+    cstmt.registerOutParameter(2, Types.VARCHAR);
+    cstmt.execute();
+    resp.add(cstmt.getString(2));
+    return resp;
+  }
+
+  public Boolean checkingLoginClientUpdate(Login login, int idClient) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection
+        .prepareCall("{call CheckingLoginClientUpdate(?, ?, ?, ?)}");
+    cstmt.setString(1, login.getUser());
+    cstmt.setString(2, login.getPassword());
+    cstmt.setInt(3, idClient);
+    cstmt.registerOutParameter(4, Types.BOOLEAN);
+    cstmt.execute();
+    return cstmt.getBoolean(4);
+  }
+
+  public String updateLogin(int idClient, Login login) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call UpdateLogin(?, ?, ?, ?)}");
+    cstmt.setInt(1, idClient);
+    cstmt.setString(2, login.getUser());
+    cstmt.setString(3, login.getPassword());
+    cstmt.registerOutParameter(4, Types.VARCHAR);
+    cstmt.execute();
+    return cstmt.getString(4);
+  }
+
+  public ArrayList<String> getDataPerson(int id) throws SQLException {
+
+    ArrayList<String> resp = new ArrayList<String>();
+
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call GetDataPerson(?,?,?,?,?,?,?,?,?)}");
+
+    cstmt.setInt(1, id);
+    cstmt.registerOutParameter(2, Types.VARCHAR);
+    cstmt.registerOutParameter(3, Types.VARCHAR);
+    cstmt.registerOutParameter(4, Types.VARCHAR);
+    cstmt.registerOutParameter(5, Types.VARCHAR);
+    cstmt.registerOutParameter(6, Types.VARCHAR);
+    cstmt.registerOutParameter(7, Types.VARCHAR);
+    cstmt.registerOutParameter(8, Types.VARCHAR);
+    cstmt.registerOutParameter(9, Types.VARCHAR);
+    cstmt.execute();
+
+    resp.add(cstmt.getString(2));
+    resp.add(cstmt.getString(3));
+    resp.add(cstmt.getString(4));
+    resp.add(cstmt.getString(5));
+    resp.add(cstmt.getString(6));
+    resp.add(cstmt.getString(7));
+    resp.add(cstmt.getString(8));
+    resp.add(cstmt.getString(9));
+
+    return resp;
+
+  }
+
+  public String updatePersonClient(int idClient, Client client) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection
+        .prepareCall("{call UpdateClient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+    cstmt.setInt(1, idClient);
+    cstmt.setString(2, client.getName());
+    cstmt.setString(3, client.getSurname());
+    cstmt.setString(4, client.getNif());
+    cstmt.setString(5, client.getMobile());
+    cstmt.setString(6, client.getEmail());
+    cstmt.setString(7, client.getBirthdate());
+    cstmt.setString(8, client.getPostalCode());
+    cstmt.setString(9, client.getAddress());
+    cstmt.registerOutParameter(10, Types.VARCHAR);
+    cstmt.execute();
+    return cstmt.getString(10);
+  }
+
+  public Boolean addClientHistoric(int idClient, String operation) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call AddClientHistoric(?, ?, ?)}");
+    cstmt.setInt(1, idClient);
+    cstmt.setString(2, operation);
+    cstmt.registerOutParameter(3, Types.BOOLEAN);
+    cstmt.execute();
+    return cstmt.getBoolean(3);
+  }
+
+  public Boolean unlockUserUUID(String key) throws SQLException {
+    CallableStatement cstmt = (CallableStatement) connection.prepareCall("{call 	UnlockUserUUID(?,  ?)}");
+    cstmt.setString(1, key);
+    cstmt.registerOutParameter(2, Types.BOOLEAN);
+    cstmt.execute();
+    return cstmt.getBoolean(2);
+  }
 }

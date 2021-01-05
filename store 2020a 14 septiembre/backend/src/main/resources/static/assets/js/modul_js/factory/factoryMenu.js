@@ -31,6 +31,7 @@ export function FactoryMenu() {
       "#",
       "#",
       "#",
+        "#",
     ];
     const text = ["Update Data", "Update Login", "Update Avatar", "Store","Exit"];
     const id = ["linkUpData", "linkUpLogin", "linkUpAvatar", "linkStore","linkExit"];
