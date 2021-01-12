@@ -1,0 +1,37 @@
+@startuml ClientJs
+class ClientJs {
+}
+object DOMContentLoaded{
+  PageClient
+}
+object loginClient{
+    url:"/loginClient"
+    datacontrol: login
+}
+
+object forgetPassword{
+    url:"/forgetPassword"
+    datacontrol: login
+}
+object logout{
+    url:"/logout"
+    datacontrol: login
+}
+
+object ajax{
+    url:"cookie?"
+    datacontrol: "cookie?"
+}
+map click{
+
+linkUpAvatar *-> loginClient
+linkUpData *-> loginClient
+linkUpLogin *-> loginClient
+forgetPassword *-> forgetPassword
+linkExit *-> logout
+submit *-> ajax
+
+}
+ClientJs *-- DOMContentLoaded
+ClientJs  *-- click
+@enduml

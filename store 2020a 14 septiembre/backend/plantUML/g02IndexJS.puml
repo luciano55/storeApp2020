@@ -1,0 +1,38 @@
+@startuml indexJs
+class IndexJs {
+}
+object DOMContentLoaded{
+  PageIndex
+}
+object addClient{
+    url:"/addClient"
+    datacontrol: register
+}
+object loginClient{
+    url:"/loginClient"
+   datacontrol: login
+}
+object forgetPassword{
+    url:"/forgetPassword"
+    datacontrol: forgetPassword
+}
+object unlockUUID{
+    url:"/unlockUUID"
+   datacontrol: uuid
+}
+object ajax{
+    url:"cookie?"
+    datacontrol: "cookie?"
+}
+map click{
+
+linkRegister *-> addClient
+linkLogin *-> loginClient
+forgetPassword *-> forgetPassword
+uuidButton *-> unlockUUID
+submit *-> ajax
+
+}
+IndexJs *-- DOMContentLoaded
+IndexJs *-- click
+@enduml

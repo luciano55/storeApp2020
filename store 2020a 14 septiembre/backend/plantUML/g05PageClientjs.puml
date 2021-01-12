@@ -1,0 +1,20 @@
+@startuml  PageClientJs
+class PageClientJs {
+}
+class viewHeaderClient {   
+}
+class viewFooter {   
+}
+
+class manager_functions{
+darkLight
+weather
+dado
+scrollTopButton
+diceAvatar
+}
+
+PageClientJs --* viewHeaderClient
+PageClientJs --* viewFooter
+PageClientJs --* manager_functions
+@enduml

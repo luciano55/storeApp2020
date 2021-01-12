@@ -1,0 +1,24 @@
+@startuml PageIndex
+class PageIndex {
+}
+class viewHeader {   
+}
+class viewFooter {   
+}
+class viewHome{
+}
+class manager_functions{
+  darkLight
+  weather
+  CreateBBDDpostalCode
+  dado
+  scrollTopButton
+
+}
+
+
+PageIndex  --* viewHeader
+PageIndex  --* viewFooter
+PageIndex  --* viewHome
+PageIndex  --* manager_functions
+@enduml

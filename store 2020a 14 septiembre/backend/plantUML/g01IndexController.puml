@@ -1,0 +1,17 @@
+@startuml indexController
+class IndexController {
+@GetMapping("/index")
++ index()
+ session "activePage" = "index"
+ session tryNumber = 0
+ session totalAttempt = 3
+ session "lockDuration" = 10
+  session "idClient" = null
+}
+class CallerPage {
+   + String getPage(pageName)
+   + String addVisit(pageName)
+   + int getCountVisit(pageName)
+}
+IndexController --* CallerPage
+@enduml
