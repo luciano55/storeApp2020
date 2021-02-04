@@ -548,7 +548,7 @@ API.serverResponse = function(response){
        
 }
 API.ajaxForm = function(props){
-     let {url, dataControl} = props;
+     let {url, dataControl, noresetControl} = props;
      fetch(url, {
             method: 'POST', 
             body:  JSON.stringify(dataControl),          
@@ -563,7 +563,7 @@ API.ajaxForm = function(props){
        .then(res => res.json())      
        .then(response => {
              this.loader().off();
-             API.resetDataControl(dataControl); 
+            if(!noresetControl) API.resetDataControl(dataControl); 
              API.serverResponse(response);          
          });
      

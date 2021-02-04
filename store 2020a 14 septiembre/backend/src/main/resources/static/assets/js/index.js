@@ -17,18 +17,9 @@ const factoryImg = new FactoryImg();
 d.addEventListener("DOMContentLoaded", (e) => {
 
      PageIndex();
-  /*
-  $("myFooter").appendChild(ViewFooter());
-  $("myHeader").appendChild(ViewHeader());
-  $("myBody").appendChild(ViewHome());
- 
-  managerFunctions.darkLight("dark-mode");
-  managerFunctions.weather();
-  managerFunctions.CreateBBDDpostalCode();
-  managerFunctions.dado();
-  managerFunctions.scrollTopButton(".scroll-top-btn"); */
+
 });
- 
+
 d.addEventListener("click", (e) => {
     let myBody = $("myBody");
     switch (e.target.id) {
@@ -38,10 +29,11 @@ d.addEventListener("click", (e) => {
           globalFunction.resetAutoIncrementPhoneCP();      
           myBody.innerHTML = "";
           myBody.appendChild(viewClient.register());    
-          managerFunctions.validations();     
-          managerFunctions.phone();   
-          managerFunctions.saveDataControls();
-          managerFunctions.showIniStrategy(STRATEGY.ONETOONE);
+          managerFunctions.validations();     //vivo
+
+          managerFunctions.phone();    // vivo
+          managerFunctions.saveDataControls(); // muere
+          managerFunctions.showIniStrategy(STRATEGY.ONETOONE); // muere
           break;
       case "linkLogin":  
         url = "/loginClient";
@@ -62,12 +54,14 @@ d.addEventListener("click", (e) => {
         break;
       case "uuidButton":
         const uuid =  $("uuid").value;
+        let reset = true;
         managerFunctions.loader().on();
         url = "/unlockUUID";
         dataControl = {"uuid": uuid}; 
-        managerFunctions.ajaxSingle({
+        managerFunctions.ajaxForm({
               url,
-              dataControl
+              dataControl,
+              noresetControl
         });    
         break;
       case "submit":

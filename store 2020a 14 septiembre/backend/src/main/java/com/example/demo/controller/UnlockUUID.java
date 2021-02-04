@@ -36,6 +36,7 @@ public class UnlockUUID extends HttpServlet {
 
     JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
     String uuid = jsonObject.get("uuid").getAsString();
+
     JSONArray arrayJson = new JSONArray();
     JSONObject oneJson = new JSONObject();
     try {

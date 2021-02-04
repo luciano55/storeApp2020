@@ -1,0 +1,56 @@
+@startuml clientResponse
+object ClientJs{
+    submit
+}
+object Ajax{
+URL
+dataControl
+}
+object Backend{
+
+}
+object ServerResponse{
+
+}
+object addLoginExit{
+
+}
+object errorOperation{
+}
+object errorVerificationData{
+}
+object errorValidationData{
+}
+object errorUserBloqueado{
+}
+object errorUserDesconocido{
+}
+object errorUpdateLogin{
+}
+object exitActionClient{
+}
+object errorTodoBien{
+}
+object errorPasswordRepeat{
+}
+object fillDatas {
+}
+object errorInterno{
+}
+
+ClientJs *-- Ajax
+Ajax *-- Backend
+Ajax *-- ServerResponse
+ServerResponse o-- addLoginExit
+ServerResponse o--errorOperation
+ServerResponse o-- errorVerificationData
+ServerResponse o-- errorValidationData
+ServerResponse o-- errorUserBloqueado
+ServerResponse o-- errorUserDesconocido
+ServerResponse o-- errorUpdateLogin
+ServerResponse o-- exitActionClient
+ServerResponse o-- errorTodoBien
+ServerResponse o-- errorPasswordRepeat
+ServerResponse o-- fillDatas
+ServerResponse o-- errorInterno
+@enduml

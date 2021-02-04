@@ -653,3 +653,34 @@ select:-webkit-autofill:active {
   opacity: 0; }
 
 /*# sourceMappingURL=style.css.map */
+/* -----------Filter showcase---------------- */
+
+.radio-buttonOff {
+  display: none;
+}
+
+.showcaseFilter {
+  display: flex;
+  justify-content: center;
+}
+
+
+.showcaseFilter-label {
+  display: inline-block;
+  border: 4px solid rgb(88, 87, 28);
+  padding: 10px 20px;
+  font-size: 1em;
+  text-align: center;
+  cursor: pointer;
+}
+
+.showcaseFilter-label:hover {
+  background-color: #657051;
+}
+
+#showcaseshmJM:checked~#headerShowcaseFilter .shmJM,
+#showcaseshmCarrusel:checked~#headerShowcaseFilter .shmCarrusel,
+#showcaseshmJesadri:checked~#headerShowcaseFilter .shmJesadri,
+#showcaseshmSwipper:checked~#headerShowcaseFilter .shmSwipper {
+  background-color: rgb(177, 138, 167);
+}

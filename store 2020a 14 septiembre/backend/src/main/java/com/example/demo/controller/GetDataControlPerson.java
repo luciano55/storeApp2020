@@ -36,9 +36,11 @@ public class GetDataControlPerson extends HttpServlet {
     }
 
     JSONArray arrayJson = new JSONArray();
+
     JSONObject oneJson = new JSONObject();
 
     oneJson.put("update", true);
+
     oneJson.put("data", "data");
     oneJson.put("error", ErrorResponse.DATACONTROL);
 
@@ -49,7 +51,7 @@ public class GetDataControlPerson extends HttpServlet {
       e1.printStackTrace();
     }
     arrayJson.put(oneJson);
-    System.out.println(response);
+    // System.out.println(response);
     response.getWriter().write((arrayJson).toString());
   }
 

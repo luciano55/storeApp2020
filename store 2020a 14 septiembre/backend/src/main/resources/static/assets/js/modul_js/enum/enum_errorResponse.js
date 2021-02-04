@@ -9,9 +9,7 @@ export const ERRORRESPONSE = {
   ERRORUPDATELOGIN:"errorUpdateLogin(response)",
   EXITACTION : "exitActionClient(response)",
   NOERROR: "errorTodoBien(response)", 
-  ERRORPASSWORDREPEAT: "errorPasswordRepeat(response)",
-  
-  
+  ERRORPASSWORDREPEAT: "errorPasswordRepeat(response)",  
 
   
   DATACONTROL: "fillDatas(response)",

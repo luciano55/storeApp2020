@@ -1,0 +1,54 @@
+@startuml FrontClientJs
+
+object FrontClientJs{
+    URL
+    JSON
+}
+object Backend{
+}
+object AddClient{
+
+}
+object AddIp{
+
+}
+object CheckLogin{
+
+}
+object ForgetPassword{
+}
+object GetDataControlLogin{
+}
+object GetDataControlPerson{
+}
+object GetPostalCodeController{
+}
+object Logout{
+}
+object ResetTried{
+}
+object UnlockUser{
+}
+object UnlockUUID{
+}
+object UpdateLogin{
+}
+
+object UpdatePerson{
+}
+FrontClientJs o--Backend 
+
+Backend o-- AddClient
+Backend o-- AddIp
+Backend o-- CheckLogin
+Backend o-- ForgetPassword
+Backend o-- GetDataControlLogin
+Backend o-- GetDataControlPerson
+Backend o-- GetPostalCodeController
+Backend o-- Logout
+Backend o-- ResetTried
+Backend o-- UnlockUser
+Backend o-- UnlockUUID
+Backend o-- UpdateLogin
+Backend o-- UpdatePerson
+@enduml

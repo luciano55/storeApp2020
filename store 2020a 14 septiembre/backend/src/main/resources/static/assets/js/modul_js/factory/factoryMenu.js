@@ -36,6 +36,7 @@ export function FactoryMenu() {
     const text = ["Update Data", "Update Login", "Update Avatar", "Store","Exit"];
     const id = ["linkUpData", "linkUpLogin", "linkUpAvatar", "linkStore","linkExit"];
     params.class ="menu ";
+    params.id = "menuClient";
     const nav = factoryTag.nav(params);
     params = {};
     params.class= "m-3 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-orange-600 hover:bg-orange-900"
