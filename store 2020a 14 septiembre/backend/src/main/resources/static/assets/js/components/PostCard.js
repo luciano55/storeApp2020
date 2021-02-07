@@ -6,19 +6,19 @@ export function PostCard(props){
   return `  
   <article class="post-card">  
 
-     <img src=${myFoto} alt="no sale">
+     <img src=${myFoto} class="showcaseJM"alt="no sale">
     <h2>${modelo}</h2>
     <p>
-  <span>
-    ${memoria}
-  </span>
-     <span>
-    ${precio}
-  </span>
-    <a href="#/post/${id}">Ver hash</a>
-     <span id ="seeMobil" data-valor=${id}>
-    Ver-click
-  </span>
+                <span>
+                  ${memoria}
+                </span>
+                  <span>
+                  ${precio}
+                </span>
+
+                  <span id ="seeMobil" data-valor=${id}>
+                  Ver detalle
+                </span>
     </p>
   </article>  
   `;

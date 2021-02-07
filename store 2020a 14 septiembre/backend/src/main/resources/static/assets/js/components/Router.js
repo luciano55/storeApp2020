@@ -1,9 +1,18 @@
-import {d,$,sS} from "../modul_js/function/global.js";
+import {d,$,sS,lS} from "../modul_js/function/global.js";
 import { ViewClient } from "../modul_js/view/viewClient.js";
 import { ManagerFunctions } from "../modul_js/function/manager_functions.js";
 import {STRATEGY} from "../modul_js/enum/enum_stratey.js";
 import {FactoryFrame} from "../modul_js/factory/factoryFrame.js";
 import {ajax} from "../helpers/ajax.js";
+import { Swipper } from "../showcase/swipper/swipper.js";
+import { MySwiper } from "../showcase/swipper/mySwiper.js";
+import {PostCard} from "./PostCard.js";
+import {PostCardDetail} from "./PostCardDetail.js";
+import { Carrusel } from "../showcase/carrusel/carrusel.js";
+import {NodeMain, NodePagination,  NodeShowCase} from "./NodeCreate.js";
+import { Loader} from "./Loader.js";
+import { GetMenuShowcase } from "../showcase/getMenuShowcase.js";
+import {FooterPageButton} from "./FooterPageButton.js";
 
 export async function Router(){
    const state = {
@@ -61,7 +70,7 @@ $("menuClient").addEventListener("click",(e)=>{
                           managerFunctions.showIniStrategy(STRATEGY.ALL);
                           $("informationPanel").innerHTML  = "Para que te hagamos llegar nuevas credenciales de acceso, introduce a continuación tu Nif y Email. Pulsa despues sobre el botón Get Credentials.";
                           break;
-                  case "linkExit":
+                case "linkExit":
                           sS.setItem("opcionClient",e.target.id);
                           myBody.innerHTML = "";
                           myBody.appendChild(factoryFrame.confirm("Deseas salir de la aplicación?",
@@ -76,7 +85,18 @@ $("menuClient").addEventListener("click",(e)=>{
                               }
                           ));  
                           break;  
-                  case "submit":
+               case "linkStore":
+                  const  $root = $("myBody");
+                  $root.innerHTML ="";
+                  $root.appendChild(NodeShowCase());
+                    const  $showcase = $("showcase");
+                  GetMenuShowcase($showcase);
+                  $showcase.appendChild(NodeMain()); 
+                  $showcase.appendChild(Loader()); 
+                $showcase.appendChild(NodePagination()); 
+                  FooterPageButton().then(()=>Router());    
+                      // App();
+                case "submit":
                         let url = sS.getItem("url");         
                         const dataControl =  managerFunctions.getDataControls();     
                         managerFunctions.loader().on();
@@ -113,6 +133,253 @@ $("myBody").addEventListener("click",(e)=>{
 
 
 });
+  
+  $("changeshowcase").addEventListener("click",(e)=>{
+     let visorSize ;
+       switch (e.target.id ) {
+            case 'showcaseshmJM': 
+              localStorage.setItem("showcaseType", "showcaseshmJM");
+              renderShowcase();        
+              break;         
+            case 'showcaseshmCarrusel': 
+                localStorage.setItem("showcaseType", "showcaseshmCarrusel");
+                renderShowcase();
+                break;
+            case 'showcaseshmJesadri': 
+                localStorage.setItem("showcaseType", "showcaseshmJesadri");
+                renderShowcase();
+                break;
+            case 'showcaseshmSwipper':
+                  localStorage.setItem("showcaseType", "showcaseshmSwipper");
+                  renderShowcase();
+                  break;  
+            case 'sizeVisorI' :
+              visorSize = +lS.getItem("visorSize"); 
+              visorSize--;            
+              if (visorSize > 0){        
+                   lS.setItem("visorSize",visorSize);
+                   let visorSize2 = +lS.getItem("visorSize"); 
+                   lS.setItem("cacheSize", visorSize*2);
+                  const  $root = $("myBody");
+                  $root.innerHTML ="";
+                   $root.appendChild(NodeShowCase());
+                    const  $showcase = $("showcase");
+                  GetMenuShowcase($showcase);
+                  $showcase.appendChild(NodeMain()); 
+                  $showcase.appendChild(Loader()); 
+                $showcase.appendChild(NodePagination()); 
+                  FooterPageButton().then(()=>Router());
+              }
+               break;    
+              case 'sizeVisorD' :
+              visorSize =  lS.getItem("visorSize");          
+              visorSize++;
+              if (visorSize < 6){
+                   lS.setItem("visorSize",visorSize);
+                   lS.setItem("cacheSize", visorSize*2);
+                     const  $root = $("myBody");
+                  $root.innerHTML ="";
+                  $root.appendChild(NodeShowCase());
+                    const  $showcase = $("showcase");
+                  GetMenuShowcase($showcase);
+                  $showcase.appendChild(NodeMain()); 
+                  $showcase.appendChild(Loader()); 
+                $showcase.appendChild(NodePagination()); 
+                  FooterPageButton().then(()=>Router());            
+              }
+              
+
+              break;    
+        }
+   });
+ $("div_menu_page").addEventListener("click",async (e)=>{
+       let uri =  "http://localhost:8085/storerest/?";
+
+        const pageClicked= +e.target.innerHTML;
+          let cacheLength = +getState().data.content.length,
+               activePageCache = +getState().activePageCache;
+          const cacheInicio = +getState().cacheInicio,
+                     cacheFinal = +getState().cacheFinal,
+                     visorSize =   +getState().visorSize,
+                     cacheSize = +getState().cacheSize,
+                     acitvePage = localStorage.getItem("activePage") ;
+         let inicio=0,
+              final=0;
+               // pageT 0 -- > 1 / 1,2 /  1,2 / 1,2
+               // pageT 1 -- > 2 / 3,4 / 3,4 / 3,4
+               // pageT 2 ---> 3 / 5, 6 / 5
+               // pageT 3 ---> 4 / 7,8
+              //  ............................................................
+              // pageT14 -- >15
+   if(pageClicked>0){
+                  let newPageToTransferred =  Math.ceil(((pageClicked) * visorSize)/(visorSize*2)) -1;
+                 let actualPageTransferred =  Math.ceil(((acitvePage) * visorSize)/(visorSize*2)) -1;
+                  localStorage.setItem("activePage",pageClicked); 
+
+                   if(actualPageTransferred == newPageToTransferred){
+                     if(activePageCache ==  2){
+                        activePageCache = 1;
+                        inicio = 0;
+                        if(cacheLength >= visorSize){
+                                final = visorSize -1;
+                        }else{
+                          final = cacheLength - 1;
+                        }                      
+                      }else{
+                              activePageCache = 2;
+                              inicio = visorSize;
+                              final = cacheLength - 1;
+                      }
+                      setState({activePageCache:activePageCache,cacheInicio:inicio, cacheFinal : final});
+                                       
+                    }else{
+                               await callGoApiRest("http://localhost:8085/storerest/?page=" +newPageToTransferred+"&size="+ getState().cacheSize );
+                              cacheLength = +getState().data.content.length;
+                               if(pageClicked % 2 == 0){
+                                  inicio = visorSize;
+                                 final = cacheLength - 1;
+                                 activePageCache = 2;
+                                 
+                               }else{
+                                    inicio = 0;
+                                    activePageCache = 1;
+                                      if(cacheLength >= visorSize){
+                                                final = visorSize -1;
+                                        }else{
+                                                 final = cacheLength - 1;
+                                      }                                     
+                               }
+                               setState({activePageCache:activePageCache,cacheInicio:inicio, cacheFinal : final});     
+                    }
+
+                 renderShowcase();     
+          
+   }        
+ 
+     switch (e.target.id ) {
+      case 'botonInicio':
+        let ini, fin;
+          let actualPageTransferred =  Math.ceil(((acitvePage) * visorSize)/(visorSize*2)) -1;
+          if(actualPageTransferred == 0){
+             ini = 0;
+             if(cacheLength >= visorSize){
+                  fin = visorSize -1;
+              }else{
+                   fin = cacheLength - 1;
+                }                      
+              
+             }else{
+           await callGoApiRest("http://localhost:8085/storerest/?page=" +0+"&size="+ getState().cacheSize );
+            cacheLength = +getState().data.content.length;
+             ini = 0;            
+             if(cacheLength >= visorSize){
+                 fin = visorSize -1;
+              }else{
+                 fin = cacheLength - 1;
+              }                
+             }
+           setState({activePageCache:1,cacheInicio:ini, cacheFinal : fin});  
+              renderShowcase();     
+          break;
+      case 'botonEnd':             
+           let endPage = +document.getElementById("botonEnd").dataset.valor; // pag. 8
+          let newPageToTransferred =  Math.ceil(((endPage) * visorSize)/(visorSize*2)) -1;// pageT 3
+          const lastPageActive =+localStorage.getItem("activePage");//  ¿4?
+          const endPageTransferred =  Math.ceil(((lastPageActive) * visorSize)/(visorSize*2)) -1;  //¿1? 
+          let inicio, final;
+
+          if(visorSize==1) newPageToTransferred  = endPage -1;
+
+           if(endPageTransferred != newPageToTransferred ){
+                     // alert("Estoy en otra cache");
+                await callGoApiRest("http://localhost:8085/storerest/?page=" +newPageToTransferred+"&size="+ getState().cacheSize ); 
+               cacheLength = +getState().data.content.length;
+           }
+          if(cacheLength <= visorSize ){
+                   inicio = 0;
+                   // inicio = Math.floor(cacheLength / visorSize) ;
+                   activePageCache = 1;
+            }else {
+                    //  inicio = Math.ceil(cacheLength / visorSize) ;
+                  //inicio = Math.ceil(cacheSize/ visorSize);
+                  inicio = visorSize;
+                  activePageCache = 2;
+                    }
+            final = cacheLength -1;
+            //alert("inicio: " + inicio +"    final: "+ final);
+            setState({activePageCache : activePageCache,cacheInicio :inicio,cacheFinal:final});
+            renderShowcase();          
+          break;
+     case 'botonNext':        
+         const nextPage = +document.getElementById("botonNext").dataset.valor;
+           
+                      
+          if (cacheLength >   (cacheFinal  + visorSize  ) || cacheLength < cacheSize )
+          {
+               // alert(cacheFinal  + visorSize);
+               if(cacheLength < cacheSize ) {
+                       setState({cacheInicio : cacheFinal +1, cacheFinal: cacheFinal +(cacheLength - visorSize) ,activePageCache: activePageCache +1})
+                        
+                }else {
+                        setState({cacheInicio : cacheFinal +1, cacheFinal: cacheFinal+ visorSize ,activePageCache: activePageCache +1});
+                }
+        
+                  renderShowcase();
+          }else           
+          {    
+            //alert("Se agotó la cache");
+            setState({activePageCache : 1,cacheInicio :0,cacheFinal:visorSize-1});
+            let page;
+            if(visorSize == 1){
+                   page= nextPage;
+            }else {
+                    page =  Math.ceil(((nextPage) * visorSize)/(visorSize*2)) ;         
+            }
+      //  alert("PAge:" + page);
+           
+            callApiRest(uri+"page="+ page + "&size="+getState().cacheSize );
+
+          }
+       
+          break;
+     case 'botonPrev':
+          let iniPrev, finPrev;
+          let newPageToTransferredPrev =  Math.ceil(((acitvePage -1) * visorSize)/(visorSize*2)) -1;
+          let actualPageTransferredPrev =  Math.ceil(((acitvePage) * visorSize)/(visorSize*2)) -1;
+          localStorage.setItem("activePage",acitvePage-1); 
+          if(actualPageTransferredPrev == newPageToTransferredPrev){
+                     if(activePageCache ==  2){
+                        activePageCache = 1;
+                        iniPrev = 0;
+                        if(cacheLength >= visorSize){
+                                finPrev = visorSize -1;
+                        }else{
+                          finPrev = cacheLength - 1;
+                        }                      
+                      }// No hay else situación imposible
+          }else{
+               await callGoApiRest("http://localhost:8085/storerest/?page=" +newPageToTransferredPrev+"&size="+ getState().cacheSize );
+               cacheLength = +getState().data.content.length;
+               activePageCache=2;
+              iniPrev = visorSize;
+              finPrev = cacheLength - 1;
+          }
+        setState({activePageCache:activePageCache,cacheInicio:iniPrev, cacheFinal : finPrev}); 
+        renderShowcase();  
+          break;
+     }  
+   });
+     $("main").addEventListener("click",(e)=>{
+     switch (e.target.id ) {
+            case 'cardDetail': 
+              renderShowcase();
+              break;         
+            case 'seeMobil': 
+            case 'carrusel': 
+              renderDetail(e.target.dataset.valor);      
+              break; 
+      }  
+   });
 
 
 const renderShowcase = function(){
@@ -145,8 +412,7 @@ const renderShowcase = function(){
                html += render(Swipper);
                html += "</div>";
                html += "<div class='swiper-pagination'></div>  <div class='swiper-scrollbar'></div></div>" ;
-              document.getElementById("main").innerHTML=html;  
-
+              $("main").innerHTML=html;  
               MySwiper();
                break;
    }

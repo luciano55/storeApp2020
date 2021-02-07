@@ -1,0 +1,18 @@
+   .footer {
+     position: relative;
+     width: 60%;
+     margin: 50px auto;
+     padding: 15px;
+     display: flex;
+     justify-content: space-around;
+     flex-wrap: wrap;
+     background-image: url(../img/grid.png);
+     background-repeat: repeat;
+     border: 2px solid rgba(0, 0, 0, 0.1);
+     right: 0;
+     bottom: 0;
+     left: 0;
+     padding: 1rem;
+     background-color: #efefef;
+     text-align: center;
+   }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-02-2021 a las 21:03:47
+-- Tiempo de generación: 07-02-2021 a las 21:06:59
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -278,16 +278,26 @@ CREATE TABLE `productstore` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `shopping_cart`
+-- Estructura Stand-in para la vista `shoppingcart`
 -- (Véase abajo para la vista actual)
 --
-CREATE TABLE `shopping_cart` (
-`id_client` tinyint(4)
-,`id_product` int(11)
-,`model` varchar(200)
+CREATE TABLE `shoppingcart` (
+`idclient` int(4)
+,`idproduct` int(11)
 ,`units` int(11)
-,`price` float
 );
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `shoppingcart_view`
+--
+
+CREATE TABLE `shoppingcart_view` (
+  `idclient` int(11) NOT NULL,
+  `idproduct` int(11) NOT NULL,
+  `units` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -296,9 +306,11 @@ CREATE TABLE `shopping_cart` (
 -- (Véase abajo para la vista actual)
 --
 CREATE TABLE `shopping_cart_view` (
-`id_client` tinyint(4)
-,`id_product` int(11)
+`idclient` int(4)
+,`idproduct` int(11)
+,`model` varchar(200)
 ,`units` int(11)
+,`price` float
 );
 
 -- --------------------------------------------------------
@@ -331,11 +343,11 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `shopping_cart`
+-- Estructura para la vista `shoppingcart`
 --
-DROP TABLE IF EXISTS `shopping_cart`;
+DROP TABLE IF EXISTS `shoppingcart`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `shopping_cart`  AS  select `s`.`idClient` AS `id_client`,`s`.`idProduct` AS `id_product`,`m`.`modelName` AS `model`,`s`.`units` AS `units`,`p`.`salePrice` AS `price` from ((`mobile_store_2021`.`shopping_cart` `s` join `mobile_store_2021`.`model` `m`) join `mobile_store_2021`.`shop_product` `p`) where `s`.`idProduct` = `p`.`idProduct` and `p`.`referencia_sku` = `m`.`referencia_sku` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `shoppingcart`  AS  select `s`.`idClient` AS `idclient`,`s`.`idProduct` AS `idproduct`,`s`.`units` AS `units` from `mobile_store_2021`.`shopping_cart` `s` ;
 
 -- --------------------------------------------------------
 
@@ -344,7 +356,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `shopping_cart_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `shopping_cart_view`  AS  select `s`.`idClient` AS `id_client`,`s`.`idProduct` AS `id_product`,`s`.`units` AS `units` from `mobile_store_2021`.`shopping_cart` `s` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `shopping_cart_view`  AS  select `s`.`idClient` AS `idclient`,`s`.`idProduct` AS `idproduct`,`m`.`modelName` AS `model`,`s`.`units` AS `units`,`p`.`salePrice` AS `price` from ((`mobile_store_2021`.`shopping_cart` `s` join `mobile_store_2021`.`model` `m`) join `mobile_store_2021`.`shop_product` `p`) where `s`.`idProduct` = `p`.`idProduct` and `p`.`referencia_sku` = `m`.`referencia_sku` ;
 
 -- --------------------------------------------------------
 
@@ -354,6 +366,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `storeproduct`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `storeproduct`  AS  select `s`.`referencia_sku` AS `referencia`,`m`.`modelName` AS `modelo`,`s`.`IdProvider` AS `idProveedor`,`p`.`providerFullName` AS `nombreProveedor`,`s`.`idProduct` AS `idProducto`,`s`.`salePrice` AS `precio`,`s`.`stockCurrent` AS `stock`,`s`.`discountBonus` AS `descuento`,`s`.`memory` AS `memoria` from ((`mobile_store_2021`.`shop_product` `s` join `mobile_store_2021`.`provider` `p`) join `mobile_store_2021`.`model` `m`) where `s`.`IdProvider` = `p`.`idProvider` and `s`.`referencia_sku` = `m`.`referencia_sku` ;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `shoppingcart_view`
+--
+ALTER TABLE `shoppingcart_view`
+  ADD PRIMARY KEY (`idclient`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

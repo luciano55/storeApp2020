@@ -87,24 +87,7 @@ export function Carrusel(props, i, pageItem ){
               nodoBaseElementoCarruselTrasero.innerText = modelo; //modelo.nombreModelo;
 
               nodoPanelMobil.appendChild(nodoPanelBase);
-/*
-     const idModelo = document.createElement("p");
-                idModelo.setAttribute("id", "idmodelo",1);
-                                      //+ modelo.IdModelo);
-                idModelo.innerHTML = 1; //  modelo.IdModelo;
-                idModelo.style.display = 'none';
-                nodoPanelMobil.appendChild(idModelo);
-                nodoPanelMobil.addEventListener("click", function (event) {
-                     //<a href="#/post/${id}">Ver publicación</a>         
-                });           
-                */
 
-
-        /*        
-      const detail = document.createElement("a");
-      detail.href= "#/post/" + id;*/
-
-        //  detail.appendChild(nodoPanelMobil);
  return  nodoPanelMobil;
 
 

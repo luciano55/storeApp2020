@@ -9,10 +9,9 @@ export function Swipper(props){
                 </div>
                 <div class="detail">
                     <h3>${modelo}</h3>
-                    <span>  ${precio}</span>
-                      <a href="#/post/${id}">Ver hash</a>
+                    <span>  ${precio}</span>                    
                       <span id ="seeMobil" data-valor=${id}>
-    Ver-click
+    Ver detalle
   </span>
                 </div>
             </div>

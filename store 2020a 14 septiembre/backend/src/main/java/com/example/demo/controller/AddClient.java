@@ -26,9 +26,17 @@ public class AddClient extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html;charset=UTF-8");
-
-    String json = (String) (new RequestToClass(request, Client.class).toString()); // getStringJson());
-
+    StringBuilder sb = new StringBuilder();
+    BufferedReader br = request.getReader();
+    String str = null;
+    while ((str = br.readLine()) != null) {
+      sb.append(str);
+    }
+    String json = sb.toString();
+    /*
+     * String json = (String) (new RequestToClass(request,
+     * Client.class).toString()); // getStringJson());
+     */
     Gson g = new Gson();
     Client client = g.fromJson(json, Client.class);
 

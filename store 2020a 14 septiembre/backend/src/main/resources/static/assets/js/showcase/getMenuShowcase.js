@@ -2,7 +2,7 @@
   export function GetMenuShowcase(node){
     const showcaseTypeContainer = document.createElement("div");
         showcaseTypeContainer.id = "changeshowcase";
-        showcaseTypeContainer.className = "contenido01";
+        showcaseTypeContainer.className = "section_scm";
         const params = {
             type :"radio",
             name : "showcaseRadio",
@@ -21,7 +21,7 @@
         }
         const paramsHeader = {
             id : "headerShowcaseFilter",
-            class : "showcaseFilter"
+            class : "showcaseFilter nav_scm"
         };
         const header = headerf(paramsHeader);
         for (var i = 0; i < showcaseTypeList.length; i++) {
@@ -29,17 +29,20 @@
             params.id = showcaseTypeList[i];
             params.for =  "showcase" + showcaseTypeList[i];
             params.title =  showcaseTypeList[i].substring(3);
-            params.class = "showcaseFilter-label " + showcaseTypeList[i];
+            params.class = " showcaseFilter-label " + showcaseTypeList[i]; 
             params.change = i + 1;
             header.appendChild(label(params));
         }
+        
         const  botonI = document.createElement("span");
         botonI.id = "sizeVisorI";
-        botonI.innerHTML = "&#9668;<<";
+        botonI.innerHTML = "&#9668; -";
+        botonI.className = " showcaseFilter-label " ;
         header.appendChild(botonI);
         const  botonD = document.createElement("span");
         botonD.id = "sizeVisorD"
-        botonD.innerHTML = ">>&#9658;";
+         botonD.className = " showcaseFilter-label " ;
+        botonD.innerHTML = "+&#9658;";
         header.appendChild(botonD);
 
        showcaseTypeContainer.appendChild(header);
