@@ -8,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.RepresentationModel;
+
 @Entity
 @Table(name = "shoppingcart")
 @IdClass(CustomerDetailPk.class)
-public class ShoppingCartDTO {
+public class ShoppingCartDTO extends RepresentationModel<ShoppingCartDTO> {
   @Id
   private int idclient;
   @Id

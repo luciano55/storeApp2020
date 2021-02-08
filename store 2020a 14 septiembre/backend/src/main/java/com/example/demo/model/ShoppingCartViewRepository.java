@@ -12,6 +12,6 @@ public interface ShoppingCartViewRepository extends JpaRepository<ShoppingCartVi
 
   List<ShoppingCartView> findByUnits(Integer units);
 
-  List<ShoppingCartView> findByidclient(Integer idclient);
+  List<ShoppingCartView> findByIdclient(Integer idclient);
 
 }
