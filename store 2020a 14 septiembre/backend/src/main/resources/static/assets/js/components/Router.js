@@ -378,12 +378,14 @@ $("myBody").addEventListener("click",(e)=>{
             case 'carrusel': 
               renderDetail(e.target.dataset.valor);      
               break; 
+              case "goShoppingCart" : 
+              
       }  
    });
 
 
 const renderShowcase = function(){
-   document.getElementById("div_menu_page").style.display ="block";
+   document.getElementById("pagination").style.display ="block";
    document.getElementById("changeshowcase").style.display ="block";
    let html;
   switch (localStorage.getItem("showcaseType")) {   
@@ -469,7 +471,7 @@ const renderDetail = async function(id){
                                         document.getElementById("main").innerHTML=html;
                                       }
                         })
-        document.getElementById("div_menu_page").style.display ="none";
+        document.getElementById("pagination").style.display ="none";
         document.getElementById("changeshowcase").style.display ="none";
         document.querySelector(".loader").style.display = "none";
 }

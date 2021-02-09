@@ -2,9 +2,10 @@ export function PostCardDetail(props){
 
   let {id, brand ,modelo,memoria, precio, imageModel,stock, proveedor} = props,
   myFoto = imageModel ? ("assets/img/imageModel/" + imageModel): "assets/favicon.ico";
+const idClient =  sessionStorage.getItem("idClient");
 //  <img src="https:/placeimg.com/200/200/any" alt="">
   return `  
-<div class="flex flex-row  h-62 max-h-full justify-center">
+<div class="flex flex-row  h-82 max-h-full justify-center">
     <div>
       <img src=${myFoto} class="w-40">
       <div class="text-center text-blue-500 m-3"> ${brand}</div>
@@ -17,8 +18,8 @@ export function PostCardDetail(props){
       <div class="col-span-3">Garantía: 24 meses</div>
       <div class="col-span-3">¡Ahorras 148 g de residuos!</div>  
       <br><br>   
-      <div class="col-span-3 text-blue-800">                 
-               <span id="buyProduct"> Comprar  ----- </span>
+      <div class="col-span-3 text-blue-800"> 
+            <span id="buyProduct"> Comprar  -----  <img id ="goShoppingCart" src="assets/img/shoppingCart.png" data-idclient=${idClient} data-idproduct=${id} alt="no sale"> </span>
                <span id="cardDetail"> Volver </span>
         
       </div>
