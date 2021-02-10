@@ -1,11 +1,16 @@
 package com.example.demo.entity;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 @Entity
 @Table(name = "shopping_cart_view")
+@IdClass(CartViewPk.class)
 public class ShoppingCartView {
 
   @Id
@@ -66,5 +71,20 @@ public class ShoppingCartView {
   public void setPrice(float price) {
     this.price = price;
   }
+
+}
+
+class CartViewPk implements Serializable {
+
+  /**
+   *
+   */
+  private static final long serialVersionUID = 1L;
+
+  @Column(name = "idclient")
+  private int idclient;
+
+  @Column(name = "idproduct")
+  private int idproduct;
 
 }

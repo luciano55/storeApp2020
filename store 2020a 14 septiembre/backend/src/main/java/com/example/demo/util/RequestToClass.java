@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.example.demo.entity.Client;
 import com.google.gson.Gson;
 
 public class RequestToClass {

@@ -4,6 +4,8 @@ import com.example.demo.entity.ShoppingCartDTO;
 import com.example.demo.entity.ShoppingCartView;
 import com.example.demo.model.ShoppingCartDTORepository;
 import com.example.demo.model.ShoppingCartViewRepository;
+import com.example.demo.service.ShoppingCartViewService;
+import com.example.demo.service.ShoppingCartService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,31 +15,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import java.net.URI;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("/shopingCarts")
 public class shoppingCartControllerViewRest {
   @Autowired
-  private ShoppingCartViewRepository repositoryCartView;
+  private ShoppingCartViewService shoppingCartViewService;
   @Autowired
-  private ShoppingCartDTORepository repositoryCart;
+  private ShoppingCartService shoppingCartService;
 
   @GetMapping("/View")
   public ResponseEntity<Collection<ShoppingCartView>>
 
-      getAllProduct(ShoppingCartViewRepository shopingCartViewRepository) {
-    return ResponseEntity.ok(repositoryCartView.findAll());
+      getAllProduct() {
+    return ResponseEntity.ok(shoppingCartViewService.getAllProduct());
   }
 
   @GetMapping("/View/client/{idclient}")
   public ResponseEntity<Collection<ShoppingCartView>> getAllProductClient(@PathVariable Integer idclient) {
-    Collection<ShoppingCartView> shoppingCartViews = repositoryCartView.findByIdclient(idclient);
+    Collection<ShoppingCartView> shoppingCartViews = shoppingCartViewService.getAllProductClient(idclient);
     if (shoppingCartViews == null) {
       return ResponseEntity.notFound().build();
     }
@@ -45,38 +46,43 @@ public class shoppingCartControllerViewRest {
   }
 
   @GetMapping
-  public ResponseEntity<Collection<ShoppingCartDTO>> getAllProductSC(ShoppingCartDTO shoppingCartDTO) {
-    return ResponseEntity.ok(repositoryCart.findAll());
+  public ResponseEntity<Collection<ShoppingCartDTO>> getAllProductSC() {
+    return ResponseEntity.ok(shoppingCartService.getAllProductSC());
   }
 
   @GetMapping("/client/{idClient}")
   public ResponseEntity<Collection<ShoppingCartDTO>> getAllProductCliente(@PathVariable int idClient) {
-    return ResponseEntity.ok(repositoryCart.findByIdclient(idClient));
+    return ResponseEntity.ok(shoppingCartService.getAllProductCliente(idClient));
   }
 
   @PostMapping
   public ResponseEntity<String> addShoppingCarts(@RequestBody ShoppingCartDTO shoppingCartDTO) {
-    repositoryCart.save(shoppingCartDTO);
-    // return "http://localhost:8085/shopingCarts/" +
-    // shoppingCartDTO.getIdproduct();
-    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-        .buildAndExpand(shoppingCartDTO.getIdclient()).toUri();
-    return ResponseEntity.created(location).build();
+
+    /*
+     * repositoryCart.save(shoppingCartDTO); // return
+     * "http://localhost:8085/shopingCarts/" + // shoppingCartDTO.getIdproduct();
+     * URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+     * .buildAndExpand(shoppingCartDTO.getIdclient()).toUri();
+     */
+    return ResponseEntity.ok(shoppingCartService.addShoppingCarts(shoppingCartDTO));
+
   }
 
   @PutMapping
   public ResponseEntity<String> updateShoppingCarts(@RequestBody ShoppingCartDTO shoppingCartDTO) {
-    repositoryCart.save(shoppingCartDTO);
-    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-        .buildAndExpand(shoppingCartDTO.getIdclient()).toUri();
-    return ResponseEntity.created(location).build();
+    /*
+     * repositoryCart.save(shoppingCartDTO); URI location =
+     * ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+     * .buildAndExpand(shoppingCartDTO.getIdclient()).toUri(); return
+     * ResponseEntity.created(location).build();
+     */
+    return ResponseEntity.ok(shoppingCartService.updateShoppingCarts(shoppingCartDTO));
   }
 
   @DeleteMapping("/client/{idClient}/product/{idProduct}")
   public ResponseEntity<Void> deleteShoppingCarts(@PathVariable int idClient, @PathVariable int idProduct) {
 
-    repositoryCart.deleteByIdclientAndIdproduct(idClient, idProduct);
-    return ResponseEntity.ok(null);
+    return ResponseEntity.ok(shoppingCartService.deleteShoppingCarts(idClient, idProduct));
 
   }
 

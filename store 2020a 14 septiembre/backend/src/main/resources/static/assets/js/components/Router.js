@@ -369,7 +369,7 @@ $("myBody").addEventListener("click",(e)=>{
           break;
      }  
    });
-     $("main").addEventListener("click",(e)=>{
+ $("main").addEventListener("click",(e)=>{
      switch (e.target.id ) {
             case 'cardDetail': 
               renderShowcase();
