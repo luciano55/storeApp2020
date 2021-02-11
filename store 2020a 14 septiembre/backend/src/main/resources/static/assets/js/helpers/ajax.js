@@ -1,6 +1,6 @@
 export async function ajax(props){
-  let {url, cbSuccess} = props;
-await fetch(url)
+  let {url, cbSuccess, method} = props;
+await fetch(url,{method:method || "GET"})
 .then(res => res.ok ? res.json() : Promise.reject(res))
 .then(json => cbSuccess(json))
 .catch(err =>{

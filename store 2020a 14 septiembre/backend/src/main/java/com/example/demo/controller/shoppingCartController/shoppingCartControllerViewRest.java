@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/shopingCarts")
+@RequestMapping("/shoppingCarts")
 public class shoppingCartControllerViewRest {
   @Autowired
   private ShoppingCartViewService shoppingCartViewService;

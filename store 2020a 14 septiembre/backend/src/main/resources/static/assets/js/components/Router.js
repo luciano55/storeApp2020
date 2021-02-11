@@ -18,6 +18,9 @@ export async function Router(){
    const state = {
       data: {} ,
       godata:{},
+      url:"",
+      dataShoppingCart:{},
+      method: "",
       visorSize: localStorage.getItem("visorSize"), 
       activePage: localStorage.getItem("activePage"),
       activePageCache: 1,     
@@ -45,6 +48,9 @@ const  factoryFrame = FactoryFrame();
   if(!localStorage.getItem("showcaseType")){
         localStorage.setItem("showcaseType", "showcaseshmJM"); 
   }
+
+  setState({ url: "http://localhost:8085/shoppingCarts/View/client/" + sS.getItem("idClient") , method:"GET"});
+
 
 $("menuClient").addEventListener("click",(e)=>{
 
@@ -379,7 +385,25 @@ $("myBody").addEventListener("click",(e)=>{
               renderDetail(e.target.dataset.valor);      
               break; 
               case "goShoppingCart" : 
-              
+             const idProduct =e.target.dataset.idproduct;
+            
+             getState().dataShoppingCart.forEach(ele =>{
+               if ( ele.idProduct == idProduct) {
+                 alert("Ya está en el carrito");
+               }else{
+                 const json = {
+                       idProduct:idProduct,
+                       unit :1,
+                       modelo: "",
+                       precio: "",
+                       foto: ""
+                 };
+                 let aux = getState().dataShoppingCart;
+                 aux.push(json);
+                 setState({dataShoppingCart:aux});
+               }
+             })
+          alert(getState().dataShoppingCart);
       }  
    });
 
@@ -500,5 +524,21 @@ const  callGoApiRest = async function(uri){
         });
  document.querySelector(".loader").style.display = "none"; 
 }
- callApiRest("http://localhost:8085/storerest/?page=0&size="+getState().cacheSize);    
+const callShoppingCart =  async function(){
+  const {url, method} = getState();
+ await  ajax({
+              url:url,
+              method: method,
+              cbSuccess : (posts)=>{  
+                setState({
+                     dataShoppingCart: posts                     
+                  });    
+                    console.log("dataShoppingCart:" , getState().dataShoppingCart) ;         
+              }
+        });
+
+}
+ callApiRest("http://localhost:8085/storerest/?page=0&size="+getState().cacheSize);   
+ 
+  callShoppingCart();
 }

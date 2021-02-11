@@ -11,6 +11,11 @@ const idClient =  sessionStorage.getItem("idClient");
       <div class="text-center text-blue-500 m-3"> ${brand}</div>
     </div>
     <div class="grid grid-cols-3 gap-7 m-2 p-4 text-gray-600">
+     <div class="col-span-3 text-blue-800"> 
+          <img id ="goShoppingCart" src="assets/img/shoppingCart.png" data-idclient=${idClient} data-idproduct=${id} alt="no sale"> 
+              
+        
+      </div>
       <div class="col-span-3">${modelo}</div>
       <div class="">€ ${precio}</div>
       <div class="text-gray-200 line-through">€ 499,00</div>
@@ -18,11 +23,7 @@ const idClient =  sessionStorage.getItem("idClient");
       <div class="col-span-3">Garantía: 24 meses</div>
       <div class="col-span-3">¡Ahorras 148 g de residuos!</div>  
       <br><br>   
-      <div class="col-span-3 text-blue-800"> 
-            <span id="buyProduct"> Comprar  -----  <img id ="goShoppingCart" src="assets/img/shoppingCart.png" data-idclient=${idClient} data-idproduct=${id} alt="no sale"> </span>
-               <span id="cardDetail"> Volver </span>
-        
-      </div>
+      <span id="cardDetail"> Volver </span>
     </div>
   </div>`;
 }
