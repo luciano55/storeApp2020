@@ -2,6 +2,7 @@ export function PostCardDetail(props){
 
   let {id, brand ,modelo,memoria, precio, imageModel,stock, proveedor} = props,
   myFoto = imageModel ? ("assets/img/imageModel/" + imageModel): "assets/favicon.ico";
+ 
 const idClient =  sessionStorage.getItem("idClient");
 //  <img src="https:/placeimg.com/200/200/any" alt="">
   return `  
@@ -12,9 +13,12 @@ const idClient =  sessionStorage.getItem("idClient");
     </div>
     <div class="grid grid-cols-3 gap-7 m-2 p-4 text-gray-600">
      <div class="col-span-3 text-blue-800"> 
-          <img id ="goShoppingCart" src="assets/img/shoppingCart.png" data-idclient=${idClient} data-idproduct=${id} alt="no sale"> 
-              
-        
+          <img id ="goShoppingCart" src="assets/img/shoppingCart.png" 
+           data-idproduct=${id} 
+           data-model ='${modelo}'
+           data-price =${precio}
+           data-photo ='${myFoto}'
+                  alt="no sale"> 
       </div>
       <div class="col-span-3">${modelo}</div>
       <div class="">€ ${precio}</div>

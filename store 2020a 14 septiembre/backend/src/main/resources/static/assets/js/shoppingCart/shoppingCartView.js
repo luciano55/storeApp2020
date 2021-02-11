@@ -1,4 +1,4 @@
-export function shoppingCartView(){
+export function ShoppingCartView(){
     return `
 
     <div id="shopping-cart" class="shopping-cart">

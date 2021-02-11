@@ -32,9 +32,10 @@ export function FactoryMenu() {
       "#",
       "#",
         "#",
+         "#",
     ];
-    const text = ["Update Data", "Update Login", "Update Avatar", "Store","Exit"];
-    const id = ["linkUpData", "linkUpLogin", "linkUpAvatar", "linkStore","linkExit"];
+    const text = ["Update Data", "Update Login", "Update Avatar", "Store","Carry","Exit"];
+    const id = ["linkUpData", "linkUpLogin", "linkUpAvatar", "linkStore","linkCarry","linkExit"];
     params.class ="menu ";
     params.id = "menuClient";
     const nav = factoryTag.nav(params);

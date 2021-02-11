@@ -13,7 +13,8 @@ import {NodeMain, NodePagination,  NodeShowCase} from "./NodeCreate.js";
 import { Loader} from "./Loader.js";
 import { GetMenuShowcase } from "../showcase/getMenuShowcase.js";
 import {FooterPageButton} from "./FooterPageButton.js";
-
+import {ShoppingCartView} from "../shoppingCart/shoppingCartView.js"
+import {DetailShoppingCart} from "../shoppingCart/detailShoppingCart.js";
 export async function Router(){
    const state = {
       data: {} ,
@@ -54,23 +55,23 @@ const  factoryFrame = FactoryFrame();
 
 $("menuClient").addEventListener("click",(e)=>{
 
-        let myBody = $("myBody");
+        let $root = $("myBody");        
           switch (e.target.id ) {
                 case 'linkUpAvatar':
                 case 'linkUpData':
                 case 'linkUpLogin':
                           sS.setItem("opcionClient",e.target.id);
                           sS.setItem("url", "/loginClient");       
-                          myBody.innerHTML = "";
-                          myBody.appendChild(viewClient.login());    
+                          $root.innerHTML = "";
+                          $root.appendChild(viewClient.login());    
                           managerFunctions.validations();     
                           managerFunctions.saveDataControls();
                           managerFunctions.showIniStrategy(STRATEGY.ALL);
                           break;
                 case "forgetPassword":
                           sS.setItem("url", "/forgetPassword");          
-                          myBody.innerHTML = "";
-                          myBody.appendChild(viewClient.forgetPassword());    
+                          $root.innerHTML = "";
+                          $root.appendChild(viewClient.forgetPassword());    
                           managerFunctions.validations();     
                           managerFunctions.saveDataControls();
                           managerFunctions.showIniStrategy(STRATEGY.ALL);
@@ -78,8 +79,8 @@ $("menuClient").addEventListener("click",(e)=>{
                           break;
                 case "linkExit":
                           sS.setItem("opcionClient",e.target.id);
-                          myBody.innerHTML = "";
-                          myBody.appendChild(factoryFrame.confirm("Deseas salir de la aplicación?",
+                          $root.innerHTML = "";
+                          $root.appendChild(factoryFrame.confirm("Deseas salir de la aplicación?",
                             ()=>{
                                     managerFunctions.loader().on();
                                     let url = "/logout";
@@ -91,8 +92,7 @@ $("menuClient").addEventListener("click",(e)=>{
                               }
                           ));  
                           break;  
-               case "linkStore":
-                  const  $root = $("myBody");
+               case "linkStore":                 
                   $root.innerHTML ="";
                   $root.appendChild(NodeShowCase());
                     const  $showcase = $("showcase");
@@ -100,8 +100,18 @@ $("menuClient").addEventListener("click",(e)=>{
                   $showcase.appendChild(NodeMain()); 
                   $showcase.appendChild(Loader()); 
                 $showcase.appendChild(NodePagination()); 
-                  FooterPageButton().then(()=>Router());    
+                // FooterPageButton().then(()=>Router());    
                       // App();
+                break;
+                case "linkCarry":        
+                  $root.innerHTML ="";
+                 // $root.innerHTML = ShoppingCartView();
+                  const carrito = getState().dataShoppingCart;
+                  carrito.forEach(el=>{
+                  $root.innerHTML +=   DetailShoppingCart(el);
+                  })
+                  break;
+
                 case "submit":
                         let url = sS.getItem("url");         
                         const dataControl =  managerFunctions.getDataControls();     
@@ -116,12 +126,12 @@ $("menuClient").addEventListener("click",(e)=>{
 });
 $("myBody").addEventListener("click",(e)=>{
 
-        let myBody = $("myBody");
+        let  $root = $("myBody");
           switch (e.target.id ) {
-                   case "forgetPassword":
+                case "forgetPassword":
                           sS.setItem("url", "/forgetPassword");          
-                          myBody.innerHTML = "";
-                          myBody.appendChild(viewClient.forgetPassword());    
+                           $root.innerHTML = "";
+                           $root.appendChild(viewClient.forgetPassword());    
                           managerFunctions.validations();     
                           managerFunctions.saveDataControls();
                           managerFunctions.showIniStrategy(STRATEGY.ALL);
@@ -135,6 +145,26 @@ $("myBody").addEventListener("click",(e)=>{
                               url,
                               dataControl
                         });  
+                        break;
+                case "remove-product": 
+                          const idProduct = e.target.dataset.idproduct;
+                          const carrito = getState().dataShoppingCart;
+                          let i = 0;
+                          for ( ; i < carrito.length; i++) {
+                              if (carrito[i].idProduct === idProduct) {
+                                      carrito.splice(i,1);
+                                      alert("Se ha eliminado el producto");
+                                      break;
+                                  }
+                          }
+              setState({dataShoppingCart: carrito});
+              console.log("dataShoppingCart:",getState().dataShoppingCart); 
+               $root.innerHTML ="";
+                carrito.forEach(el=>{
+                  $root.innerHTML +=   DetailShoppingCart(el);
+                  })
+
+
      }     
 
 
@@ -385,28 +415,66 @@ $("myBody").addEventListener("click",(e)=>{
               renderDetail(e.target.dataset.valor);      
               break; 
               case "goShoppingCart" : 
-             const idProduct =e.target.dataset.idproduct;
-            
-             getState().dataShoppingCart.forEach(ele =>{
-               if ( ele.idProduct == idProduct) {
-                 alert("Ya está en el carrito");
-               }else{
+                 
+              const cartLine  = {        
+                  idProduct : e.target.dataset.idproduct,
+                  model : e.target.dataset.model,
+                  price : e.target.dataset.price,
+                  photo : e.target.dataset.photo
+              }
+              if  (Object.keys(getState().dataShoppingCart).length === 0 ){
+                addShoppingCart(cartLine);
+              }else {
+                    const carrito = getState().dataShoppingCart;
+                    let i = 0;
+                    for ( ; i < carrito.length; i++) {
+                            if (carrito[i].idProduct === cartLine.idProduct) {
+                                carrito[i].unit = +carrito[i].unit + 1; 
+                                alert("Se ha añadido una nueva unidad");
+                                  break;
+                            }
+                    }
+                    if (i==carrito.length ){addShoppingCart(cartLine);}
+                     else {setState({dataShoppingCart: carrito}); }
+                }
+                break;
+               
+     }  
+   });
+   
+ $("myBody").addEventListener("change",(e)=>{    
+        switch (e.target.id ) {
+              case "unitsProduct":               
+              const idProduct = e.target.dataset.idproduct;
+              const units = e.target.value;
+              const carrito = getState().dataShoppingCart;
+              let i = 0;
+              for ( ; i < carrito.length; i++) {
+                   if (carrito[i].idProduct === idProduct) {
+                          carrito[i].unit = units; 
+                          alert("Se ha añadido una nueva unidad");
+                          break;
+                       }
+              }
+              setState({dataShoppingCart: carrito});
+              console.log("dataShoppingCart:",getState().dataShoppingCart);
+        }
+    });
+const addShoppingCart = function(newProduct){
+            // alert("NONONO está en el carrito");
                  const json = {
-                       idProduct:idProduct,
+                       idProduct : newProduct.idProduct,
                        unit :1,
-                       modelo: "",
-                       precio: "",
-                       foto: ""
+                       model : newProduct.model,
+                       price : newProduct.price,
+                       photo : newProduct.photo
                  };
                  let aux = getState().dataShoppingCart;
                  aux.push(json);
                  setState({dataShoppingCart:aux});
-               }
-             })
-          alert(getState().dataShoppingCart);
-      }  
-   });
-
+                 console.log("dataShoppingCart:",getState().dataShoppingCart);
+                 alert("Añadido al carrito");
+}
 
 const renderShowcase = function(){
    document.getElementById("pagination").style.display ="block";
@@ -533,12 +601,13 @@ const callShoppingCart =  async function(){
                 setState({
                      dataShoppingCart: posts                     
                   });    
-                    console.log("dataShoppingCart:" , getState().dataShoppingCart) ;         
+                    console.log("AJAX dataShoppingCart:" , getState().dataShoppingCart) ;         
               }
         });
 
 }
- callApiRest("http://localhost:8085/storerest/?page=0&size="+getState().cacheSize);   
- 
+ callApiRest("http://localhost:8085/storerest/?page=0&size="+getState().cacheSize); 
+
   callShoppingCart();
+   
 }

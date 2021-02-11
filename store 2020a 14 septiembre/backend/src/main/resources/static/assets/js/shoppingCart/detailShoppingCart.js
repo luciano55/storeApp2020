@@ -1,17 +1,18 @@
-export function detailShoppingCart(props) {
-  let { idClient, idProduct, model, units, price } = props,
-    totalPrice = price * units;
+export function DetailShoppingCart(props) {
+  let {  idProduct, model, unit, price, photo } = props,
+    totalPrice = price * unit;
+    const idClient = sessionStorage.getItem("idClient");
   return `
  <div class="product">
  <div class="product-image">
-   <img src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png">
+   <img src="${photo}">
  </div>
  <div class="product-details">
     <p class="product-description">${model}</p>
  </div>
  <div class="product-price">${price}</div>
  <div class="product-quantity">
-   <input id="unitsProduct" type="number" value="${units}" data-idclient=${idClient} data-idproduct=${idProduct}>
+   <input id="unitsProduct" type="number" value="${unit}" data-idclient=${idClient} data-idproduct=${idProduct}>
  </div>
  <div  class="product-removal">
    <button id="remove-product" class="remove-product" data-idclient=${idClient} data-idproduct=${idProduct}>

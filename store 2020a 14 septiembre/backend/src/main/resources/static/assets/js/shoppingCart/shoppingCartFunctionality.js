@@ -4,7 +4,6 @@ export function shoppingCartFunctionality() {
     var shippingRate = 15.00;
     var fadeTime = 300;
 
-
     /* Assign actions */
     $('.product-quantity input').change(function () {
         updateQuantity(this);
