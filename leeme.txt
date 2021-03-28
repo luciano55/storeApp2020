@@ -1,0 +1,40 @@
+
+
+Store Harnina 2021 - ciclo DAM 20/21
+
+Aplicación Web: store2021  v. beta
+
+Esta versión beta lleva a cabo la gestión de venta de una tienda de móviles.
+
+Va acompañada de sus bases de datos MySql:
+	 mobile_store_2021
+	 mobile_store_2021_page
+	 mobile_store_2021_view
+	 
+En la aplicación:
+    - Modificar el archivo SendEmail.java:
+          - to    ....
+          - from ......
+          - key ........
+ 
+ Por lo demás como siempre.
+ 
+ Me gustaría seguir trabajando con la aplicación hasta Junio, con los siguientes objetivos
+ 		- Hacer estable las operaciones de la aplicación
+ 		- Mejorar el entorno informativo(mensajes)
+ 		- Llevar a cabo la visualización de facturas(microservicios y REACT)
+ 		- Gestión de proveedores.
+ 		- Etc.
+ 		
+ Espero que la aplicación os sirva de apoyo a situaciones que seguramente puedan presentarse en vuestra vida profesional.
+ 
+ La gestión de la "cache" ha sido difícil, al gestionar varios componentes(paginación, diferentes visores, número de componentes del visor)
+ a todo ello habría que gestionar cada cambio de sesión, para abrir la aplicación con su estado anterior.
+ 
+ Pienso que en esta aplicación está condensada gran parte de lo que habeis estudiado en estos dos años del ciclo DAM (IES A. Harnina.)
+ 
+Se admiten anomalías, sugerencias...
+ 
+ 
+ 
+ 

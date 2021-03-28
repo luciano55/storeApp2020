@@ -1,0 +1,197 @@
+/*----------- Adrian ----------------------*/
+.cajaMovil {
+  height: 50%;
+  width: 50%;
+  position: relative;
+  perspective: 7000px;
+  transform-style: preserve-3d;
+  /* ESTA ES LA LINEA QUE DEPENDE DEL TAMAÑO DEL DIV AL QUE SE INCLUYA 
+    
+        MODIFICANDO TRASLATE Y*/
+  transform: translateY(-210px) translateZ(-80px);
+}
+
+.cajaFrontal {
+  //position: absolute;
+  width: 80px;
+  height: 20px;
+  transform: translateZ(20px);
+  background-color: black;
+}
+
+.infoMovil {
+  position: absolute;
+  width: 76px;
+  height: 18px;
+  transform: translateZ(21px) translateX(2px) translateY(1px);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 8px;
+}
+
+.cajaTrasera {
+  position: absolute;
+  width: 80px;
+  height: 20px;
+  background-color: #828282;
+  transform: rotateY(180deg);
+}
+
+.cajaIzquierda {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #828282;
+  transform: rotateY(90deg) translateZ(-10px) translateX(-10px) rotateY(180deg);
+}
+
+.cajaDerecha {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #828282;
+  transform: rotateY(90deg) translateZ(70px) translateX(-10px) translateY(0px);
+}
+
+.cajaSuperior {
+  position: absolute;
+  width: 80px;
+  height: 20px;
+  transform: rotateX(90deg) translateZ(10px) translateY(10px);
+  background-color: #828282
+}
+
+.cajaInferior {
+  position: absolute;
+  width: 80px;
+  height: 20px;
+  transform: rotateX(90deg) translateZ(-10px) translateY(10px);
+  background-color: #828282
+}
+
+@keyframes girar {
+  0% {
+    transform: rotateY(0deg) translateX(0px);
+  }
+
+  50% {
+    transform: rotateY(180deg) translateX(-43.5px);
+  }
+
+  100% {
+    transform: rotateY(360deg) translateX(0px);
+  }
+}
+
+.movil {
+  perspective: 7000px;
+  transform-style: preserve-3d;
+
+  animation: girar 20s infinite linear;
+}
+
+.movil3d {
+  height: 50%;
+  width: 50%;
+  position: relative;
+  perspective: 7000px;
+  transform-style: preserve-3d;
+  transform: rotatex(30deg) translateZ(-30px) translateY(2px) translateX(10px);
+}
+
+.caraFrontal {
+  //position: absolute;
+  width: 60px;
+  height: 100px;
+  transform: translateZ(10px);
+  background-color: aqua;
+}
+
+.caraTrasera {
+ position: absolute;
+  width: 60px;
+  height: 100px;
+  background-color: red;
+  transform: rotateY(180deg);
+}
+
+.caraIzquierda {
+  position: absolute;
+  width: 10px;
+  height: 100px;
+  background-color: bisque;
+  transform: rotateY(90deg) translateZ(-5px) translateX(-5px) rotateY(180deg);
+}
+
+.caraDerecha {
+  position: absolute;
+  width: 10px;
+  height: 100px;
+  background-color: aquamarine;
+  transform: rotateY(90deg) translateZ(55px) translateX(-5px) translateY(0px);
+}
+
+.caraSuperior {
+  position: absolute;
+  width: 60px;
+  height: 10px;
+  transform: rotateX(90deg) translateZ(5px) translateY(5px);
+  background-color: green
+}
+
+.caraInferior {
+  position: absolute;
+  width: 60px;
+  height: 10px;
+  transform: rotateX(90deg) translateZ(-95px) translateY(5px);
+  background-color: yellow
+}
+
+.soporteFrontal {
+  position: absolute;
+  width: 5px;
+  height: 70px;
+  transform: translateZ(5px);
+  background-color: #828282;
+}
+
+.soporteTrasera {
+  position: absolute;
+  width: 5px;
+  height: 70px;
+  background-color: #828282;
+  transform: rotateY(180deg);
+}
+
+.soporteIzquierda {
+  position: absolute;
+  width: 5px;
+  height: 70px;
+  background-color: #828282;
+  transform: rotateY(90deg) translateZ(2.5px) translateX(-2.5px) rotateY(180deg);
+}
+
+.soporteDerecha {
+  position: absolute;
+  width: 5px;
+  height: 70px;
+  background-color: #828282;
+  transform: rotateY(90deg) translateZ(2.5px) translateX(-2.5px)
+}
+
+.ventosa {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 300px;
+  background-color: #828282;
+  transform: rotateX(30deg) translateZ(24px) translateX(30px) translateY(-40px)
+}
+
+.soporte {
+  transform-style: preserve-3d;
+  transform: translateX(37.5px) translateY(-50px);
+}
